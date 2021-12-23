@@ -16,9 +16,9 @@ func (m *mockHttpClient) Do(req *http.Request) (*http.Response, error) {
 func TestGetLegislators(t *testing.T) {
 	t.Run("Dummy test", func(t *testing.T) {
 		client := OpenSecretsClient{httpClient: &mockHttpClient{}}
-		result := client.GetLegislators()
-		if result != "foo" {
-			t.Errorf("Wanted 'foo' got %s", result)
+		_, err := client.GetLegislators()
+		if err == nil {
+			t.Error("Wanted non-nil error but got nil")
 		}
 	})
 }

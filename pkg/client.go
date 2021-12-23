@@ -1,6 +1,9 @@
 package opensecrets
 
-import "net/http"
+import (
+	"errors"
+	"net/http"
+)
 
 type HttpClient interface {
 	Do(req *http.Request) (*http.Response, error)
@@ -10,6 +13,6 @@ type OpenSecretsClient struct {
 	httpClient HttpClient
 }
 
-func (o *OpenSecretsClient) GetLegislators() string {
-	return "foo"
+func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
+	return nil, errors.New("it broke")
 }
