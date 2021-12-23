@@ -27,8 +27,20 @@ func TestGetLegislators(t *testing.T) {
 			t.Fatalf("Wanted error string %s but got %s", mockError.Error(), err.Error())
 		}
 	})
+	t.Run("Returns an error if the HTTP call is a non-200 status code", func(t *testing.T) {
+		mockResponse := buildMockResponse(400)
+		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
+		_, err := client.GetLegislators()
+		if err == nil {
+			t.Fatalf("Wanted error but got nil")
+		}
+		wantedErrorString := "received 400 status code calling OpenSecrets API"
+		if err.Error() != wantedErrorString {
+			t.Fatalf("Wanted error string %s but got %s", wantedErrorString, err.Error())
+		}
+	})
 }
 
-func buildMockResponse() http.Response {
-	return http.Response{}
+func buildMockResponse(statusCode int) http.Response {
+	return http.Response{StatusCode: statusCode}
 }

@@ -2,6 +2,7 @@ package opensecrets
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
 )
 
@@ -26,10 +27,16 @@ func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
 	// The API blocks requests without a user agent
 	request.Header.Set("User-Agent", "Golang")
 
-	_, err = o.httpClient.Do(request)
+	response, err := o.httpClient.Do(request)
 
 	if err != nil {
 		return nil, err
+	}
+
+	statusCode := response.StatusCode
+
+	if statusCode >= 400 {
+		return nil, fmt.Errorf("received %d status code calling OpenSecrets API", statusCode)
 	}
 
 	return nil, errors.New("it broke")
