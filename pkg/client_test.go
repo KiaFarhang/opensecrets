@@ -7,18 +7,28 @@ import (
 )
 
 type mockHttpClient struct {
+	mockResponse http.Response
+	mockError    error
 }
 
 func (m *mockHttpClient) Do(req *http.Request) (*http.Response, error) {
-	return nil, errors.New("broken!")
+	return &m.mockResponse, m.mockError
 }
 
 func TestGetLegislators(t *testing.T) {
-	t.Run("Dummy test", func(t *testing.T) {
-		client := OpenSecretsClient{httpClient: &mockHttpClient{}}
+	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
+		mockError := errors.New("fail")
+		client := OpenSecretsClient{httpClient: &mockHttpClient{mockError: mockError}}
 		_, err := client.GetLegislators()
 		if err == nil {
-			t.Error("Wanted non-nil error but got nil")
+			t.Fatalf("Wanted error but got nil")
+		}
+		if err.Error() != "fail" {
+			t.Fatalf("Wanted error string %s but got %s", mockError.Error(), err.Error())
 		}
 	})
+}
+
+func buildMockResponse() http.Response {
+	return http.Response{}
 }

@@ -11,6 +11,7 @@ type HttpClient interface {
 
 type OpenSecretsClient struct {
 	httpClient HttpClient
+	ApiKey     string
 }
 
 func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
