@@ -67,9 +67,8 @@ func TestGetLegislators(t *testing.T) {
 
 func TestBuildGetLegislatorsURL(t *testing.T) {
 	t.Run("Includes id passed in with request", func(t *testing.T) {
-		client := OpenSecretsClient{apiKey: api_key}
 		id := "NJ"
-		url := client.buildGetLegislatorsURL(GetLegislatorsRequest{id})
+		url := buildGetLegislatorsURL(GetLegislatorsRequest{id}, api_key)
 		expectedUrl := base_url + "?method=getLegislators&output=json&apikey=" + api_key + "&id=" + id
 		assertStringMatches(url, expectedUrl, t)
 	})

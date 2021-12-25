@@ -24,7 +24,7 @@ type GetLegislatorsRequest struct {
 }
 
 func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
-	url := o.buildGetLegislatorsURL(details)
+	url := buildGetLegislatorsURL(details, o.apiKey)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -62,8 +62,8 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 	return legislators, nil
 }
 
-func (o *OpenSecretsClient) buildGetLegislatorsURL(request GetLegislatorsRequest) string {
-	return base_url + "?method=getLegislators&output=json&apikey=" + o.apiKey + "&id=" + request.id
+func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
+	return base_url + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.id
 }
 
 func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
