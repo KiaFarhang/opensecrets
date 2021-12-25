@@ -18,7 +18,11 @@ type OpenSecretsClient struct {
 	apiKey     string
 }
 
-func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
+type GetLegislatorsRequest struct {
+	id string // (Required) two-character state code or specific CID
+}
+
+func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
 	url := BASE_URL + "?method=getLegislators&output=json&id=TX&apikey=" + o.apiKey
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {

@@ -22,14 +22,14 @@ func TestGetLegislators(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockError: mockError}}
-		_, err := client.GetLegislators()
+		_, err := client.GetLegislators(GetLegislatorsRequest{})
 		assertErrorExists(err, t)
 		assertErrorMessage(err, "fail", t)
 	})
 	t.Run("Returns an error if the HTTP call is a non-200 status code", func(t *testing.T) {
 		mockResponse := buildMockResponse(400, "")
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
-		_, err := client.GetLegislators()
+		_, err := client.GetLegislators(GetLegislatorsRequest{})
 		assertErrorExists(err, t)
 		wantedErrorMessage := "received 400 status code calling OpenSecrets API"
 		assertErrorMessage(err, wantedErrorMessage, t)
@@ -37,7 +37,7 @@ func TestGetLegislators(t *testing.T) {
 	t.Run("Returns an error if the response body can't be parsed", func(t *testing.T) {
 		mockResponse := buildMockResponse(200, `BAD JSON WEEEE`)
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
-		_, err := client.GetLegislators()
+		_, err := client.GetLegislators(GetLegislatorsRequest{})
 		assertErrorExists(err, t)
 		wantedErrorMessage := "unable to parse response body"
 		assertErrorMessage(err, wantedErrorMessage, t)
@@ -45,7 +45,7 @@ func TestGetLegislators(t *testing.T) {
 	t.Run("Returns a slice of Legislators", func(t *testing.T) {
 		mockResponse := buildMockResponse(200, `[{"first_elected": "2000"}, {"first_elected": "2005"}]`)
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
-		legislators, err := client.GetLegislators()
+		legislators, err := client.GetLegislators(GetLegislatorsRequest{})
 		if err != nil {
 			t.Fatalf("Expected no error but got one with message %s", err.Error())
 		}
