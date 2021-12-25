@@ -9,6 +9,8 @@ import (
 	"testing"
 )
 
+const api_key string = "1"
+
 type mockHttpClient struct {
 	mockResponse http.Response
 	mockError    error
@@ -60,9 +62,17 @@ func TestGetLegislators(t *testing.T) {
 		if !reflect.DeepEqual(legislators, expectedLegislators) {
 			t.Fatalf("Got %v want %v", legislators, expectedLegislators)
 		}
-
 	})
+}
 
+func TestBuildGetLegislatorsURL(t *testing.T) {
+	t.Run("Includes id passed in with request", func(t *testing.T) {
+		client := OpenSecretsClient{apiKey: api_key}
+		id := "NJ"
+		url := client.buildGetLegislatorsURL(GetLegislatorsRequest{id})
+		expectedUrl := base_url + "?method=getLegislators&output=json&apikey=" + api_key + "&id=" + id
+		assertStringMatches(url, expectedUrl, t)
+	})
 }
 
 func assertErrorExists(err error, t *testing.T) {
@@ -79,6 +89,14 @@ func assertErrorMessage(err error, expectedMessage string, t *testing.T) {
 	}
 
 }
+
+func assertStringMatches(got, wanted string, t *testing.T) {
+	t.Helper()
+	if got != wanted {
+		t.Fatalf("Wanted string %s got string %s", wanted, got)
+	}
+}
+
 func buildMockResponse(statusCode int, jsonBody string) http.Response {
 	return http.Response{StatusCode: statusCode, Body: io.NopCloser(strings.NewReader(jsonBody))}
 }

@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const BASE_URL string = "http://www.opensecrets.org/api/"
+const base_url string = "http://www.opensecrets.org/api/"
 
 type HttpClient interface {
 	Do(req *http.Request) (*http.Response, error)
@@ -23,7 +23,7 @@ type GetLegislatorsRequest struct {
 }
 
 func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
-	url := BASE_URL + "?method=getLegislators&output=json&id=TX&apikey=" + o.apiKey
+	url := o.buildGetLegislatorsURL(details)
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -59,4 +59,8 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 	}
 
 	return legislators, nil
+}
+
+func (o *OpenSecretsClient) buildGetLegislatorsURL(request GetLegislatorsRequest) string {
+	return base_url + "?method=getLegislators&output=json&apikey=" + o.apiKey + "&id=" + request.id
 }
