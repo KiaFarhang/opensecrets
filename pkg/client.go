@@ -2,7 +2,6 @@ package opensecrets
 
 import (
 	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -55,5 +54,5 @@ func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
 		return nil, fmt.Errorf("unable to parse response body")
 	}
 
-	return nil, errors.New("it broke")
+	return legislators, nil
 }
