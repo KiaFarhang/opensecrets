@@ -1,8 +1,10 @@
 package opensecrets
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
+	"io"
 	"net/http"
 )
 
@@ -37,6 +39,20 @@ func (o *OpenSecretsClient) GetLegislators() ([]Legislator, error) {
 
 	if statusCode >= 400 {
 		return nil, fmt.Errorf("received %d status code calling OpenSecrets API", statusCode)
+	}
+
+	bodyAsBytes, err := io.ReadAll(response.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var legislators = []Legislator{}
+
+	err = json.Unmarshal(bodyAsBytes, &legislators)
+
+	if err != nil {
+		return nil, fmt.Errorf("unable to parse response body")
 	}
 
 	return nil, errors.New("it broke")
