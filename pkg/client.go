@@ -2,6 +2,7 @@ package opensecrets
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"net/http"
@@ -63,4 +64,18 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 
 func (o *OpenSecretsClient) buildGetLegislatorsURL(request GetLegislatorsRequest) string {
 	return base_url + "?method=getLegislators&output=json&apikey=" + o.apiKey + "&id=" + request.id
+}
+
+func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
+	var responseWrapper = legislatorResponseWrapper{}
+	err := json.Unmarshal(jsonBytes, &responseWrapper)
+	if err != nil {
+		return nil, errors.New("unable to parse response body")
+	}
+	var toReturn []Legislator
+	legislatorWrappers := responseWrapper.Response.Wrapper
+	for _, legislatorWrapper := range legislatorWrappers {
+		toReturn = append(toReturn, legislatorWrapper.Attributes)
+	}
+	return toReturn, nil
 }

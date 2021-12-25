@@ -75,6 +75,29 @@ func TestBuildGetLegislatorsURL(t *testing.T) {
 	})
 }
 
+func TestParseGetLegislatorsJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json := []byte(`{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}]}}`)
+		legislators, err := parseGetLegislatorsJSON(json)
+		if err != nil {
+			t.Fatalf("Expected no error but got one with message %s", err.Error())
+		}
+		expectedLegislators := []Legislator{
+			{FirstElected: 2000},
+		}
+
+		if !reflect.DeepEqual(legislators, expectedLegislators) {
+			t.Fatalf("Got %v want %v", legislators, expectedLegislators)
+		}
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := parseGetLegislatorsJSON(json)
+		wantedErrorMessage := "unable to parse response body"
+		assertErrorMessage(err, wantedErrorMessage, t)
+	})
+}
+
 func assertErrorExists(err error, t *testing.T) {
 	t.Helper()
 	if err == nil {
