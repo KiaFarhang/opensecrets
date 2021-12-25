@@ -22,7 +22,7 @@ func (m *mockHttpClient) Do(req *http.Request) (*http.Response, error) {
 
 func TestGetLegislators(t *testing.T) {
 	t.Run("Returns a slice of Legislators", func(t *testing.T) {
-		mockResponse := buildMockResponse(200, `[{"first_elected": "2000"}, {"first_elected": "2005"}]`)
+		mockResponse := buildMockResponse(200, `{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}, {"@attributes": {"first_elected": "2005"}}]}}`)
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
 		legislators, err := client.GetLegislators(GetLegislatorsRequest{})
 		if err != nil {

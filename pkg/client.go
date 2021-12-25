@@ -32,15 +32,7 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 		return nil, err
 	}
 
-	var legislators = []Legislator{}
-
-	err = json.Unmarshal(responseBody, &legislators)
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse response body")
-	}
-
-	return legislators, nil
+	return parseGetLegislatorsJSON(responseBody)
 }
 
 func (o *OpenSecretsClient) makeGETRequest(url string) ([]byte, error) {
