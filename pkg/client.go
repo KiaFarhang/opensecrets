@@ -25,6 +25,25 @@ type GetLegislatorsRequest struct {
 
 func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
 	url := buildGetLegislatorsURL(details, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return nil, err
+	}
+
+	var legislators = []Legislator{}
+
+	err = json.Unmarshal(responseBody, &legislators)
+
+	if err != nil {
+		return nil, fmt.Errorf("unable to parse response body")
+	}
+
+	return legislators, nil
+}
+
+func (o *OpenSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -51,15 +70,7 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 		return nil, err
 	}
 
-	var legislators = []Legislator{}
-
-	err = json.Unmarshal(bodyAsBytes, &legislators)
-
-	if err != nil {
-		return nil, fmt.Errorf("unable to parse response body")
-	}
-
-	return legislators, nil
+	return bodyAsBytes, nil
 }
 
 func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
