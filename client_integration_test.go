@@ -20,7 +20,7 @@ func TestClientEndToEnd(t *testing.T) {
 	}
 
 	httpClient := &http.Client{Timeout: time.Second * 5}
-	client := OpenSecretsClient{httpClient, apiKey}
+	client := NewOpenSecretsClientWithHttpClient(apiKey, httpClient)
 
 	t.Run("GetLegislators", func(t *testing.T) {
 		request := GetLegislatorsRequest{id: "TX"}

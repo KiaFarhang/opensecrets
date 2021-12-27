@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"time"
 )
 
 const base_url string = "http://www.opensecrets.org/api/"
@@ -21,6 +22,14 @@ type OpenSecretsClient struct {
 
 type GetLegislatorsRequest struct {
 	id string // (Required) two-character state code or specific CID
+}
+
+func NewOpenSecretsClient(apikey string) OpenSecretsClient {
+	return OpenSecretsClient{apiKey: apikey, httpClient: &http.Client{Timeout: time.Second * 5}}
+}
+
+func NewOpenSecretsClientWithHttpClient(apikey string, httpClient HttpClient) OpenSecretsClient {
+	return OpenSecretsClient{apiKey: apikey, httpClient: httpClient}
 }
 
 func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
