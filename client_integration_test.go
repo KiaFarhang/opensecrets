@@ -23,7 +23,7 @@ func TestClientEndToEnd(t *testing.T) {
 	client := NewOpenSecretsClientWithHttpClient(apiKey, httpClient)
 
 	t.Run("GetLegislators", func(t *testing.T) {
-		request := GetLegislatorsRequest{id: "TX"}
+		request := GetLegislatorsRequest{Id: "TX"}
 		legislators, err := client.GetLegislators(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetLegislators endpoint", err.Error())
