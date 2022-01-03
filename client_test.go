@@ -50,7 +50,7 @@ func TestMakeGETRequest(t *testing.T) {
 		assertErrorExists(err, t)
 		assertErrorMessage(err, "fail", t)
 	})
-	t.Run("Returns an error if the HTTP call is a non-200 status code", func(t *testing.T) {
+	t.Run("Returns an error if the HTTP call is a >= 400 status code", func(t *testing.T) {
 		mockResponse := buildMockResponse(400, "")
 		client := OpenSecretsClient{httpClient: &mockHttpClient{mockResponse: mockResponse}}
 		_, err := client.GetLegislators(GetLegislatorsRequest{})
