@@ -1,5 +1,9 @@
 # OpenSecrets API Go Library
 
+## Installing
+
+`go get github.com/KiaFarhang/opensecrets`
+
 ## Running tests
 
 Run unit tests with `go test -short ./...`
