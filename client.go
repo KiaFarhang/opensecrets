@@ -13,6 +13,10 @@ import (
 
 const base_url string = "http://www.opensecrets.org/api/"
 
+type OpenSecretsClient interface {
+	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
+}
+
 type httpClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
@@ -31,12 +35,12 @@ type GetLegislatorsRequest struct {
 	Id string `validate:"required"`
 }
 
-func NewOpenSecretsClient(apikey string) openSecretsClient {
-	return openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
+func NewOpenSecretsClient(apikey string) OpenSecretsClient {
+	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
 
-func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) openSecretsClient {
-	return openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
+func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) OpenSecretsClient {
+	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
 func (o *openSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
