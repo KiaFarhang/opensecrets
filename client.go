@@ -13,18 +13,18 @@ import (
 
 const base_url string = "http://www.opensecrets.org/api/"
 
-type HttpClient interface {
+type httpClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-type StructValidator interface {
+type structValidator interface {
 	Struct(s interface{}) error
 }
 
 type openSecretsClient struct {
-	httpClient HttpClient
-	apiKey     string
-	validator  StructValidator
+	client    httpClient
+	apiKey    string
+	validator structValidator
 }
 
 type GetLegislatorsRequest struct {
@@ -32,11 +32,11 @@ type GetLegislatorsRequest struct {
 }
 
 func NewOpenSecretsClient(apikey string) openSecretsClient {
-	return openSecretsClient{apiKey: apikey, httpClient: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
+	return openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
 
-func NewOpenSecretsClientWithHttpClient(apikey string, httpClient HttpClient) openSecretsClient {
-	return openSecretsClient{apiKey: apikey, httpClient: httpClient, validator: validator.New()}
+func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) openSecretsClient {
+	return openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
 func (o *openSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
@@ -66,7 +66,7 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	// The API blocks requests without a user agent
 	request.Header.Set("User-Agent", "Golang")
 
-	response, err := o.httpClient.Do(request)
+	response, err := o.client.Do(request)
 
 	if err != nil {
 		return nil, err
