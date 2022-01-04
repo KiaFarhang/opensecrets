@@ -21,7 +21,7 @@ type StructValidator interface {
 	Struct(s interface{}) error
 }
 
-type OpenSecretsClient struct {
+type openSecretsClient struct {
 	httpClient HttpClient
 	apiKey     string
 	validator  StructValidator
@@ -31,15 +31,15 @@ type GetLegislatorsRequest struct {
 	Id string `validate:"required"`
 }
 
-func NewOpenSecretsClient(apikey string) OpenSecretsClient {
-	return OpenSecretsClient{apiKey: apikey, httpClient: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
+func NewOpenSecretsClient(apikey string) openSecretsClient {
+	return openSecretsClient{apiKey: apikey, httpClient: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
 
-func NewOpenSecretsClientWithHttpClient(apikey string, httpClient HttpClient) OpenSecretsClient {
-	return OpenSecretsClient{apiKey: apikey, httpClient: httpClient, validator: validator.New()}
+func NewOpenSecretsClientWithHttpClient(apikey string, httpClient HttpClient) openSecretsClient {
+	return openSecretsClient{apiKey: apikey, httpClient: httpClient, validator: validator.New()}
 }
 
-func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
+func (o *openSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
 
 	err := o.validator.Struct(details)
 
@@ -57,7 +57,7 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 	return parseGetLegislatorsJSON(responseBody)
 }
 
-func (o *OpenSecretsClient) makeGETRequest(url string) ([]byte, error) {
+func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
