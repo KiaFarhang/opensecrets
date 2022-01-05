@@ -43,10 +43,6 @@ type Position struct {
 	Organization string `json:"organization"`
 }
 
-type memberProfileWrapper struct {
-	Attributes MemberProfile `json:"@attributes"`
-}
-
 type assetWrapper struct {
 	Attributes Asset `json:"@attributes"`
 }
@@ -72,12 +68,16 @@ type positionResponse struct {
 }
 
 type memberPFDInnerWrapper struct {
-	Attributes   memberProfileWrapper `json:"@attributes"`
-	Assets       assetResponse        `json:"assets"`
-	Transactions transactionResponse  `json:"transactions"`
-	Positions    positionResponse     `json:"positions"`
+	Attributes   MemberProfile       `json:"@attributes"`
+	Assets       assetResponse       `json:"assets"`
+	Transactions transactionResponse `json:"transactions"`
+	Positions    positionResponse    `json:"positions"`
+}
+
+type memberPFDOuterWrapper struct {
+	Profile memberPFDInnerWrapper `json:"member_profile"`
 }
 
 type memberPFDResponseWrapper struct {
-	Response memberPFDInnerWrapper `json:"response"`
+	Response memberPFDOuterWrapper `json:"response"`
 }

@@ -3,6 +3,7 @@ package opensecrets
 import (
 	"errors"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"reflect"
 	"strings"
@@ -135,6 +136,41 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 
 func TestParseMemberPFDJSON(t *testing.T) {
 	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("mockPFDResponse.json")
+		if err != nil {
+			t.Fatalf("Error reading mock data from file: %s", err.Error())
+		}
+		member, err := parseMemberPFDJSON(json)
+		if err != nil {
+			t.Fatalf("Expected no error but got one with message %s", err.Error())
+		}
+
+		expectedName := "Pelosi, Nancy"
+
+		if member.Name != expectedName {
+			t.Fatalf("Got name %s want %s", member.Name, expectedName)
+		}
+
+		assertSliceLength(len(member.Assets), 1, t)
+
+		asset := member.Assets[0]
+		wantedAssetName := "25 Point Lobos - Commercial Property"
+
+		assertStringMatches(asset.Name, wantedAssetName, t)
+
+		assertSliceLength(len(member.Transactions), 1, t)
+
+		transaction := member.Transactions[0]
+		wantedTransactionAction := "Purchased"
+
+		assertStringMatches(transaction.TransactionAction, wantedTransactionAction, t)
+
+		assertSliceLength(len(member.Positions), 1, t)
+
+		position := member.Positions[0]
+		wantedPositionTitle := "Honorary Advisory Board"
+
+		assertStringMatches(position.Title, wantedPositionTitle, t)
 
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
@@ -163,7 +199,14 @@ func assertErrorMessage(err error, expectedMessage string, t *testing.T) {
 func assertStringMatches(got, wanted string, t *testing.T) {
 	t.Helper()
 	if got != wanted {
-		t.Fatalf("Wanted string %s got string %s", wanted, got)
+		t.Fatalf("Got string %s wanted string %s", got, wanted)
+	}
+}
+
+func assertSliceLength(got, wanted int, t *testing.T) {
+	t.Helper()
+	if got != wanted {
+		t.Fatalf("Got slice length %d wanted %d", got, wanted)
 	}
 }
 

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -130,5 +131,39 @@ func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
 }
 
 func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
-	return MemberProfile{}, errors.New(unable_to_parse_error_message)
+	var memberProfile MemberProfile
+	var responseWrapper = memberPFDResponseWrapper{}
+	err := json.Unmarshal(jsonBtyes, &responseWrapper)
+	if err != nil {
+		if e, ok := err.(*json.SyntaxError); ok {
+			log.Printf("Syntax error at byte ofset %d", e.Offset)
+		}
+		log.Printf("response: %q", jsonBtyes)
+		return memberProfile, errors.New(unable_to_parse_error_message)
+	}
+
+	memberProfile = responseWrapper.Response.Profile.Attributes
+
+	var memberAssets []Asset
+	assetWrappers := responseWrapper.Response.Profile.Assets.Wrapper
+	for _, assetWrapper := range assetWrappers {
+		memberAssets = append(memberAssets, assetWrapper.Attributes)
+	}
+	memberProfile.Assets = memberAssets
+
+	var memberTransactions []Transaction
+	transactionWrappers := responseWrapper.Response.Profile.Transactions.Wrapper
+	for _, transactionWrapper := range transactionWrappers {
+		memberTransactions = append(memberTransactions, transactionWrapper.Attributes)
+	}
+	memberProfile.Transactions = memberTransactions
+
+	var memberPositions []Position
+	positionWrappers := responseWrapper.Response.Profile.Positions.Wrapper
+	for _, positionWrapper := range positionWrappers {
+		memberPositions = append(memberPositions, positionWrapper.Attributes)
+	}
+	memberProfile.Positions = memberPositions
+
+	return memberProfile, nil
 }

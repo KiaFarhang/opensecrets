@@ -1,0 +1,54 @@
+{
+	"response": {
+		"member_profile": {
+			"@attributes": {
+				"name": "Pelosi, Nancy",
+				"data_year": "2016",
+				"member_id": "N00007360",
+				"net_low": "-16225953",
+				"net_high": "139050988",
+				"positions_held_count": "0",
+				"asset_count": "44",
+				"asset_low": "32824047",
+				"asset_high": "150016000",
+				"transaction_count": "0",
+				"tx_low": "0",
+				"tx_high": "0",
+				"source": "https:\/\/www.opensecrets.org\/personal-finances\/net-worth?cid=N00007360",
+				"origin": "Center for Responsive Politics",
+				"update_timestamp": "12\/13\/19"
+			},
+			"assets": {
+				"asset": [{
+					"@attributes": {
+						"name": "25 Point Lobos - Commercial Property",
+						"holdings_low": "5000001",
+						"holdings_high": "25000000",
+						"industry": "Real Estate",
+						"sector": "Finance\/Insur\/RealEst",
+						"subsidiary_of": ""
+					}
+				}]
+			},
+			"transactions": {
+				"transaction": [{
+					"@attributes": {
+						"asset_name": "United Football League Sacramento Mountain Lions",
+						"tx_date": "Aug  2 2013",
+						"tx_action": "Purchased",
+						"value_low": "100001",
+						"value_high": "250000"
+					}
+				}]
+			},
+			"positions": {
+				"position": [{
+					"@attributes": {
+						"title": "Honorary Advisory Board",
+						"organization": "American University Women & Politics Institute"
+					}
+				}]
+			}
+		}
+	}
+}
