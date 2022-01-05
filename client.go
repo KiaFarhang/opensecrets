@@ -6,6 +6,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -33,6 +35,11 @@ type openSecretsClient struct {
 
 type GetLegislatorsRequest struct {
 	Id string `validate:"required"`
+}
+
+type GetMemberPFDRequest struct {
+	Cid  string `validate:"required"`
+	Year int
 }
 
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
@@ -93,6 +100,18 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 
 func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
 	return base_url + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
+}
+
+func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Year != 0 {
+		builder.WriteString("&year=")
+		builder.WriteString(strconv.Itoa(request.Year))
+	}
+
+	return builder.String()
 }
 
 func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {

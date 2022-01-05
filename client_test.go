@@ -92,6 +92,24 @@ func TestBuildGetLegislatorsURL(t *testing.T) {
 	})
 }
 
+func TestBuildGetMemberPFDURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetMemberPFDRequest{Cid: cid}
+		url := buildGetMemberPFDURL(request, api_key)
+		expectedUrl := base_url + "?method=memPFDProfile&output=json&apikey=" + api_key + "&cid=" + cid
+		assertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes year passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		year := 2020
+		request := GetMemberPFDRequest{Cid: cid, Year: year}
+		url := buildGetMemberPFDURL(request, api_key)
+		expectedUrl := base_url + "?method=memPFDProfile&output=json&apikey=" + api_key + "&cid=" + cid + "&year=2020"
+		assertStringMatches(url, expectedUrl, t)
+	})
+}
+
 func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Correctly parses valid JSON", func(t *testing.T) {
 		json := []byte(`{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}]}}`)
