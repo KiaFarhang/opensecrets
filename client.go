@@ -14,6 +14,7 @@ import (
 )
 
 const base_url string = "http://www.opensecrets.org/api/"
+const unable_to_parse_error_message string = "unable to parse OpenSecrets response body"
 
 type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
@@ -118,7 +119,7 @@ func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
 	var responseWrapper = legislatorResponseWrapper{}
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
-		return nil, errors.New("unable to parse response body")
+		return nil, errors.New(unable_to_parse_error_message)
 	}
 	var toReturn []Legislator
 	legislatorWrappers := responseWrapper.Response.Wrapper
@@ -126,4 +127,8 @@ func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
 		toReturn = append(toReturn, legislatorWrapper.Attributes)
 	}
 	return toReturn, nil
+}
+
+func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
+	return MemberProfile{}, errors.New(unable_to_parse_error_message)
 }

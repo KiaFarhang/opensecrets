@@ -78,7 +78,7 @@ func TestMakeGETRequest(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{mockResponse: mockResponse}, validator: &mockValidator{}}
 		_, err := client.GetLegislators(GetLegislatorsRequest{})
 		assertErrorExists(err, t)
-		wantedErrorMessage := "unable to parse response body"
+		wantedErrorMessage := unable_to_parse_error_message
 		assertErrorMessage(err, wantedErrorMessage, t)
 	})
 }
@@ -128,7 +128,19 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := parseGetLegislatorsJSON(json)
-		wantedErrorMessage := "unable to parse response body"
+		wantedErrorMessage := unable_to_parse_error_message
+		assertErrorMessage(err, wantedErrorMessage, t)
+	})
+}
+
+func TestParseMemberPFDJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := parseMemberPFDJSON(json)
+		wantedErrorMessage := unable_to_parse_error_message
 		assertErrorMessage(err, wantedErrorMessage, t)
 	})
 }
