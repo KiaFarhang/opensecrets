@@ -12,7 +12,7 @@ func assertErrorExists(err error, t *testing.T) {
 func assertErrorMessage(err error, expectedMessage string, t *testing.T) {
 	t.Helper()
 	if err.Error() != expectedMessage {
-		t.Fatalf("Wanted error message %s but got %s", expectedMessage, err.Error())
+		t.Fatalf("Got error message %s but wanted %s", err.Error(), expectedMessage)
 	}
 
 }
@@ -20,7 +20,14 @@ func assertErrorMessage(err error, expectedMessage string, t *testing.T) {
 func assertStringMatches(got, wanted string, t *testing.T) {
 	t.Helper()
 	if got != wanted {
-		t.Fatalf("Got string %s wanted string %s", got, wanted)
+		t.Fatalf("Got string %s wanted %s", got, wanted)
+	}
+}
+
+func assertIntMatches(got, wanted int, t *testing.T) {
+	t.Helper()
+	if got != wanted {
+		t.Fatalf("Got int %d wanted %d", got, wanted)
 	}
 }
 
