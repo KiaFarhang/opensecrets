@@ -18,6 +18,7 @@ const unable_to_parse_error_message string = "unable to parse OpenSecrets respon
 
 type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
+	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
 }
 
 type httpClient interface {
@@ -76,7 +77,15 @@ func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (Me
 		return MemberProfile{}, err
 	}
 
-	return MemberProfile{}, nil
+	url := buildGetMemberPFDURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return MemberProfile{}, err
+	}
+
+	return parseMemberPFDJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {

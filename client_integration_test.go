@@ -34,4 +34,21 @@ func TestClientEndToEnd(t *testing.T) {
 		}
 	})
 
+	t.Run("GetMemberPFDProfile", func(t *testing.T) {
+		request := GetMemberPFDRequest{Cid: "N00007360", Year: 2016}
+
+		memberProfile, err := client.GetMemberPFDProfile(request)
+
+		if err != nil {
+			t.Fatalf("Got error %s calling GetMemberPFDProfile", err.Error())
+		}
+
+		memberName := memberProfile.Name
+		wantedName := "Pelosi, Nancy"
+
+		if memberName != wantedName {
+			t.Fatalf("Got %s want %s", memberName, wantedName)
+		}
+	})
+
 }
