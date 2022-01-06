@@ -39,6 +39,15 @@ func TestGetLegislators(t *testing.T) {
 	})
 }
 
+func TestGetMemberPFDProfile(t *testing.T) {
+	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := GetMemberPFDRequest{Year: 2020}
+		_, err := client.GetMemberPFDProfile(request)
+		assertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")

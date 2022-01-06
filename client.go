@@ -70,6 +70,16 @@ func (o *openSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 	return parseGetLegislatorsJSON(responseBody)
 }
 
+func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return MemberProfile{}, err
+	}
+
+	return MemberProfile{}, nil
+}
+
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
