@@ -52,14 +52,14 @@ func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) OpenSe
 	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
-func (o *openSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
+func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]Legislator, error) {
 
-	err := o.validator.Struct(details)
+	err := o.validator.Struct(request)
 
 	if err != nil {
 		return nil, err
 	}
-	url := buildGetLegislatorsURL(details, o.apiKey)
+	url := buildGetLegislatorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
