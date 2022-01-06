@@ -37,25 +37,6 @@ func TestGetLegislators(t *testing.T) {
 		_, err := client.GetLegislators(request)
 		assertErrorExists(err, t)
 	})
-	t.Run("Returns a slice of Legislators", func(t *testing.T) {
-		mockResponse := buildMockResponse(200, `{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}, {"@attributes": {"first_elected": "2005"}}]}}`)
-		client := openSecretsClient{client: &mockHttpClient{mockResponse: mockResponse}, validator: &mockValidator{}}
-		legislators, err := client.GetLegislators(GetLegislatorsRequest{})
-		if err != nil {
-			t.Fatalf("Expected no error but got one with message %s", err.Error())
-		}
-		if len(legislators) != 2 {
-			t.Fatalf("Expected 2 legislators but got %d", len(legislators))
-		}
-		expectedLegislators := []Legislator{
-			{FirstElected: 2000},
-			{FirstElected: 2005},
-		}
-
-		if !reflect.DeepEqual(legislators, expectedLegislators) {
-			t.Fatalf("Got %v want %v", legislators, expectedLegislators)
-		}
-	})
 }
 
 func TestMakeGETRequest(t *testing.T) {
