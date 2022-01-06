@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"strconv"
 	"strings"
@@ -145,10 +144,6 @@ func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
 	var responseWrapper = memberPFDResponseWrapper{}
 	err := json.Unmarshal(jsonBtyes, &responseWrapper)
 	if err != nil {
-		if e, ok := err.(*json.SyntaxError); ok {
-			log.Printf("Syntax error at byte ofset %d", e.Offset)
-		}
-		log.Printf("response: %q", jsonBtyes)
 		return memberProfile, errors.New(unable_to_parse_error_message)
 	}
 
