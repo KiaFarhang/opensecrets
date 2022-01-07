@@ -1,0 +1,23 @@
+{
+    "response": {
+        "summary": {
+            "@attributes": {
+                "cand_name": "Pelosi, Nancy",
+                "cid": "N00007360",
+                "cycle": "2022",
+                "state": "CA",
+                "party": "D",
+                "chamber": "H",
+                "first_elected": "1987",
+                "next_election": "2022",
+                "total": "9235427.16",
+                "spent": "6662235.22",
+                "cash_on_hand": "8872565.28",
+                "debt": "0",
+                "origin": "Center for Responsive Politics",
+                "source": "https://www.opensecrets.org/members-of-congress/summary?cid=N00007360&cycle=2022",
+                "last_updated": "09/30/2021"
+            }
+        }
+    }
+}
