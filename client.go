@@ -1,11 +1,11 @@
 package opensecrets
 
 import (
-	"encoding/json"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/go-playground/validator/v10"
@@ -13,40 +13,50 @@ import (
 
 const base_url string = "http://www.opensecrets.org/api/"
 
-type HttpClient interface {
+type OpenSecretsClient interface {
+	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
+	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
+}
+
+type httpClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
-type StructValidator interface {
+type structValidator interface {
 	Struct(s interface{}) error
 }
 
-type OpenSecretsClient struct {
-	httpClient HttpClient
-	apiKey     string
-	validator  StructValidator
+type openSecretsClient struct {
+	client    httpClient
+	apiKey    string
+	validator structValidator
 }
 
 type GetLegislatorsRequest struct {
 	Id string `validate:"required"`
 }
 
+type GetMemberPFDRequest struct {
+	Cid  string `validate:"required"`
+	Year int
+}
+
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
-	return OpenSecretsClient{apiKey: apikey, httpClient: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
+	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
 
-func NewOpenSecretsClientWithHttpClient(apikey string, httpClient HttpClient) OpenSecretsClient {
-	return OpenSecretsClient{apiKey: apikey, httpClient: httpClient, validator: validator.New()}
+func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) OpenSecretsClient {
+	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
-func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Legislator, error) {
+func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]Legislator, error) {
 
-	err := o.validator.Struct(details)
+	err := o.validator.Struct(request)
 
 	if err != nil {
 		return nil, err
 	}
-	url := buildGetLegislatorsURL(details, o.apiKey)
+	url := buildGetLegislatorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -57,7 +67,25 @@ func (o *OpenSecretsClient) GetLegislators(details GetLegislatorsRequest) ([]Leg
 	return parseGetLegislatorsJSON(responseBody)
 }
 
-func (o *OpenSecretsClient) makeGETRequest(url string) ([]byte, error) {
+func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return MemberProfile{}, err
+	}
+
+	url := buildGetMemberPFDURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return MemberProfile{}, err
+	}
+
+	return parseMemberPFDJSON(responseBody)
+}
+
+func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	request, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return nil, err
@@ -66,7 +94,7 @@ func (o *OpenSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	// The API blocks requests without a user agent
 	request.Header.Set("User-Agent", "Golang")
 
-	response, err := o.httpClient.Do(request)
+	response, err := o.client.Do(request)
 
 	if err != nil {
 		return nil, err
@@ -91,16 +119,14 @@ func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string
 	return base_url + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
 }
 
-func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
-	var responseWrapper = legislatorResponseWrapper{}
-	err := json.Unmarshal(jsonBytes, &responseWrapper)
-	if err != nil {
-		return nil, errors.New("unable to parse response body")
+func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Year != 0 {
+		builder.WriteString("&year=")
+		builder.WriteString(strconv.Itoa(request.Year))
 	}
-	var toReturn []Legislator
-	legislatorWrappers := responseWrapper.Response.Wrapper
-	for _, legislatorWrapper := range legislatorWrappers {
-		toReturn = append(toReturn, legislatorWrapper.Attributes)
-	}
-	return toReturn, nil
+
+	return builder.String()
 }

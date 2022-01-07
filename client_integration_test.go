@@ -28,10 +28,39 @@ func TestClientEndToEnd(t *testing.T) {
 		if err != nil {
 			t.Fatalf("Got error %s calling GetLegislators endpoint", err.Error())
 		}
-		t.Logf("count of legislators: %d", len(legislators))
-		for _, legislator := range legislators {
-			t.Logf("legislator first elected: %d", legislator.FirstElected)
+
+		if len(legislators) == 0 {
+			t.Fatalf("Got 0 legislators from GetLegislators call")
 		}
+
+	})
+
+	t.Run("GetMemberPFDProfile", func(t *testing.T) {
+		request := GetMemberPFDRequest{Cid: "N00007360", Year: 2016}
+
+		memberProfile, err := client.GetMemberPFDProfile(request)
+
+		if err != nil {
+			t.Fatalf("Got error %s calling GetMemberPFDProfile", err.Error())
+		}
+
+		memberName := memberProfile.Name
+		wantedName := "Pelosi, Nancy"
+
+		assertStringMatches(memberName, wantedName, t)
+
+		memberAssets := memberProfile.Assets
+
+		assertIntMatches(len(memberAssets), 5, t)
+
+		memberTransactions := memberProfile.Transactions
+
+		assertIntMatches(len(memberTransactions), 5, t)
+
+		memberPositions := memberProfile.Positions
+
+		assertIntMatches(len(memberPositions), 5, t)
+
 	})
 
 }
