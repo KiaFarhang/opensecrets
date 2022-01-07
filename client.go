@@ -16,6 +16,7 @@ const base_url string = "http://www.opensecrets.org/api/"
 type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
 	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
+	GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error)
 }
 
 type httpClient interface {
@@ -88,6 +89,23 @@ func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (Me
 	}
 
 	return parseMemberPFDJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return CandidateSummary{}, nil
+	}
+
+	url := buildGetCandidateSummaryURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return CandidateSummary{}, nil
+	}
+	return parseCandidateSummaryJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
