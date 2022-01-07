@@ -95,7 +95,7 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 	err := o.validator.Struct(request)
 
 	if err != nil {
-		return CandidateSummary{}, nil
+		return CandidateSummary{}, err
 	}
 
 	url := buildGetCandidateSummaryURL(request, o.apiKey)
