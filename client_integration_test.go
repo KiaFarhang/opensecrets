@@ -63,4 +63,16 @@ func TestClientEndToEnd(t *testing.T) {
 
 	})
 
+	t.Run("GetCandidateSummary", func(t *testing.T) {
+		request := GetCandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
+		candidateSummary, err := client.GetCandidateSummary(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateSummary endpoint", err.Error())
+		}
+
+		assertStringMatches(candidateSummary.CandidateName, "Pelosi, Nancy", t)
+		assertIntMatches(candidateSummary.Cycle, 2022, t)
+		assertIntMatches(candidateSummary.FirstElected, 1987, t)
+	})
+
 }

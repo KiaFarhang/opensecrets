@@ -54,3 +54,12 @@ func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
 
 	return memberProfile, nil
 }
+
+func parseCandidateSummaryJSON(jsonBytes []byte) (CandidateSummary, error) {
+	var responseWrapper candidateSummaryResponseWrapper
+	err := json.Unmarshal(jsonBytes, &responseWrapper)
+	if err != nil {
+		return CandidateSummary{}, errors.New(unable_to_parse_error_message)
+	}
+	return responseWrapper.Response.Wrapper.Attributes, nil
+}

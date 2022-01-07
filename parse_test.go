@@ -10,9 +10,8 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Correctly parses valid JSON", func(t *testing.T) {
 		json := []byte(`{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}]}}`)
 		legislators, err := parseGetLegislatorsJSON(json)
-		if err != nil {
-			t.Fatalf("Expected no error but got one with message %s", err.Error())
-		}
+		assertNoError(err, t)
+
 		expectedLegislators := []Legislator{
 			{FirstElected: 2000},
 		}
@@ -24,21 +23,17 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := parseGetLegislatorsJSON(json)
-		wantedErrorMessage := unable_to_parse_error_message
-		assertErrorMessage(err, wantedErrorMessage, t)
+		assertErrorMessage(err, unable_to_parse_error_message, t)
 	})
 }
 
 func TestParseMemberPFDJSON(t *testing.T) {
 	t.Run("Correctly parses valid JSON", func(t *testing.T) {
 		json, err := ioutil.ReadFile("mocks/mockPFDResponse.json")
-		if err != nil {
-			t.Fatalf("Error reading mock data from file: %s", err.Error())
-		}
+		assertNoError(err, t)
+
 		member, err := parseMemberPFDJSON(json)
-		if err != nil {
-			t.Fatalf("Expected no error but got one with message %s", err.Error())
-		}
+		assertNoError(err, t)
 
 		expectedName := "Pelosi, Nancy"
 
@@ -71,7 +66,30 @@ func TestParseMemberPFDJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := parseMemberPFDJSON(json)
-		wantedErrorMessage := unable_to_parse_error_message
-		assertErrorMessage(err, wantedErrorMessage, t)
+		assertErrorMessage(err, unable_to_parse_error_message, t)
+	})
+}
+
+func TestParseCandidateSummaryJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("mocks/mockCandidateSummaryResponse.json")
+		assertNoError(err, t)
+
+		candidateSummary, err := parseCandidateSummaryJSON(json)
+		assertNoError(err, t)
+
+		expectedName := "Pelosi, Nancy"
+		assertStringMatches(candidateSummary.CandidateName, expectedName, t)
+
+		expectedTotal := 9235427.16
+		if candidateSummary.Total != expectedTotal {
+			t.Errorf("Wanted %f got %f", expectedTotal, candidateSummary.Total)
+		}
+
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := parseCandidateSummaryJSON(json)
+		assertErrorMessage(err, unable_to_parse_error_message, t)
 	})
 }

@@ -46,6 +46,15 @@ func TestGetMemberPFDProfile(t *testing.T) {
 	})
 }
 
+func TestGetCandidateSummary(t *testing.T) {
+	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := GetCandidateSummaryRequest{Cycle: 2022}
+		_, err := client.GetCandidateSummary(request)
+		assertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
@@ -95,6 +104,24 @@ func TestBuildGetMemberPFDURL(t *testing.T) {
 		request := GetMemberPFDRequest{Cid: cid, Year: year}
 		url := buildGetMemberPFDURL(request, api_key)
 		expectedUrl := base_url + "?method=memPFDProfile&output=json&apikey=" + api_key + "&cid=" + cid + "&year=2020"
+		assertStringMatches(url, expectedUrl, t)
+	})
+}
+
+func TestBuildGetCandidateSummaryURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetCandidateSummaryRequest{Cid: cid}
+		url := buildGetCandidateSummaryURL(request, api_key)
+		expectedUrl := base_url + "?method=candSummary&output=json&apikey=" + api_key + "&cid=" + cid
+		assertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		cycle := 2020
+		request := GetCandidateSummaryRequest{Cid: cid, Cycle: cycle}
+		url := buildGetCandidateSummaryURL(request, api_key)
+		expectedUrl := base_url + "?method=candSummary&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2020"
 		assertStringMatches(url, expectedUrl, t)
 	})
 }
