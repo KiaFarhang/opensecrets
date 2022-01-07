@@ -9,6 +9,13 @@ func assertErrorExists(err error, t *testing.T) {
 	}
 }
 
+func assertNoError(err error, t *testing.T) {
+	t.Helper()
+	if err != nil {
+		t.Fatalf("Wanted no error but got %s", err.Error())
+	}
+}
+
 func assertErrorMessage(err error, expectedMessage string, t *testing.T) {
 	t.Helper()
 	if err.Error() != expectedMessage {
