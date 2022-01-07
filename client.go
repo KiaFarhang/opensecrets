@@ -41,6 +41,11 @@ type GetMemberPFDRequest struct {
 	Year int
 }
 
+type GetCandidateSummaryRequest struct {
+	Cid   string `validate:"required"`
+	Cycle int
+}
+
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
 	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
@@ -126,6 +131,18 @@ func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
 	if request.Year != 0 {
 		builder.WriteString("&year=")
 		builder.WriteString(strconv.Itoa(request.Year))
+	}
+
+	return builder.String()
+}
+
+func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
 	}
 
 	return builder.String()

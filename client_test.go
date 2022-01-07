@@ -99,6 +99,24 @@ func TestBuildGetMemberPFDURL(t *testing.T) {
 	})
 }
 
+func TestBuildGetCandidateSummaryURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetCandidateSummaryRequest{Cid: cid}
+		url := buildGetCandidateSummaryURL(request, api_key)
+		expectedUrl := base_url + "?method=candSummary&output=json&apikey=" + api_key + "&cid=" + cid
+		assertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		cycle := 2020
+		request := GetCandidateSummaryRequest{Cid: cid, Cycle: cycle}
+		url := buildGetCandidateSummaryURL(request, api_key)
+		expectedUrl := base_url + "?method=candSummary&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2020"
+		assertStringMatches(url, expectedUrl, t)
+	})
+}
+
 func buildMockResponse(statusCode int, jsonBody string) http.Response {
 	return http.Response{StatusCode: statusCode, Body: io.NopCloser(strings.NewReader(jsonBody))}
 }
