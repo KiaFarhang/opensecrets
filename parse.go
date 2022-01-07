@@ -5,6 +5,8 @@ import (
 	"errors"
 )
 
+const unable_to_parse_error_message string = "unable to parse OpenSecrets response body"
+
 func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
 	var responseWrapper = legislatorResponseWrapper{}
 	err := json.Unmarshal(jsonBytes, &responseWrapper)

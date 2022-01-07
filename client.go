@@ -12,7 +12,6 @@ import (
 )
 
 const base_url string = "http://www.opensecrets.org/api/"
-const unable_to_parse_error_message string = "unable to parse OpenSecrets response body"
 
 type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
