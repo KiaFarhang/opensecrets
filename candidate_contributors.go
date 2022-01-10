@@ -16,32 +16,3 @@ type CandidateContributor struct {
 	Pacs             float64 `json:"pacs,string"`
 	Individuals      float64 `json:"indivs,string"`
 }
-
-// type candidateContributorSummaryWrapper struct {
-// 	Attributes CandidateContributorSummary `json:"@attributes"`
-// }
-
-type candidateContributorWrapper struct {
-	Attributes CandidateContributor `json:"@attributes"`
-}
-
-type contributorResponse struct {
-	Wrapper []candidateContributorWrapper `json:"contributor"`
-}
-
-// type candidateContributorSummaryResponse struct {
-// 	SummaryWrapper candidateContributorSummaryWrapper `json:"`
-// }
-
-type candidateContributorSummaryInnerWrapper struct {
-	Attributes          CandidateContributorSummary `json:"@attributes"`
-	ContributorResponse contributorResponse         `json:"contributor"`
-}
-
-type candidateContributorSummaryOutterWrapper struct {
-	Contributors candidateContributorSummaryInnerWrapper `json:"contributors"`
-}
-
-type candidateContributorSummaryResponseWrapper struct {
-	Response candidateContributorSummaryOutterWrapper `json:"response"`
-}
