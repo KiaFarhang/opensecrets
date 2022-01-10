@@ -63,3 +63,34 @@ func parseCandidateSummaryJSON(jsonBytes []byte) (CandidateSummary, error) {
 	}
 	return responseWrapper.Response.Wrapper.Attributes, nil
 }
+
+func parseCandidateContributorsJSON(jsonBytes []byte) (CandidateContributorSummary, error) {
+
+	type CandidateContributorResponse struct {
+		Response struct {
+			Contributors struct {
+				Attributes   CandidateContributorSummary `json:"@attributes"`
+				Contributors []struct {
+					Attributes CandidateContributor `json:"@attributes"`
+				} `json:"contributor"`
+			} `json:"contributors"`
+		} `json:"response"`
+	}
+
+	var responseWrapper CandidateContributorResponse
+	err := json.Unmarshal(jsonBytes, &responseWrapper)
+	if err != nil {
+		return CandidateContributorSummary{}, errors.New(unable_to_parse_error_message)
+	}
+
+	var contributors []CandidateContributor
+
+	for _, contributor := range responseWrapper.Response.Contributors.Contributors {
+		contributors = append(contributors, contributor.Attributes)
+	}
+
+	summary := responseWrapper.Response.Contributors.Attributes
+	summary.Contributors = contributors
+
+	return summary, nil
+}

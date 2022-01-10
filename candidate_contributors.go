@@ -39,9 +39,9 @@ type candidateContributorSummaryInnerWrapper struct {
 }
 
 type candidateContributorSummaryOutterWrapper struct {
-	Contributors string `json:"contributors"`
+	Contributors candidateContributorSummaryInnerWrapper `json:"contributors"`
 }
 
 type candidateContributorSummaryResponseWrapper struct {
-	Response string `json:"response"`
+	Response candidateContributorSummaryOutterWrapper `json:"response"`
 }
