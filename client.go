@@ -47,6 +47,11 @@ type GetCandidateSummaryRequest struct {
 	Cycle int
 }
 
+type GetCandidateContributorsRequest struct {
+	Cid   string `validate:"required"`
+	Cycle int
+}
+
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
 	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
@@ -157,6 +162,18 @@ func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
 func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(base_url + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
+	}
+
+	return builder.String()
+}
+
+func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")
