@@ -32,33 +32,57 @@ func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
 }
 
 func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
+
+	type memberPFDResponse struct {
+		Response struct {
+			Wrapper struct {
+				Profile      MemberProfile `json:"@attributes"`
+				AssetWrapper struct {
+					Assets []struct {
+						Asset Asset `json:"@attributes"`
+					} `json:"asset"`
+				} `json:"assets"`
+				TransactionWrapper struct {
+					Transactions []struct {
+						Transaction Transaction `json:"@attributes"`
+					} `json:"transaction"`
+				} `json:"transactions"`
+				PositionWrapper struct {
+					Positions []struct {
+						Position Position `json:"@attributes"`
+					} `json:"position"`
+				} `json:"positions"`
+			} `json:"member_profile"`
+		} `json:"response"`
+	}
+
 	var memberProfile MemberProfile
-	var responseWrapper = memberPFDResponseWrapper{}
+	var responseWrapper = memberPFDResponse{}
 	err := json.Unmarshal(jsonBtyes, &responseWrapper)
 	if err != nil {
 		return memberProfile, errors.New(unable_to_parse_error_message)
 	}
 
-	memberProfile = responseWrapper.Response.Profile.Attributes
+	memberProfile = responseWrapper.Response.Wrapper.Profile
 
 	var memberAssets []Asset
-	assetWrappers := responseWrapper.Response.Profile.Assets.Wrapper
+	assetWrappers := responseWrapper.Response.Wrapper.AssetWrapper.Assets
 	for _, assetWrapper := range assetWrappers {
-		memberAssets = append(memberAssets, assetWrapper.Attributes)
+		memberAssets = append(memberAssets, assetWrapper.Asset)
 	}
 	memberProfile.Assets = memberAssets
 
 	var memberTransactions []Transaction
-	transactionWrappers := responseWrapper.Response.Profile.Transactions.Wrapper
+	transactionWrappers := responseWrapper.Response.Wrapper.TransactionWrapper.Transactions
 	for _, transactionWrapper := range transactionWrappers {
-		memberTransactions = append(memberTransactions, transactionWrapper.Attributes)
+		memberTransactions = append(memberTransactions, transactionWrapper.Transaction)
 	}
 	memberProfile.Transactions = memberTransactions
 
 	var memberPositions []Position
-	positionWrappers := responseWrapper.Response.Profile.Positions.Wrapper
+	positionWrappers := responseWrapper.Response.Wrapper.PositionWrapper.Positions
 	for _, positionWrapper := range positionWrappers {
-		memberPositions = append(memberPositions, positionWrapper.Attributes)
+		memberPositions = append(memberPositions, positionWrapper.Position)
 	}
 	memberProfile.Positions = memberPositions
 
@@ -84,7 +108,7 @@ func parseCandidateSummaryJSON(jsonBytes []byte) (CandidateSummary, error) {
 
 func parseCandidateContributorsJSON(jsonBytes []byte) (CandidateContributorSummary, error) {
 
-	type CandidateContributorResponse struct {
+	type candidateContributorResponse struct {
 		Response struct {
 			Contributors struct {
 				Attributes   CandidateContributorSummary `json:"@attributes"`
@@ -95,7 +119,7 @@ func parseCandidateContributorsJSON(jsonBytes []byte) (CandidateContributorSumma
 		} `json:"response"`
 	}
 
-	var responseWrapper CandidateContributorResponse
+	var responseWrapper candidateContributorResponse
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
 		return CandidateContributorSummary{}, errors.New(unable_to_parse_error_message)
