@@ -16,6 +16,8 @@ This is a Go client for the [OpenSecrets campaign finance API.](https://www.open
 | orgSummary        |                          | TODO   |
 | independentExpend |                          | TODO   |
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/KiaFarhang/opensecrets)](https://goreportcard.com/report/github.com/KiaFarhang/opensecrets)
+
 ## Installing
 
 `go get github.com/KiaFarhang/opensecrets`
