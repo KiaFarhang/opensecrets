@@ -1,10 +1,12 @@
-package opensecrets
+package client
 
 import (
 	"net/http"
 	"os"
 	"testing"
 	"time"
+
+	"github.com/KiaFarhang/opensecrets/internal/test"
 )
 
 const no_api_key_error_message string = "You must provide an API_KEY environment variable for end-to-end tests. To just run unit tests, pass the -short flag to the go test command."
@@ -47,19 +49,19 @@ func TestClientEndToEnd(t *testing.T) {
 		memberName := memberProfile.Name
 		wantedName := "Pelosi, Nancy"
 
-		assertStringMatches(memberName, wantedName, t)
+		test.AssertStringMatches(memberName, wantedName, t)
 
 		memberAssets := memberProfile.Assets
 
-		assertIntMatches(len(memberAssets), 5, t)
+		test.AssertIntMatches(len(memberAssets), 5, t)
 
 		memberTransactions := memberProfile.Transactions
 
-		assertIntMatches(len(memberTransactions), 5, t)
+		test.AssertIntMatches(len(memberTransactions), 5, t)
 
 		memberPositions := memberProfile.Positions
 
-		assertIntMatches(len(memberPositions), 5, t)
+		test.AssertIntMatches(len(memberPositions), 5, t)
 
 	})
 
@@ -70,9 +72,9 @@ func TestClientEndToEnd(t *testing.T) {
 			t.Fatalf("Got error %s calling GetCandidateSummary", err.Error())
 		}
 
-		assertStringMatches(candidateSummary.CandidateName, "Pelosi, Nancy", t)
-		assertIntMatches(candidateSummary.Cycle, 2022, t)
-		assertIntMatches(candidateSummary.FirstElected, 1987, t)
+		test.AssertStringMatches(candidateSummary.CandidateName, "Pelosi, Nancy", t)
+		test.AssertIntMatches(candidateSummary.Cycle, 2022, t)
+		test.AssertIntMatches(candidateSummary.FirstElected, 1987, t)
 	})
 
 	t.Run("GetCandidateContributors", func(t *testing.T) {
@@ -82,8 +84,8 @@ func TestClientEndToEnd(t *testing.T) {
 			t.Fatalf("Got error %s calling GetCandidateContributors", err.Error())
 		}
 
-		assertStringMatches(candidateContributorSummary.CandidateName, "Nancy Pelosi (D)", t)
-		assertSliceLength(len(candidateContributorSummary.Contributors), 10, t)
+		test.AssertStringMatches(candidateContributorSummary.CandidateName, "Nancy Pelosi (D)", t)
+		test.AssertSliceLength(len(candidateContributorSummary.Contributors), 10, t)
 	})
 
 }

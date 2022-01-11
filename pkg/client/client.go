@@ -1,4 +1,4 @@
-package opensecrets
+package client
 
 import (
 	"fmt"
@@ -8,16 +8,18 @@ import (
 	"strings"
 	"time"
 
+	"github.com/KiaFarhang/opensecrets/internal/parse"
+	"github.com/KiaFarhang/opensecrets/pkg/models"
 	"github.com/go-playground/validator/v10"
 )
 
 const base_url string = "http://www.opensecrets.org/api/"
 
 type OpenSecretsClient interface {
-	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
-	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
-	GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error)
-	GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error)
+	GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error)
+	GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error)
+	GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error)
+	GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
 }
 
 type httpClient interface {
@@ -61,7 +63,7 @@ func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) OpenSe
 	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
-func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]Legislator, error) {
+func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error) {
 
 	err := o.validator.Struct(request)
 
@@ -76,14 +78,14 @@ func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]Leg
 		return nil, err
 	}
 
-	return parseGetLegislatorsJSON(responseBody)
+	return parse.ParseGetLegislatorsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error) {
+func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
-		return MemberProfile{}, err
+		return models.MemberProfile{}, err
 	}
 
 	url := buildGetMemberPFDURL(request, o.apiKey)
@@ -91,17 +93,17 @@ func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (Me
 	responseBody, err := o.makeGETRequest(url)
 
 	if err != nil {
-		return MemberProfile{}, err
+		return models.MemberProfile{}, err
 	}
 
-	return parseMemberPFDJSON(responseBody)
+	return parse.ParseMemberPFDJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error) {
+func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
-		return CandidateSummary{}, err
+		return models.CandidateSummary{}, err
 	}
 
 	url := buildGetCandidateSummaryURL(request, o.apiKey)
@@ -109,17 +111,17 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 	responseBody, err := o.makeGETRequest(url)
 
 	if err != nil {
-		return CandidateSummary{}, nil
+		return models.CandidateSummary{}, nil
 	}
 
-	return parseCandidateSummaryJSON(responseBody)
+	return parse.ParseCandidateSummaryJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error) {
+func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
-		return CandidateContributorSummary{}, err
+		return models.CandidateContributorSummary{}, err
 	}
 
 	url := buildGetCandidateContributorsURL(request, o.apiKey)
@@ -127,10 +129,10 @@ func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContrib
 	responseBody, err := o.makeGETRequest(url)
 
 	if err != nil {
-		return CandidateContributorSummary{}, err
+		return models.CandidateContributorSummary{}, err
 	}
 
-	return parseCandidateContributorsJSON(responseBody)
+	return parse.ParseCandidateContributorsJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
