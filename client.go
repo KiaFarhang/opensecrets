@@ -17,6 +17,7 @@ type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
 	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
 	GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error)
+	GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error)
 }
 
 type httpClient interface {
@@ -111,6 +112,16 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 		return CandidateSummary{}, nil
 	}
 	return parseCandidateSummaryJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return CandidateContributorSummary{}, err
+	}
+
+	return CandidateContributorSummary{}, nil
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {

@@ -55,6 +55,15 @@ func TestGetCandidateSummary(t *testing.T) {
 	})
 }
 
+func TestGetCandidateContributors(t *testing.T) {
+	t.Run("Returns an error if the request passed is invaid", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := GetCandidateContributorsRequest{}
+		_, err := client.GetCandidateContributors(request)
+		assertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
