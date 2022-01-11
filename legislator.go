@@ -25,15 +25,3 @@ type Legislator struct {
 	// https://stackoverflow.com/questions/45303326/how-to-parse-non-standard-time-format-from-json
 	Birthdate string `json:"birthdate"`
 }
-
-type legislatorWrapper struct {
-	Attributes Legislator `json:"@attributes"`
-}
-
-type legislatorResponse struct {
-	Wrapper []legislatorWrapper `json:"legislator"`
-}
-
-type legislatorResponseWrapper struct {
-	Response legislatorResponse `json:"response"`
-}

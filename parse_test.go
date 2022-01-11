@@ -2,7 +2,6 @@ package opensecrets
 
 import (
 	"io/ioutil"
-	"reflect"
 	"testing"
 )
 
@@ -12,13 +11,11 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 		legislators, err := parseGetLegislatorsJSON(json)
 		assertNoError(err, t)
 
-		expectedLegislators := []Legislator{
-			{FirstElected: 2000},
-		}
+		assertSliceLength(len(legislators), 1, t)
 
-		if !reflect.DeepEqual(legislators, expectedLegislators) {
-			t.Fatalf("Got %v want %v", legislators, expectedLegislators)
-		}
+		leigslator := legislators[0]
+
+		assertIntMatches(leigslator.FirstElected, 2000, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)

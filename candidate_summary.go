@@ -17,15 +17,3 @@ type CandidateSummary struct {
 	Source        string  `json:"source"`
 	LastUpdated   string  `json:"last_updated"`
 }
-
-type candidateSummaryWrapper struct {
-	Attributes CandidateSummary `json:"@attributes"`
-}
-
-type candidateSummaryResponse struct {
-	Wrapper candidateSummaryWrapper `json:"summary"`
-}
-
-type candidateSummaryResponseWrapper struct {
-	Response candidateSummaryResponse `json:"response"`
-}

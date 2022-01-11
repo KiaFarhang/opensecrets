@@ -8,16 +8,26 @@ import (
 const unable_to_parse_error_message string = "unable to parse OpenSecrets response body"
 
 func parseGetLegislatorsJSON(jsonBytes []byte) ([]Legislator, error) {
-	var responseWrapper = legislatorResponseWrapper{}
+
+	type legislatorResponse struct {
+		Response struct {
+			Legislator []struct {
+				Attributes Legislator `json:"@attributes"`
+			} `json:"legislator"`
+		} `json:"response"`
+	}
+
+	var responseWrapper = legislatorResponse{}
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
 		return nil, errors.New(unable_to_parse_error_message)
 	}
+
 	var toReturn []Legislator
-	legislatorWrappers := responseWrapper.Response.Wrapper
-	for _, legislatorWrapper := range legislatorWrappers {
+	for _, legislatorWrapper := range responseWrapper.Response.Legislator {
 		toReturn = append(toReturn, legislatorWrapper.Attributes)
 	}
+
 	return toReturn, nil
 }
 
@@ -56,12 +66,20 @@ func parseMemberPFDJSON(jsonBtyes []byte) (MemberProfile, error) {
 }
 
 func parseCandidateSummaryJSON(jsonBytes []byte) (CandidateSummary, error) {
-	var responseWrapper candidateSummaryResponseWrapper
+	type candidateSummaryResponse struct {
+		Response struct {
+			Summary struct {
+				Attributes CandidateSummary `json:"@attributes"`
+			} `json:"summary"`
+		} `json:"response"`
+	}
+
+	var responseWrapper candidateSummaryResponse
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
 		return CandidateSummary{}, errors.New(unable_to_parse_error_message)
 	}
-	return responseWrapper.Response.Wrapper.Attributes, nil
+	return responseWrapper.Response.Summary.Attributes, nil
 }
 
 func parseCandidateContributorsJSON(jsonBytes []byte) (CandidateContributorSummary, error) {
