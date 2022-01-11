@@ -2,7 +2,6 @@ package opensecrets
 
 import (
 	"io/ioutil"
-	"reflect"
 	"testing"
 )
 
@@ -12,13 +11,11 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 		legislators, err := parseGetLegislatorsJSON(json)
 		assertNoError(err, t)
 
-		expectedLegislators := []Legislator{
-			{FirstElected: 2000},
-		}
+		assertSliceLength(len(legislators), 1, t)
 
-		if !reflect.DeepEqual(legislators, expectedLegislators) {
-			t.Fatalf("Got %v want %v", legislators, expectedLegislators)
-		}
+		leigslator := legislators[0]
+
+		assertIntMatches(leigslator.FirstElected, 2000, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
@@ -90,6 +87,42 @@ func TestParseCandidateSummaryJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := parseCandidateSummaryJSON(json)
+		assertErrorMessage(err, unable_to_parse_error_message, t)
+	})
+}
+
+func TestParseCandidateContributorsJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("mocks/mockCandidateContributorsResponse.json")
+		assertNoError(err, t)
+
+		contributorSummary, err := parseCandidateContributorsJSON(json)
+		assertNoError(err, t)
+
+		expectedName := "Nancy Pelosi (D)"
+
+		assertStringMatches(contributorSummary.CandidateName, expectedName, t)
+
+		contributors := contributorSummary.Contributors
+
+		assertSliceLength(len(contributors), 10, t)
+
+		firstContributor := contributors[0]
+
+		expectedFirstContributorName := "University of California"
+
+		assertStringMatches(firstContributor.OrganizationName, expectedFirstContributorName, t)
+
+		expectedFirstContributorTotal := float64(130682)
+
+		if firstContributor.Total != expectedFirstContributorTotal {
+			t.Errorf("Got float %f wanted %f", firstContributor.Total, expectedFirstContributorTotal)
+		}
+
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := parseCandidateContributorsJSON(json)
 		assertErrorMessage(err, unable_to_parse_error_message, t)
 	})
 }

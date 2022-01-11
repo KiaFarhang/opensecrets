@@ -1,4 +1,4 @@
-package opensecrets
+package models
 
 type MemberProfile struct {
 	Name              string `json:"name"`

@@ -26,7 +26,7 @@ func TestClientEndToEnd(t *testing.T) {
 		request := GetLegislatorsRequest{Id: "TX"}
 		legislators, err := client.GetLegislators(request)
 		if err != nil {
-			t.Fatalf("Got error %s calling GetLegislators endpoint", err.Error())
+			t.Fatalf("Got error %s calling GetLegislators", err.Error())
 		}
 
 		if len(legislators) == 0 {
@@ -67,12 +67,23 @@ func TestClientEndToEnd(t *testing.T) {
 		request := GetCandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
 		candidateSummary, err := client.GetCandidateSummary(request)
 		if err != nil {
-			t.Fatalf("Got error %s calling GetCandidateSummary endpoint", err.Error())
+			t.Fatalf("Got error %s calling GetCandidateSummary", err.Error())
 		}
 
 		assertStringMatches(candidateSummary.CandidateName, "Pelosi, Nancy", t)
 		assertIntMatches(candidateSummary.Cycle, 2022, t)
 		assertIntMatches(candidateSummary.FirstElected, 1987, t)
+	})
+
+	t.Run("GetCandidateContributors", func(t *testing.T) {
+		request := GetCandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
+		candidateContributorSummary, err := client.GetCandidateContributors(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateContributors", err.Error())
+		}
+
+		assertStringMatches(candidateContributorSummary.CandidateName, "Nancy Pelosi (D)", t)
+		assertSliceLength(len(candidateContributorSummary.Contributors), 10, t)
 	})
 
 }

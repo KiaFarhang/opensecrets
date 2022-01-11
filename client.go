@@ -17,6 +17,7 @@ type OpenSecretsClient interface {
 	GetLegislators(request GetLegislatorsRequest) ([]Legislator, error)
 	GetMemberPFDProfile(request GetMemberPFDRequest) (MemberProfile, error)
 	GetCandidateSummary(request GetCandidateSummaryRequest) (CandidateSummary, error)
+	GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error)
 }
 
 type httpClient interface {
@@ -43,6 +44,11 @@ type GetMemberPFDRequest struct {
 }
 
 type GetCandidateSummaryRequest struct {
+	Cid   string `validate:"required"`
+	Cycle int
+}
+
+type GetCandidateContributorsRequest struct {
 	Cid   string `validate:"required"`
 	Cycle int
 }
@@ -105,7 +111,26 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 	if err != nil {
 		return CandidateSummary{}, nil
 	}
+
 	return parseCandidateSummaryJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContributorsRequest) (CandidateContributorSummary, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return CandidateContributorSummary{}, err
+	}
+
+	url := buildGetCandidateContributorsURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return CandidateContributorSummary{}, err
+	}
+
+	return parseCandidateContributorsJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
@@ -157,6 +182,18 @@ func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
 func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(base_url + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
+	}
+
+	return builder.String()
+}
+
+func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")

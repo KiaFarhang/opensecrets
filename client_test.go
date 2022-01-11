@@ -55,6 +55,15 @@ func TestGetCandidateSummary(t *testing.T) {
 	})
 }
 
+func TestGetCandidateContributors(t *testing.T) {
+	t.Run("Returns an error if the request passed is invaid", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := GetCandidateContributorsRequest{}
+		_, err := client.GetCandidateContributors(request)
+		assertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
@@ -122,6 +131,24 @@ func TestBuildGetCandidateSummaryURL(t *testing.T) {
 		request := GetCandidateSummaryRequest{Cid: cid, Cycle: cycle}
 		url := buildGetCandidateSummaryURL(request, api_key)
 		expectedUrl := base_url + "?method=candSummary&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2020"
+		assertStringMatches(url, expectedUrl, t)
+	})
+}
+
+func TestBuildGetCandidateContributorsURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetCandidateContributorsRequest{Cid: cid}
+		url := buildGetCandidateContributorsURL(request, api_key)
+		expectedUrl := base_url + "?method=candContrib&output=json&apikey=" + api_key + "&cid=" + cid
+		assertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("cycle passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		cycle := 2022
+		request := GetCandidateContributorsRequest{Cid: cid, Cycle: cycle}
+		url := buildGetCandidateContributorsURL(request, api_key)
+		expectedUrl := base_url + "?method=candContrib&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2022"
 		assertStringMatches(url, expectedUrl, t)
 	})
 }

@@ -1,4 +1,4 @@
-package opensecrets
+package models
 
 type CandidateSummary struct {
 	CandidateName string  `json:"cand_name"`
