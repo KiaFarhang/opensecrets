@@ -111,6 +111,7 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 	if err != nil {
 		return CandidateSummary{}, nil
 	}
+
 	return parseCandidateSummaryJSON(responseBody)
 }
 
@@ -121,7 +122,15 @@ func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContrib
 		return CandidateContributorSummary{}, err
 	}
 
-	return CandidateContributorSummary{}, nil
+	url := buildGetCandidateContributorsURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return CandidateContributorSummary{}, err
+	}
+
+	return parseCandidateContributorsJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
