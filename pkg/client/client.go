@@ -1,3 +1,6 @@
+/*
+Package client provides a client for the OpenSecrets REST API.
+*/
 package client
 
 import (
@@ -15,14 +18,35 @@ import (
 
 const base_url string = "http://www.opensecrets.org/api/"
 
+/*
+The OpenSecretsClient interface is responsible for communicating with the OpenSecrets REST API. The NewOpenSecretsClient
+and NewOpenSecretsClientWithHttpClient functions in this package let users construct an instance of this interface.
+
+An OpenSecretsClient is thread safe and you should use/share one throughout your application.
+*/
 type OpenSecretsClient interface {
+	// Calls and returns the response from the getLegislators endpoint
+	// https://www.opensecrets.org/api/?method=getLegislators&output=doc
 	GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error)
+	// Calls and returns the response from the memPFDprofile endpoint
+	// https://www.opensecrets.org/api/?method=memPFDprofile&output=doc
 	GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error)
+	// Calls and returns the response from the candSummary endpoint
+	// https://www.opensecrets.org/api/?method=candSummary&output=doc
 	GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error)
+	// Calls and returns the response from the candContrib endpoint
+	// https://www.opensecrets.org/api/?method=candContrib&output=doc
 	GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
 }
 
-type httpClient interface {
+/*
+The OpenSecretsHttpClient interface lets users customize the HTTP client their OpenSecretsClient uses to communicate
+with the OpenSecrets REST API. (e.g. if you have an existing HTTP client with custom logging, timeouts, etc.)
+
+If you want to pass your own HTTP client to the OpenSecrets client, use NewOpenSecretsClientWithHttpClient. Otherwise, use
+NewOpenSecretsClient and the client will use an http.Client with a 5-second timeout.
+*/
+type OpenSecretsHttpClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
 
@@ -31,35 +55,37 @@ type structValidator interface {
 }
 
 type openSecretsClient struct {
-	client    httpClient
+	client    OpenSecretsHttpClient
 	apiKey    string
 	validator structValidator
 }
 
 type GetLegislatorsRequest struct {
-	Id string `validate:"required"`
+	Id string `validate:"required"` // Required. Two-character specific state code, or CRP candidate ID.
 }
 
 type GetMemberPFDRequest struct {
-	Cid  string `validate:"required"`
-	Year int
+	Cid  string `validate:"required"` // Required. CRP Candidate ID.
+	Year int    // Optional. 2013, 2014, 2015 and 2016 data provided where available.
 }
 
 type GetCandidateSummaryRequest struct {
-	Cid   string `validate:"required"`
-	Cycle int
+	Cid   string `validate:"required"` // Required. CRP Candidate ID.
+	Cycle int    // Optional; defaults to most recent cycle if not passed
 }
 
 type GetCandidateContributorsRequest struct {
-	Cid   string `validate:"required"`
-	Cycle int
+	Cid   string `validate:"required"` // Required. CRP Candidate ID.
+	Cycle int    // Optional; defaults to most recent cycle if not passed
 }
 
+// Construct an OpenSecretsClient with the provided API key and a default http.Client (with a timeout of 5 seconds).
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
 	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
 }
 
-func NewOpenSecretsClientWithHttpClient(apikey string, client httpClient) OpenSecretsClient {
+// Construct an OpenSecretsClient with the provided API key and a custom HTTP client.
+func NewOpenSecretsClientWithHttpClient(apikey string, client OpenSecretsHttpClient) OpenSecretsClient {
 	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
