@@ -1,4 +1,20 @@
-# OpenSecrets API Go Library
+# OpenSecrets API Go Client
+
+This is a Go client for the [OpenSecrets campaign finance API.](https://www.opensecrets.org/open-data/api) The following methods are currently supported:
+
+| **API method**    | **Function**             | **Status** |
+|-------------------|--------------------------|--------|
+| getLegislators    | GetLegislators           | ✔️      |
+| memPFDProfile     | GetMemberPFDProfile      | ✔️      |
+| candSummary       | GetCandidateSummary      | ✔️      |
+| candContrib       | GetCandidateContributors | ✔️      |
+| candIndustry      |                          | TODO   |
+| candIndByInd      |                          | TODO   |
+| candSector        |                          | TODO   |
+| congCmteIndus     |                          | TODO   |
+| getOrgs           |                          | TODO   |
+| orgSummary        |                          | TODO   |
+| independentExpend |                          | TODO   |
 
 ## Installing
 
