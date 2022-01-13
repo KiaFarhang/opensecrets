@@ -1,5 +1,7 @@
 # OpenSecrets API Go Client
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/KiaFarhang/opensecrets)](https://goreportcard.com/report/github.com/KiaFarhang/opensecrets)
+
 This is a Go client for the [OpenSecrets campaign finance API.](https://www.opensecrets.org/open-data/api) The following methods are currently supported:
 
 | **API method**    | **Function**             | **Status** |
@@ -9,14 +11,12 @@ This is a Go client for the [OpenSecrets campaign finance API.](https://www.open
 | candSummary       | GetCandidateSummary      | :heavy_check_mark:      |
 | candContrib       | GetCandidateContributors | :heavy_check_mark:      |
 | candIndustry      | GetCandidateIndustries   | :heavy_check_mark:      |
-| candIndByInd      |                          | TODO   |
+| candIndByInd      | GetCandidateIndustryDetails | :heavy_check_mark:   |
 | candSector        |                          | TODO   |
 | congCmteIndus     |                          | TODO   |
 | getOrgs           |                          | TODO   |
 | orgSummary        |                          | TODO   |
 | independentExpend |                          | TODO   |
-
-[![Go Report Card](https://goreportcard.com/badge/github.com/KiaFarhang/opensecrets)](https://goreportcard.com/report/github.com/KiaFarhang/opensecrets)
 
 ## Installing
 
