@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/KiaFarhang/opensecrets/internal/test"
+	"github.com/KiaFarhang/opensecrets/pkg/models"
 )
 
 const noApiKeyErrorMessage string = "You must provide an API_KEY environment variable for end-to-end tests. To just run unit tests, pass the -short flag to the go test command."
@@ -25,7 +26,7 @@ func TestClientEndToEnd(t *testing.T) {
 	client := NewOpenSecretsClientWithHttpClient(apiKey, httpClient)
 
 	t.Run("GetLegislators", func(t *testing.T) {
-		request := GetLegislatorsRequest{Id: "TX"}
+		request := models.GetLegislatorsRequest{Id: "TX"}
 		legislators, err := client.GetLegislators(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetLegislators", err.Error())
@@ -38,7 +39,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetMemberPFDProfile", func(t *testing.T) {
-		request := GetMemberPFDRequest{Cid: "N00007360", Year: 2016}
+		request := models.GetMemberPFDRequest{Cid: "N00007360", Year: 2016}
 
 		memberProfile, err := client.GetMemberPFDProfile(request)
 
@@ -66,7 +67,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateSummary", func(t *testing.T) {
-		request := GetCandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
+		request := models.GetCandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
 		candidateSummary, err := client.GetCandidateSummary(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateSummary", err.Error())
@@ -78,7 +79,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateContributors", func(t *testing.T) {
-		request := GetCandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
+		request := models.GetCandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
 		candidateContributorSummary, err := client.GetCandidateContributors(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateContributors", err.Error())
@@ -89,7 +90,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateIndustries", func(t *testing.T) {
-		request := GetCandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
+		request := models.GetCandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
 		summary, err := client.GetCandidateIndustries(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateIndustries", err.Error())
