@@ -7,7 +7,7 @@ import (
 	"github.com/KiaFarhang/opensecrets/pkg/models"
 )
 
-const Unable_to_parse_error_message string = "unable to parse OpenSecrets response body"
+const UnableToParseErrorMessage string = "unable to parse OpenSecrets response body"
 
 func ParseGetLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
 
@@ -22,7 +22,7 @@ func ParseGetLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
 	var responseWrapper = legislatorResponse{}
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
-		return nil, errors.New(Unable_to_parse_error_message)
+		return nil, errors.New(UnableToParseErrorMessage)
 	}
 
 	var toReturn []models.Legislator
@@ -62,7 +62,7 @@ func ParseMemberPFDJSON(jsonBtyes []byte) (models.MemberProfile, error) {
 	var responseWrapper = memberPFDResponse{}
 	err := json.Unmarshal(jsonBtyes, &responseWrapper)
 	if err != nil {
-		return memberProfile, errors.New(Unable_to_parse_error_message)
+		return memberProfile, errors.New(UnableToParseErrorMessage)
 	}
 
 	memberProfile = responseWrapper.Response.Wrapper.Profile
@@ -103,7 +103,7 @@ func ParseCandidateSummaryJSON(jsonBytes []byte) (models.CandidateSummary, error
 	var responseWrapper candidateSummaryResponse
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
-		return models.CandidateSummary{}, errors.New(Unable_to_parse_error_message)
+		return models.CandidateSummary{}, errors.New(UnableToParseErrorMessage)
 	}
 	return responseWrapper.Response.Summary.Attributes, nil
 }
@@ -124,7 +124,7 @@ func ParseCandidateContributorsJSON(jsonBytes []byte) (models.CandidateContribut
 	var responseWrapper candidateContributorResponse
 	err := json.Unmarshal(jsonBytes, &responseWrapper)
 	if err != nil {
-		return models.CandidateContributorSummary{}, errors.New(Unable_to_parse_error_message)
+		return models.CandidateContributorSummary{}, errors.New(UnableToParseErrorMessage)
 	}
 
 	var contributors []models.CandidateContributor
@@ -155,7 +155,7 @@ func ParseCandidateIndustriesJSON(jsonBody []byte) (models.CandidateIndustriesSu
 	err := json.Unmarshal(jsonBody, &responseWrapper)
 
 	if err != nil {
-		return models.CandidateIndustriesSummary{}, errors.New(Unable_to_parse_error_message)
+		return models.CandidateIndustriesSummary{}, errors.New(UnableToParseErrorMessage)
 	}
 
 	summary := responseWrapper.Response.Industries.Attributes

@@ -22,7 +22,7 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseGetLegislatorsJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -65,7 +65,7 @@ func TestParseMemberPFDJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseMemberPFDJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -89,7 +89,7 @@ func TestParseCandidateSummaryJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseCandidateSummaryJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -125,7 +125,7 @@ func TestParseCandidateContributorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseCandidateContributorsJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -155,6 +155,6 @@ func TestParseCandidateIndustriesJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseCandidateIndustriesJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }

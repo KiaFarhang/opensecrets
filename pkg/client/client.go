@@ -16,7 +16,7 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-const base_url string = "http://www.opensecrets.org/api/"
+const baseUrl string = "http://www.opensecrets.org/api/"
 
 /*
 The OpenSecretsClient interface is responsible for communicating with the OpenSecrets REST API. The NewOpenSecretsClient
@@ -218,12 +218,12 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 }
 
 func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
-	return base_url + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
+	return baseUrl + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
 }
 
 func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
 	var builder strings.Builder
-	builder.WriteString(base_url + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+	builder.WriteString(baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Year != 0 {
 		builder.WriteString("&year=")
@@ -235,7 +235,7 @@ func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
 
 func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
 	var builder strings.Builder
-	builder.WriteString(base_url + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+	builder.WriteString(baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")
@@ -247,7 +247,7 @@ func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey stri
 
 func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
 	var builder strings.Builder
-	builder.WriteString(base_url + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+	builder.WriteString(baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")
@@ -259,7 +259,7 @@ func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, a
 
 func buildGetCandidateIndustriesURL(request GetCandidateIndustriesRequest, apiKey string) string {
 	var builder strings.Builder
-	builder.WriteString(base_url + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+	builder.WriteString(baseUrl + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")
