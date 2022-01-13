@@ -9,7 +9,7 @@ import (
 	"github.com/KiaFarhang/opensecrets/internal/test"
 )
 
-const no_api_key_error_message string = "You must provide an API_KEY environment variable for end-to-end tests. To just run unit tests, pass the -short flag to the go test command."
+const noApiKeyErrorMessage string = "You must provide an API_KEY environment variable for end-to-end tests. To just run unit tests, pass the -short flag to the go test command."
 
 func TestClientEndToEnd(t *testing.T) {
 	if testing.Short() {
@@ -18,7 +18,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	apiKey := os.Getenv("API_KEY")
 	if apiKey == "" {
-		t.Fatal(no_api_key_error_message)
+		t.Fatal(noApiKeyErrorMessage)
 	}
 
 	httpClient := &http.Client{Timeout: time.Second * 5}
@@ -86,6 +86,17 @@ func TestClientEndToEnd(t *testing.T) {
 
 		test.AssertStringMatches(candidateContributorSummary.CandidateName, "Nancy Pelosi (D)", t)
 		test.AssertSliceLength(len(candidateContributorSummary.Contributors), 10, t)
+	})
+
+	t.Run("GetCandidateIndustries", func(t *testing.T) {
+		request := GetCandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
+		summary, err := client.GetCandidateIndustries(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateIndustries", err.Error())
+		}
+
+		test.AssertStringMatches(summary.CandidateName, "Pete Sessions (R)", t)
+		test.AssertSliceLength(len(summary.Industries), 10, t)
 	})
 
 }

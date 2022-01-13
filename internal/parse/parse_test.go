@@ -22,7 +22,7 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseGetLegislatorsJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -65,7 +65,7 @@ func TestParseMemberPFDJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseMemberPFDJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -89,7 +89,7 @@ func TestParseCandidateSummaryJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseCandidateSummaryJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
 
@@ -125,6 +125,36 @@ func TestParseCandidateContributorsJSON(t *testing.T) {
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
 		_, err := ParseCandidateContributorsJSON(json)
-		test.AssertErrorMessage(err, Unable_to_parse_error_message, t)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
+	})
+}
+
+func TestParseCandidateIndustriesJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("../mocks/mockCandidateIndustriesResponse.json")
+		test.AssertNoError(err, t)
+
+		industrySummary, err := ParseCandidateIndustriesJSON(json)
+		test.AssertNoError(err, t)
+
+		expectedName := "Pete Sessions (R)"
+		test.AssertStringMatches(industrySummary.CandidateName, expectedName, t)
+
+		test.AssertSliceLength(len(industrySummary.Industries), 10, t)
+
+		topIndustry := industrySummary.Industries[0]
+
+		expectedIndustryName := "Leadership PACs"
+		test.AssertStringMatches(topIndustry.IndustryName, expectedIndustryName, t)
+
+		expectedTotal := float64(312081)
+		if topIndustry.Total != expectedTotal {
+			t.Errorf("Got float %f wanted %f", topIndustry.Total, expectedTotal)
+		}
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := ParseCandidateIndustriesJSON(json)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
