@@ -158,3 +158,26 @@ func TestParseCandidateIndustriesJSON(t *testing.T) {
 		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
+
+func TestParseCandidateIndustryDetailsJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("../mocks/mockCandidateIndustryDetailsResponse.json")
+		test.AssertNoError(err, t)
+
+		details, err := ParseCandidateIndustryDetailsJSON(json)
+		test.AssertNoError(err, t)
+
+		expectedChamber := "H"
+		test.AssertStringMatches(details.Chamber, expectedChamber, t)
+
+		expectedTotal := float64(151248)
+		if details.Total != expectedTotal {
+			t.Errorf("Got float %f wanted %f", details.Total, expectedTotal)
+		}
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := ParseCandidateIndustryDetailsJSON(json)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
+	})
+}

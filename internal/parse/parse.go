@@ -166,3 +166,22 @@ func ParseCandidateIndustriesJSON(jsonBody []byte) (models.CandidateIndustriesSu
 
 	return summary, nil
 }
+
+func ParseCandidateIndustryDetailsJSON(jsonBody []byte) (models.CandidateIndustryDetails, error) {
+	type candidateIndustryDetailsResponse struct {
+		Response struct {
+			Wrapper struct {
+				Attributes models.CandidateIndustryDetails `json:"@attributes"`
+			} `json:"candIndus"`
+		} `json:"response"`
+	}
+
+	var responseWrapper candidateIndustryDetailsResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return models.CandidateIndustryDetails{}, errors.New(UnableToParseErrorMessage)
+	}
+
+	return responseWrapper.Response.Wrapper.Attributes, nil
+}
