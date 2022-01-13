@@ -138,3 +138,31 @@ func ParseCandidateContributorsJSON(jsonBytes []byte) (models.CandidateContribut
 
 	return summary, nil
 }
+
+func ParseCandidateIndustriesJSON(jsonBody []byte) (models.CandidateIndustriesSummary, error) {
+	type candidateIndustriesResponse struct {
+		Response struct {
+			Industries struct {
+				Attributes models.CandidateIndustriesSummary `json:"@attributes"`
+				Industry   []struct {
+					Attributes models.Industry `json:"@attributes"`
+				} `json:"industry"`
+			} `json:"industries"`
+		} `json:"response"`
+	}
+
+	var responseWrapper candidateIndustriesResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return models.CandidateIndustriesSummary{}, errors.New(Unable_to_parse_error_message)
+	}
+
+	summary := responseWrapper.Response.Industries.Attributes
+
+	for _, industry := range responseWrapper.Response.Industries.Industry {
+		summary.Industries = append(summary.Industries, industry.Attributes)
+	}
+
+	return summary, nil
+}
