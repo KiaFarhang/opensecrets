@@ -66,6 +66,15 @@ func TestGetCandidateContributors(t *testing.T) {
 	})
 }
 
+func TestGetCandidateIndustries(t *testing.T) {
+	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := GetCandidateIndustriesRequest{}
+		_, err := client.GetCandidateIndustries(request)
+		test.AssertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")

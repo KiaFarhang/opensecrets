@@ -25,18 +25,21 @@ and NewOpenSecretsClientWithHttpClient functions in this package let users const
 An OpenSecretsClient is thread safe and you should use/share one throughout your application.
 */
 type OpenSecretsClient interface {
-	// Calls and returns the response from the getLegislators endpoint
+	// Provides a list of Congressional legislators for a specified subset (state or specific CID)
 	// https://www.opensecrets.org/api/?method=getLegislators&output=doc
 	GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error)
-	// Calls and returns the response from the memPFDprofile endpoint
+	// Returns data on the personal finances of a member of Congress, as well as judicial + executive branches
 	// https://www.opensecrets.org/api/?method=memPFDprofile&output=doc
 	GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error)
-	// Calls and returns the response from the candSummary endpoint
+	// Provides summary fundraising information for a politician
 	// https://www.opensecrets.org/api/?method=candSummary&output=doc
 	GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error)
-	// Calls and returns the response from the candContrib endpoint
+	// Returns top contributors to a candidate for/sitting member of Congress
 	// https://www.opensecrets.org/api/?method=candContrib&output=doc
 	GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
+	// Provides the top 10 industries contributing to a candidate
+	// https://www.opensecrets.org/api/?method=candIndustry&output=doc
+	GetCandidateIndustries(request GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
 }
 
 /*
@@ -164,6 +167,24 @@ func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContrib
 	}
 
 	return parse.ParseCandidateContributorsJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateIndustries(request GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return models.CandidateIndustriesSummary{}, err
+	}
+
+	url := buildGetCandidateIndustriesURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return models.CandidateIndustriesSummary{}, err
+	}
+
+	return parse.ParseCandidateIndustriesJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {

@@ -88,4 +88,15 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertSliceLength(len(candidateContributorSummary.Contributors), 10, t)
 	})
 
+	t.Run("GetCandidateIndustries", func(t *testing.T) {
+		request := GetCandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
+		summary, err := client.GetCandidateIndustries(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateIndustries", err.Error())
+		}
+
+		test.AssertStringMatches(summary.CandidateName, "Pete Sessions (R)", t)
+		test.AssertSliceLength(len(summary.Industries), 10, t)
+	})
+
 }
