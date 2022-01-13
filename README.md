@@ -4,11 +4,11 @@ This is a Go client for the [OpenSecrets campaign finance API.](https://www.open
 
 | **API method**    | **Function**             | **Status** |
 |-------------------|--------------------------|--------|
-| getLegislators    | GetLegislators           | ✔️      |
-| memPFDProfile     | GetMemberPFDProfile      | ✔️      |
-| candSummary       | GetCandidateSummary      | ✔️      |
-| candContrib       | GetCandidateContributors | ✔️      |
-| candIndustry      |                          | TODO   |
+| getLegislators    | GetLegislators           | :heavy_check_mark:      |
+| memPFDProfile     | GetMemberPFDProfile      | :heavy_check_mark:      |
+| candSummary       | GetCandidateSummary      | :heavy_check_mark:      |
+| candContrib       | GetCandidateContributors | :heavy_check_mark:      |
+| candIndustry      | GetCandidateIndustries   | :heavy_check_mark:      |
 | candIndByInd      |                          | TODO   |
 | candSector        |                          | TODO   |
 | congCmteIndus     |                          | TODO   |
