@@ -7,16 +7,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/KiaFarhang/opensecrets/internal/parse"
 	"github.com/KiaFarhang/opensecrets/pkg/models"
 	"github.com/go-playground/validator/v10"
 )
-
-const baseUrl string = "http://www.opensecrets.org/api/"
 
 /*
 The OpenSecretsClient interface is responsible for communicating with the OpenSecrets REST API. The NewOpenSecretsClient
@@ -215,56 +211,4 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	}
 
 	return bodyAsBytes, nil
-}
-
-func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
-	return baseUrl + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
-}
-
-func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Year != 0 {
-		builder.WriteString("&year=")
-		builder.WriteString(strconv.Itoa(request.Year))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateIndustriesURL(request GetCandidateIndustriesRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
 }
