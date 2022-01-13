@@ -71,12 +71,17 @@ type GetMemberPFDRequest struct {
 
 type GetCandidateSummaryRequest struct {
 	Cid   string `validate:"required"` // Required. CRP Candidate ID.
-	Cycle int    // Optional; defaults to most recent cycle if not passed
+	Cycle int    // Optional; defaults to most recent cycle
 }
 
 type GetCandidateContributorsRequest struct {
 	Cid   string `validate:"required"` // Required. CRP Candidate ID.
-	Cycle int    // Optional; defaults to most recent cycle if not passed
+	Cycle int    // Optional; defaults to most recent cycle
+}
+
+type GetCandidateIndustriesRequest struct {
+	Cid   string `validate:"required"` // Required. CRP Candidate ID
+	Cycle int    // Optional; defaults to most recent cycle
 }
 
 // Construct an OpenSecretsClient with the provided API key and a default http.Client (with a timeout of 5 seconds).
@@ -222,6 +227,18 @@ func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey stri
 func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(base_url + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
+	}
+
+	return builder.String()
+}
+
+func buildGetCandidateIndustriesURL(request GetCandidateIndustriesRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(base_url + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
 	if request.Cycle != 0 {
 		builder.WriteString("&cycle=")

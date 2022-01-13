@@ -145,12 +145,29 @@ func TestBuildGetCandidateContributorsURL(t *testing.T) {
 		expectedUrl := base_url + "?method=candContrib&output=json&apikey=" + api_key + "&cid=" + cid
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
-	t.Run("cycle passed in request if it's a non-zero value", func(t *testing.T) {
+	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
 		cid := "N00007360"
 		cycle := 2022
 		request := GetCandidateContributorsRequest{Cid: cid, Cycle: cycle}
 		url := buildGetCandidateContributorsURL(request, api_key)
 		expectedUrl := base_url + "?method=candContrib&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2022"
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}
+
+func TestBuildGetCandidateIndustriesURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetCandidateIndustriesRequest{Cid: cid}
+		url := buildGetCandidateIndustriesURL(request, api_key)
+		expectedUrl := base_url + "?method=candIndustry&output=json&apikey=" + api_key + "&cid=" + cid
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		request := GetCandidateIndustriesRequest{Cid: cid, Cycle: 2018}
+		url := buildGetCandidateIndustriesURL(request, api_key)
+		expectedUrl := base_url + "?method=candIndustry&output=json&apikey=" + api_key + "&cid=" + cid + "&cycle=2018"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
