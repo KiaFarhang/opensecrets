@@ -100,4 +100,18 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertSliceLength(len(summary.Industries), 10, t)
 	})
 
+	t.Run("GetCandidateIndustryDetails", func(t *testing.T) {
+		request := models.GetCandidateIndustryDetailsRequest{Cid: "N00007360", Ind: "K02", Cycle: 2020}
+		details, err := client.GetCandidateIndustryDetails(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateIndustryDetails", err.Error())
+		}
+
+		test.AssertStringMatches(details.Chamber, "H", t)
+		expectedTotal := float64(151248)
+		if details.Total != expectedTotal {
+			t.Errorf("Got float %f wanted %f", details.Total, expectedTotal)
+		}
+	})
+
 }

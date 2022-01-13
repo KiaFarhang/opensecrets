@@ -36,6 +36,9 @@ type OpenSecretsClient interface {
 	// Provides the top 10 industries contributing to a candidate
 	// https://www.opensecrets.org/api/?method=candIndustry&output=doc
 	GetCandidateIndustries(request models.GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
+	// Provides total contributed to a candidate from an industry.
+	// https://www.opensecrets.org/api/?method=candIndByInd&output=doc
+	GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error)
 }
 
 /*
@@ -157,6 +160,24 @@ func (o *openSecretsClient) GetCandidateIndustries(request models.GetCandidateIn
 	}
 
 	return parse.ParseCandidateIndustriesJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return models.CandidateIndustryDetails{}, err
+	}
+
+	url := buildGetCandidateIndustryDetailsURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return models.CandidateIndustryDetails{}, err
+	}
+
+	return parse.ParseCandidateIndustryDetailsJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
