@@ -1,0 +1,106 @@
+{
+    "response": {
+        "industries": {
+            "@attributes": {
+                "cand_name": "Pete Sessions (R)",
+                "cid": "N00005681",
+                "cycle": "2018",
+                "origin": "Center for Responsive Politics",
+                "source": "https://www.opensecrets.org/members-of-congress/industries?cid=N00005681&cycle=2018",
+                "last_updated": "06/10/2019"
+            },
+            "industry": [
+                {
+                    "@attributes": {
+                        "industry_code": "Q03",
+                        "industry_name": "Leadership PACs",
+                        "indivs": "0",
+                        "pacs": "312081",
+                        "total": "312081"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "H01",
+                        "industry_name": "Health Professionals",
+                        "indivs": "137975",
+                        "pacs": "159500",
+                        "total": "297475"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "F10",
+                        "industry_name": "Real Estate",
+                        "indivs": "225271",
+                        "pacs": "69500",
+                        "total": "294771"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "E01",
+                        "industry_name": "Oil & Gas",
+                        "indivs": "113375",
+                        "pacs": "124000",
+                        "total": "237375"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "F07",
+                        "industry_name": "Securities & Investment",
+                        "indivs": "118750",
+                        "pacs": "61000",
+                        "total": "179750"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "F09",
+                        "industry_name": "Insurance",
+                        "indivs": "43550",
+                        "pacs": "129500",
+                        "total": "173050"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "F13",
+                        "industry_name": "Misc Finance",
+                        "indivs": "137343",
+                        "pacs": "25500",
+                        "total": "162843"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "K01",
+                        "industry_name": "Lawyers/Law Firms",
+                        "indivs": "124600",
+                        "pacs": "26450",
+                        "total": "151050"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "F03",
+                        "industry_name": "Commercial Banks",
+                        "indivs": "27850",
+                        "pacs": "115500",
+                        "total": "143350"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "industry_code": "W06",
+                        "industry_name": "Retired",
+                        "indivs": "142694",
+                        "pacs": "0",
+                        "total": "142694"
+                    }
+                }
+            ]
+        }
+    }
+}
