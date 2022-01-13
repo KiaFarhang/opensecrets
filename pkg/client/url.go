@@ -60,3 +60,15 @@ func buildGetCandidateIndustriesURL(request models.GetCandidateIndustriesRequest
 
 	return builder.String()
 }
+
+func buildGetCandidateIndustryDetailsURL(request models.GetCandidateIndustryDetailsRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(baseUrl + "?method=candIndByInd&output=json&apikey=" + apiKey + "&cid=" + request.Cid + "&ind=" + request.Ind)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
+	}
+
+	return builder.String()
+}

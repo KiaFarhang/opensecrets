@@ -13,8 +13,6 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-const api_key string = "1"
-
 type mockHttpClient struct {
 	mockResponse http.Response
 	mockError    error
