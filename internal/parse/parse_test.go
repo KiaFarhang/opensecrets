@@ -181,3 +181,34 @@ func TestParseCandidateIndustryDetailsJSON(t *testing.T) {
 		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
+
+func TestParseCandidateTopSectorsJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("../mocks/mockCandidateTopSectorsResponse.json")
+		test.AssertNoError(err, t)
+
+		details, err := ParseCandidateTopSectorsJSON(json)
+		test.AssertNoError(err, t)
+
+		expectedCandidateName := "Nancy Pelosi (D)"
+		test.AssertStringMatches(details.CandidateName, expectedCandidateName, t)
+
+		test.AssertSliceLength(len(details.Sectors), 13, t)
+
+		firstSector := details.Sectors[0]
+
+		expectedSectorId := "A"
+		test.AssertStringMatches(firstSector.Id, expectedSectorId, t)
+
+		expectedSectorIndividuals := float64(125816)
+		if firstSector.Individuals != expectedSectorIndividuals {
+			t.Errorf("Got float %f wanted %f", firstSector.Individuals, expectedSectorIndividuals)
+		}
+
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := ParseCandidateTopSectorsJSON(json)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
+	})
+}

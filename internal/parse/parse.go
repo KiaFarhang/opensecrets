@@ -185,3 +185,31 @@ func ParseCandidateIndustryDetailsJSON(jsonBody []byte) (models.CandidateIndustr
 
 	return responseWrapper.Response.Wrapper.Attributes, nil
 }
+
+func ParseCandidateTopSectorsJSON(jsonBody []byte) (models.CandidateTopSectorDetails, error) {
+	type candidateSectorsResponse struct {
+		Response struct {
+			Wrapper struct {
+				CandidateDetails models.CandidateTopSectorDetails `json:"@attributes"`
+				SectorList       []struct {
+					SectorAttributes models.Sector `json:"@attributes"`
+				} `json:"sector"`
+			} `json:"sectors"`
+		} `json:"response"`
+	}
+
+	var responseWrapper candidateSectorsResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return models.CandidateTopSectorDetails{}, errors.New(UnableToParseErrorMessage)
+	}
+
+	details := responseWrapper.Response.Wrapper.CandidateDetails
+
+	for _, sector := range responseWrapper.Response.Wrapper.SectorList {
+		details.Sectors = append(details.Sectors, sector.SectorAttributes)
+	}
+
+	return details, nil
+}
