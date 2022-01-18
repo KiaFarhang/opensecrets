@@ -90,6 +90,15 @@ func TestGetCandidateIndustryDetails(t *testing.T) {
 	})
 }
 
+func TestGetCandidateTopSectorDetails(t *testing.T) {
+	t.Run("Returns an error if the request doesn't have a CID", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := models.GetCandidateTopSectorsRequest{}
+		_, err := client.GetCandidateTopSectorDetails(request)
+		test.AssertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
