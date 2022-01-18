@@ -29,3 +29,8 @@ type GetCandidateIndustryDetailsRequest struct {
 	Ind   string `validate:"required"` // Required. A 3-character industry code
 	Cycle int    // Optional; defaults to most recent cycle
 }
+
+type GetCandidateTopSectorsRequest struct {
+	Cid   string `validate:"required"` // Required. CRP Candidate ID
+	Cycle int    // Optional; defaults to most recent cycle
+}
