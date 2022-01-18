@@ -7,16 +7,12 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/KiaFarhang/opensecrets/internal/parse"
 	"github.com/KiaFarhang/opensecrets/pkg/models"
 	"github.com/go-playground/validator/v10"
 )
-
-const baseUrl string = "http://www.opensecrets.org/api/"
 
 /*
 The OpenSecretsClient interface is responsible for communicating with the OpenSecrets REST API. The NewOpenSecretsClient
@@ -27,19 +23,22 @@ An OpenSecretsClient is thread safe and you should use/share one throughout your
 type OpenSecretsClient interface {
 	// Provides a list of Congressional legislators for a specified subset (state or specific CID)
 	// https://www.opensecrets.org/api/?method=getLegislators&output=doc
-	GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error)
+	GetLegislators(request models.GetLegislatorsRequest) ([]models.Legislator, error)
 	// Returns data on the personal finances of a member of Congress, as well as judicial + executive branches
 	// https://www.opensecrets.org/api/?method=memPFDprofile&output=doc
-	GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error)
+	GetMemberPFDProfile(request models.GetMemberPFDRequest) (models.MemberProfile, error)
 	// Provides summary fundraising information for a politician
 	// https://www.opensecrets.org/api/?method=candSummary&output=doc
-	GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error)
+	GetCandidateSummary(request models.GetCandidateSummaryRequest) (models.CandidateSummary, error)
 	// Returns top contributors to a candidate for/sitting member of Congress
 	// https://www.opensecrets.org/api/?method=candContrib&output=doc
-	GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
+	GetCandidateContributors(request models.GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
 	// Provides the top 10 industries contributing to a candidate
 	// https://www.opensecrets.org/api/?method=candIndustry&output=doc
-	GetCandidateIndustries(request GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
+	GetCandidateIndustries(request models.GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
+	// Provides total contributed to a candidate from an industry.
+	// https://www.opensecrets.org/api/?method=candIndByInd&output=doc
+	GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error)
 }
 
 /*
@@ -63,30 +62,6 @@ type openSecretsClient struct {
 	validator structValidator
 }
 
-type GetLegislatorsRequest struct {
-	Id string `validate:"required"` // Required. Two-character specific state code, or CRP candidate ID.
-}
-
-type GetMemberPFDRequest struct {
-	Cid  string `validate:"required"` // Required. CRP Candidate ID.
-	Year int    // Optional. 2013, 2014, 2015 and 2016 data provided where available.
-}
-
-type GetCandidateSummaryRequest struct {
-	Cid   string `validate:"required"` // Required. CRP Candidate ID.
-	Cycle int    // Optional; defaults to most recent cycle
-}
-
-type GetCandidateContributorsRequest struct {
-	Cid   string `validate:"required"` // Required. CRP Candidate ID.
-	Cycle int    // Optional; defaults to most recent cycle
-}
-
-type GetCandidateIndustriesRequest struct {
-	Cid   string `validate:"required"` // Required. CRP Candidate ID
-	Cycle int    // Optional; defaults to most recent cycle
-}
-
 // Construct an OpenSecretsClient with the provided API key and a default http.Client (with a timeout of 5 seconds).
 func NewOpenSecretsClient(apikey string) OpenSecretsClient {
 	return &openSecretsClient{apiKey: apikey, client: &http.Client{Timeout: time.Second * 5}, validator: validator.New()}
@@ -97,7 +72,7 @@ func NewOpenSecretsClientWithHttpClient(apikey string, client OpenSecretsHttpCli
 	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
-func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]models.Legislator, error) {
+func (o *openSecretsClient) GetLegislators(request models.GetLegislatorsRequest) ([]models.Legislator, error) {
 
 	err := o.validator.Struct(request)
 
@@ -115,7 +90,7 @@ func (o *openSecretsClient) GetLegislators(request GetLegislatorsRequest) ([]mod
 	return parse.ParseGetLegislatorsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (models.MemberProfile, error) {
+func (o *openSecretsClient) GetMemberPFDProfile(request models.GetMemberPFDRequest) (models.MemberProfile, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -133,7 +108,7 @@ func (o *openSecretsClient) GetMemberPFDProfile(request GetMemberPFDRequest) (mo
 	return parse.ParseMemberPFDJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryRequest) (models.CandidateSummary, error) {
+func (o *openSecretsClient) GetCandidateSummary(request models.GetCandidateSummaryRequest) (models.CandidateSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -151,7 +126,7 @@ func (o *openSecretsClient) GetCandidateSummary(request GetCandidateSummaryReque
 	return parse.ParseCandidateSummaryJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContributorsRequest) (models.CandidateContributorSummary, error) {
+func (o *openSecretsClient) GetCandidateContributors(request models.GetCandidateContributorsRequest) (models.CandidateContributorSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -169,7 +144,7 @@ func (o *openSecretsClient) GetCandidateContributors(request GetCandidateContrib
 	return parse.ParseCandidateContributorsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateIndustries(request GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error) {
+func (o *openSecretsClient) GetCandidateIndustries(request models.GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -185,6 +160,24 @@ func (o *openSecretsClient) GetCandidateIndustries(request GetCandidateIndustrie
 	}
 
 	return parse.ParseCandidateIndustriesJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return models.CandidateIndustryDetails{}, err
+	}
+
+	url := buildGetCandidateIndustryDetailsURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return models.CandidateIndustryDetails{}, err
+	}
+
+	return parse.ParseCandidateIndustryDetailsJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
@@ -215,56 +208,4 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	}
 
 	return bodyAsBytes, nil
-}
-
-func buildGetLegislatorsURL(request GetLegislatorsRequest, apiKey string) string {
-	return baseUrl + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
-}
-
-func buildGetMemberPFDURL(request GetMemberPFDRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Year != 0 {
-		builder.WriteString("&year=")
-		builder.WriteString(strconv.Itoa(request.Year))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateSummaryURL(request GetCandidateSummaryRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateContributorsURL(request GetCandidateContributorsRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
-}
-
-func buildGetCandidateIndustriesURL(request GetCandidateIndustriesRequest, apiKey string) string {
-	var builder strings.Builder
-	builder.WriteString(baseUrl + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
-
-	if request.Cycle != 0 {
-		builder.WriteString("&cycle=")
-		builder.WriteString(strconv.Itoa(request.Cycle))
-	}
-
-	return builder.String()
 }

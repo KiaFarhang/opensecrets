@@ -1,0 +1,22 @@
+{
+    "response": {
+        "candIndus": {
+            "@attributes": {
+                "cand_name": "Pelosi, Nancy",
+                "cid": "N00007360",
+                "cycle": "2020",
+                "industry": "Lobbyists",
+                "chamber": "H",
+                "party": "D",
+                "state": "California",
+                "total": "151248",
+                "indivs": "148748",
+                "pacs": "2500",
+                "rank": "7",
+                "origin": "Center for Responsive Politics",
+                "source": "http://www.opensecrets.org/industries/recips.php?Ind=K02&cycle=2020&recipdetail=H&Mem=Y&sortorder=U",
+                "last_updated": "03/22/21"
+            }
+        }
+    }
+}

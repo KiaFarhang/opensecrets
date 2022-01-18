@@ -1,6 +1,7 @@
 /*
-Package model provides data types representing responses from the OpenSecrets REST API.
-Some of the fields on these types, like Cid, are explained in detail in the OpenSecrets OpenData
+Package model provides data types representing requests to the OpenSecrets REST API, as well
+as the responses it returns.
+Some of the fields on these response types, like Cid, are explained in detail in the OpenSecrets OpenData
 User's Guide: https://www.opensecrets.org/resources/datadictionary/UserGuide.pdf
 */
 package models
