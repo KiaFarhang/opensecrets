@@ -23,25 +23,28 @@ An OpenSecretsClient is thread safe and you should use/share one throughout your
 type OpenSecretsClient interface {
 	// Provides a list of Congressional legislators for a specified subset (state or specific CID)
 	// https://www.opensecrets.org/api/?method=getLegislators&output=doc
-	GetLegislators(request models.GetLegislatorsRequest) ([]models.Legislator, error)
+	GetLegislators(request models.LegislatorsRequest) ([]models.Legislator, error)
 	// Returns data on the personal finances of a member of Congress, as well as judicial + executive branches
 	// https://www.opensecrets.org/api/?method=memPFDprofile&output=doc
-	GetMemberPFDProfile(request models.GetMemberPFDRequest) (models.MemberProfile, error)
+	GetMemberPFDProfile(request models.MemberPFDRequest) (models.MemberProfile, error)
 	// Provides summary fundraising information for a politician
 	// https://www.opensecrets.org/api/?method=candSummary&output=doc
-	GetCandidateSummary(request models.GetCandidateSummaryRequest) (models.CandidateSummary, error)
+	GetCandidateSummary(request models.CandidateSummaryRequest) (models.CandidateSummary, error)
 	// Returns top contributors to a candidate for/sitting member of Congress
 	// https://www.opensecrets.org/api/?method=candContrib&output=doc
-	GetCandidateContributors(request models.GetCandidateContributorsRequest) (models.CandidateContributorSummary, error)
+	GetCandidateContributors(request models.CandidateContributorsRequest) (models.CandidateContributorSummary, error)
 	// Provides the top 10 industries contributing to a candidate
 	// https://www.opensecrets.org/api/?method=candIndustry&output=doc
-	GetCandidateIndustries(request models.GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
+	GetCandidateIndustries(request models.CandidateIndustriesRequest) (models.CandidateIndustriesSummary, error)
 	// Provides total contributed to a candidate from an industry.
 	// https://www.opensecrets.org/api/?method=candIndByInd&output=doc
-	GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error)
+	GetCandidateIndustryDetails(request models.CandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error)
 	// Provides sector total of a candidate's receipts
 	// https://www.opensecrets.org/api/?method=candSector&output=doc
-	GetCandidateTopSectorDetails(request models.GetCandidateTopSectorsRequest) (models.CandidateTopSectorDetails, error)
+	GetCandidateTopSectorDetails(request models.CandidateTopSectorsRequest) (models.CandidateTopSectorDetails, error)
+	// Provides fundraising details for all members of a given committee from the provided industry
+	// https://www.opensecrets.org/api/?method=congCmteIndus&output=doc
+	GetCommitteeFundraisingDetails(request models.FundraisingByCongressionalCommitteeRequest) (models.CommitteeFundraisingDetails, error)
 }
 
 /*
@@ -75,7 +78,7 @@ func NewOpenSecretsClientWithHttpClient(apikey string, client OpenSecretsHttpCli
 	return &openSecretsClient{apiKey: apikey, client: client, validator: validator.New()}
 }
 
-func (o *openSecretsClient) GetLegislators(request models.GetLegislatorsRequest) ([]models.Legislator, error) {
+func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([]models.Legislator, error) {
 
 	err := o.validator.Struct(request)
 
@@ -93,7 +96,7 @@ func (o *openSecretsClient) GetLegislators(request models.GetLegislatorsRequest)
 	return parse.ParseGetLegislatorsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetMemberPFDProfile(request models.GetMemberPFDRequest) (models.MemberProfile, error) {
+func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest) (models.MemberProfile, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -111,7 +114,7 @@ func (o *openSecretsClient) GetMemberPFDProfile(request models.GetMemberPFDReque
 	return parse.ParseMemberPFDJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateSummary(request models.GetCandidateSummaryRequest) (models.CandidateSummary, error) {
+func (o *openSecretsClient) GetCandidateSummary(request models.CandidateSummaryRequest) (models.CandidateSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -129,7 +132,7 @@ func (o *openSecretsClient) GetCandidateSummary(request models.GetCandidateSumma
 	return parse.ParseCandidateSummaryJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateContributors(request models.GetCandidateContributorsRequest) (models.CandidateContributorSummary, error) {
+func (o *openSecretsClient) GetCandidateContributors(request models.CandidateContributorsRequest) (models.CandidateContributorSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -147,7 +150,7 @@ func (o *openSecretsClient) GetCandidateContributors(request models.GetCandidate
 	return parse.ParseCandidateContributorsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateIndustries(request models.GetCandidateIndustriesRequest) (models.CandidateIndustriesSummary, error) {
+func (o *openSecretsClient) GetCandidateIndustries(request models.CandidateIndustriesRequest) (models.CandidateIndustriesSummary, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -165,7 +168,7 @@ func (o *openSecretsClient) GetCandidateIndustries(request models.GetCandidateIn
 	return parse.ParseCandidateIndustriesJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateIndustryDetails(request models.GetCandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error) {
+func (o *openSecretsClient) GetCandidateIndustryDetails(request models.CandidateIndustryDetailsRequest) (models.CandidateIndustryDetails, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -183,7 +186,7 @@ func (o *openSecretsClient) GetCandidateIndustryDetails(request models.GetCandid
 	return parse.ParseCandidateIndustryDetailsJSON(responseBody)
 }
 
-func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.GetCandidateTopSectorsRequest) (models.CandidateTopSectorDetails, error) {
+func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.CandidateTopSectorsRequest) (models.CandidateTopSectorDetails, error) {
 	err := o.validator.Struct(request)
 
 	if err != nil {
@@ -199,6 +202,24 @@ func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.GetCandi
 	}
 
 	return parse.ParseCandidateTopSectorsJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetCommitteeFundraisingDetails(request models.FundraisingByCongressionalCommitteeRequest) (models.CommitteeFundraisingDetails, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return models.CommitteeFundraisingDetails{}, err
+	}
+
+	url := buildFundraisingByCongressionalCommitteeRequestURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return models.CommitteeFundraisingDetails{}, err
+	}
+
+	return parse.ParseFundraisingByCommitteeJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {

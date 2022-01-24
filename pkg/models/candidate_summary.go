@@ -1,6 +1,6 @@
 package models
 
-// Summary fundraising information for a poitician.
+// Summary fundraising information for a politician.
 type CandidateSummary struct {
 	CandidateName string  `json:"cand_name"`
 	Cid           string  `json:"cid"` // CRP ID

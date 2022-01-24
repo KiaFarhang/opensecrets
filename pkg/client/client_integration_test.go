@@ -26,7 +26,7 @@ func TestClientEndToEnd(t *testing.T) {
 	client := NewOpenSecretsClientWithHttpClient(apiKey, httpClient)
 
 	t.Run("GetLegislators", func(t *testing.T) {
-		request := models.GetLegislatorsRequest{Id: "TX"}
+		request := models.LegislatorsRequest{Id: "TX"}
 		legislators, err := client.GetLegislators(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetLegislators", err.Error())
@@ -39,7 +39,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetMemberPFDProfile", func(t *testing.T) {
-		request := models.GetMemberPFDRequest{Cid: "N00007360", Year: 2016}
+		request := models.MemberPFDRequest{Cid: "N00007360", Year: 2016}
 
 		memberProfile, err := client.GetMemberPFDProfile(request)
 
@@ -67,7 +67,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateSummary", func(t *testing.T) {
-		request := models.GetCandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
+		request := models.CandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
 		candidateSummary, err := client.GetCandidateSummary(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateSummary", err.Error())
@@ -79,7 +79,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateContributors", func(t *testing.T) {
-		request := models.GetCandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
+		request := models.CandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
 		candidateContributorSummary, err := client.GetCandidateContributors(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateContributors", err.Error())
@@ -90,7 +90,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateIndustries", func(t *testing.T) {
-		request := models.GetCandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
+		request := models.CandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
 		summary, err := client.GetCandidateIndustries(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateIndustries", err.Error())
@@ -101,7 +101,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetCandidateIndustryDetails", func(t *testing.T) {
-		request := models.GetCandidateIndustryDetailsRequest{Cid: "N00007360", Ind: "K02", Cycle: 2020}
+		request := models.CandidateIndustryDetailsRequest{Cid: "N00007360", Ind: "K02", Cycle: 2020}
 		details, err := client.GetCandidateIndustryDetails(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateIndustryDetails", err.Error())
@@ -109,13 +109,11 @@ func TestClientEndToEnd(t *testing.T) {
 
 		test.AssertStringMatches(details.Chamber, "H", t)
 		expectedTotal := float64(151248)
-		if details.Total != expectedTotal {
-			t.Errorf("Got float %f wanted %f", details.Total, expectedTotal)
-		}
+		test.AssertFloat64Matches(details.Total, expectedTotal, t)
 	})
 
 	t.Run("GetCandidateTopSectorDetails", func(t *testing.T) {
-		request := models.GetCandidateTopSectorsRequest{Cid: "N00007360", Cycle: 2020}
+		request := models.CandidateTopSectorsRequest{Cid: "N00007360", Cycle: 2020}
 		details, err := client.GetCandidateTopSectorDetails(request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateTopSectorDetails", err.Error())
@@ -129,10 +127,22 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertStringMatches(firstSector.Id, expectedSectorId, t)
 
 		expectedSectorIndividuals := float64(125816)
-		if firstSector.Individuals != expectedSectorIndividuals {
-			t.Errorf("Got float %f wanted %f", firstSector.Individuals, expectedSectorIndividuals)
+		test.AssertFloat64Matches(firstSector.Individuals, expectedSectorIndividuals, t)
+	})
+
+	t.Run("GetCommitteeFundraisingDetails", func(t *testing.T) {
+		request := models.FundraisingByCongressionalCommitteeRequest{Committee: "HARM", Industry: "F10", CongressNumber: 116}
+		details, err := client.GetCommitteeFundraisingDetails(request)
+		if err != nil {
+			t.Fatalf("Got error %s when calling GetCommitteeFundraisingDetails", err.Error())
 		}
 
+		test.AssertStringMatches(details.CommitteeName, "HARM", t)
+		test.AssertSliceLength(len(details.Members), 56, t)
+
+		firstMember := details.Members[0]
+		test.AssertStringMatches(firstMember.State, "New York", t)
+		test.AssertFloat64Matches(firstMember.Pacs, float64(27000), t)
 	})
 
 }
