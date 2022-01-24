@@ -99,6 +99,21 @@ func TestGetCandidateTopSectorDetails(t *testing.T) {
 	})
 }
 
+func TestGetCommitteeFundraisingDetails(t *testing.T) {
+	t.Run("Returns an error if the request doesn't have a committee ID", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := models.FundraisingByCongressionalCommitteeRequest{Industry: "ABC"}
+		_, err := client.GetCommitteeFundraisingDetails(request)
+		test.AssertErrorExists(err, t)
+	})
+	t.Run("Returns an error if the request doesn't have an industry ID", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := models.FundraisingByCongressionalCommitteeRequest{Committee: "HARM"}
+		_, err := client.GetCommitteeFundraisingDetails(request)
+		test.AssertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")

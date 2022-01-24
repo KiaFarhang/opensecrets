@@ -130,4 +130,19 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertFloat64Matches(firstSector.Individuals, expectedSectorIndividuals, t)
 	})
 
+	t.Run("GetCommitteeFundraisingDetails", func(t *testing.T) {
+		request := models.FundraisingByCongressionalCommitteeRequest{Committee: "HARM", Industry: "F10", CongressNumber: 116}
+		details, err := client.GetCommitteeFundraisingDetails(request)
+		if err != nil {
+			t.Fatalf("Got error %s when calling GetCommitteeFundraisingDetails", err.Error())
+		}
+
+		test.AssertStringMatches(details.CommitteeName, "HARM", t)
+		test.AssertSliceLength(len(details.Members), 56, t)
+
+		firstMember := details.Members[0]
+		test.AssertStringMatches(firstMember.State, "New York", t)
+		test.AssertFloat64Matches(firstMember.Pacs, float64(27000), t)
+	})
+
 }

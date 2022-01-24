@@ -13,7 +13,7 @@ This is a Go client for the [OpenSecrets campaign finance API.](https://www.open
 | candIndustry      | GetCandidateIndustries   | :heavy_check_mark:      |
 | candIndByInd      | GetCandidateIndustryDetails | :heavy_check_mark:   |
 | candSector        | GetCandidateTopSectorDetails | :heavy_check_mark:   |
-| congCmteIndus     |                          | TODO   |
+| congCmteIndus     | GetCommitteeFundraisingDetails | :heavy_check_mark:   |
 | getOrgs           |                          | TODO   |
 | orgSummary        |                          | TODO   |
 | independentExpend |                          | TODO   |
