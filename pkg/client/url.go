@@ -96,3 +96,7 @@ func buildFundraisingByCongressionalCommitteeRequestURL(request models.Fundraisi
 
 	return builder.String()
 }
+
+func buildOrganizationSearchURL(request models.OrganizationSearch, apiKey string) string {
+	return baseUrl + "?method=getOrgs&output=json&apikey=" + apiKey + "&org=" + request.Name
+}

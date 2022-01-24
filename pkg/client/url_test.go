@@ -144,3 +144,13 @@ func TestBuildFundraisingByCongressionalCommitteeRequestURL(t *testing.T) {
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
+
+func TestBuildOrganizationSearchURL(t *testing.T) {
+	t.Run("Includes organization query passed in request", func(t *testing.T) {
+		org := "Foo"
+		request := models.OrganizationSearch{Name: org}
+		url := buildOrganizationSearchURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=getOrgs&output=json&apikey=" + apiKey + "&org=" + org
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}
