@@ -9,7 +9,7 @@ import (
 
 const apiKey string = "1"
 
-func TestBuildGetLegislatorsURL(t *testing.T) {
+func TestBuildLegislatorsURL(t *testing.T) {
 	t.Run("Includes id passed in with request", func(t *testing.T) {
 		id := "NJ"
 		url := buildLegislatorsURL(models.LegislatorsRequest{Id: id}, apiKey)
@@ -18,7 +18,7 @@ func TestBuildGetLegislatorsURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetMemberPFDURL(t *testing.T) {
+func TestBuildMemberPFDURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.MemberPFDRequest{Cid: cid}
@@ -36,7 +36,7 @@ func TestBuildGetMemberPFDURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateSummaryURL(t *testing.T) {
+func TestBuildCandidateSummaryURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateSummaryRequest{Cid: cid}
@@ -54,7 +54,7 @@ func TestBuildGetCandidateSummaryURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateContributorsURL(t *testing.T) {
+func TestBuildCandidateContributorsURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateContributorsRequest{Cid: cid}
@@ -72,7 +72,7 @@ func TestBuildGetCandidateContributorsURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateIndustriesURL(t *testing.T) {
+func TestBuildCandidateIndustriesURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateIndustriesRequest{Cid: cid}
@@ -89,7 +89,7 @@ func TestBuildGetCandidateIndustriesURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateIndustryDetailsURL(t *testing.T) {
+func TestBuildCandidateIndustryDetailsURL(t *testing.T) {
 	t.Run("Includes cid and industry code passed in requerst", func(t *testing.T) {
 		cid := "N00007360"
 		industryCode := "K02"
@@ -108,7 +108,7 @@ func TestBuildGetCandidateIndustryDetailsURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateTopSectorsURL(t *testing.T) {
+func TestBuildCandidateTopSectorsURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateTopSectorsRequest{Cid: cid}
