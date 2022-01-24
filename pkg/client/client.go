@@ -93,7 +93,7 @@ func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([
 		return nil, err
 	}
 
-	return parse.ParseGetLegislatorsJSON(responseBody)
+	return parse.ParseLegislatorsJSON(responseBody)
 }
 
 func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest) (models.MemberProfile, error) {

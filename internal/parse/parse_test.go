@@ -7,10 +7,10 @@ import (
 	"github.com/KiaFarhang/opensecrets/internal/test"
 )
 
-func TestParseGetLegislatorsJSON(t *testing.T) {
+func TestParseLegislatorsJSON(t *testing.T) {
 	t.Run("Correctly parses valid JSON", func(t *testing.T) {
 		json := []byte(`{"response": {"legislator": [{"@attributes": {"first_elected": "2000"}}]}}`)
-		legislators, err := ParseGetLegislatorsJSON(json)
+		legislators, err := ParseLegislatorsJSON(json)
 		test.AssertNoError(err, t)
 
 		test.AssertSliceLength(len(legislators), 1, t)
@@ -21,7 +21,7 @@ func TestParseGetLegislatorsJSON(t *testing.T) {
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
-		_, err := ParseGetLegislatorsJSON(json)
+		_, err := ParseLegislatorsJSON(json)
 		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }

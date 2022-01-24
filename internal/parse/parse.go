@@ -9,7 +9,7 @@ import (
 
 const UnableToParseErrorMessage string = "unable to parse OpenSecrets response body"
 
-func ParseGetLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
+func ParseLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
 
 	type legislatorResponse struct {
 		Response struct {
