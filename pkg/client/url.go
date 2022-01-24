@@ -9,11 +9,11 @@ import (
 
 const baseUrl string = "http://www.opensecrets.org/api/"
 
-func buildGetLegislatorsURL(request models.GetLegislatorsRequest, apiKey string) string {
+func buildGetLegislatorsURL(request models.LegislatorsRequest, apiKey string) string {
 	return baseUrl + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + request.Id
 }
 
-func buildGetMemberPFDURL(request models.GetMemberPFDRequest, apiKey string) string {
+func buildGetMemberPFDURL(request models.MemberPFDRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
@@ -25,7 +25,7 @@ func buildGetMemberPFDURL(request models.GetMemberPFDRequest, apiKey string) str
 	return builder.String()
 }
 
-func buildGetCandidateSummaryURL(request models.GetCandidateSummaryRequest, apiKey string) string {
+func buildGetCandidateSummaryURL(request models.CandidateSummaryRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
@@ -37,7 +37,7 @@ func buildGetCandidateSummaryURL(request models.GetCandidateSummaryRequest, apiK
 	return builder.String()
 }
 
-func buildGetCandidateContributorsURL(request models.GetCandidateContributorsRequest, apiKey string) string {
+func buildGetCandidateContributorsURL(request models.CandidateContributorsRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
@@ -49,7 +49,7 @@ func buildGetCandidateContributorsURL(request models.GetCandidateContributorsReq
 	return builder.String()
 }
 
-func buildGetCandidateIndustriesURL(request models.GetCandidateIndustriesRequest, apiKey string) string {
+func buildGetCandidateIndustriesURL(request models.CandidateIndustriesRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=candIndustry&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
@@ -61,7 +61,7 @@ func buildGetCandidateIndustriesURL(request models.GetCandidateIndustriesRequest
 	return builder.String()
 }
 
-func buildGetCandidateIndustryDetailsURL(request models.GetCandidateIndustryDetailsRequest, apiKey string) string {
+func buildGetCandidateIndustryDetailsURL(request models.CandidateIndustryDetailsRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=candIndByInd&output=json&apikey=" + apiKey + "&cid=" + request.Cid + "&ind=" + request.Ind)
 
@@ -73,7 +73,7 @@ func buildGetCandidateIndustryDetailsURL(request models.GetCandidateIndustryDeta
 	return builder.String()
 }
 
-func buildGetCandidatTopSectorsURL(request models.GetCandidateTopSectorsRequest, apiKey string) string {
+func buildGetCandidatTopSectorsURL(request models.CandidateTopSectorsRequest, apiKey string) string {
 	var builder strings.Builder
 	builder.WriteString(baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
 
