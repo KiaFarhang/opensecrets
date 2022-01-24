@@ -84,3 +84,15 @@ func buildGetCandidatTopSectorsURL(request models.GetCandidateTopSectorsRequest,
 
 	return builder.String()
 }
+
+func buildFundraisingByCongressionalCommitteeRequestURL(request models.FundraisingByCongressionalCommitteeRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(baseUrl + "?method=congCmteIndus&output=json&apikey=" + apiKey + "&cmte=" + request.Committee + "&indus=" + request.Industry)
+
+	if request.CongressNumber != 0 {
+		builder.WriteString("&congno=")
+		builder.WriteString(strconv.Itoa(request.CongressNumber))
+	}
+
+	return builder.String()
+}

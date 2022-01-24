@@ -34,3 +34,9 @@ type GetCandidateTopSectorsRequest struct {
 	Cid   string `validate:"required"` // Required. CRP Candidate ID
 	Cycle int    // Optional; defaults to most recent cycle
 }
+
+type FundraisingByCongressionalCommitteeRequest struct {
+	Committee      string `validate:"required"` // Required. Committee ID in CQ format
+	Industry       string `validate:"required"` // Required. Industry code
+	CongressNumber int    // Optional, defaults to most recent Congress
+}

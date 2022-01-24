@@ -124,3 +124,23 @@ func TestBuildGetCandidateTopSectorsURL(t *testing.T) {
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
+
+func TestBuildFundraisingByCongressionalCommitteeRequestURL(t *testing.T) {
+	t.Run("Includes committee ID and industry code passed in request", func(t *testing.T) {
+		committeeId := "HARM"
+		industryCode := "F10"
+		request := models.FundraisingByCongressionalCommitteeRequest{Committee: committeeId, Industry: industryCode}
+		url := buildFundraisingByCongressionalCommitteeRequestURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=congCmteIndus&output=json&apikey=" + apiKey + "&cmte=" + committeeId + "&indus=" + industryCode
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes congress number passed in request if it's a non-zero value", func(t *testing.T) {
+		committeeId := "HARM"
+		industryCode := "F10"
+		congressNumber := 116
+		request := models.FundraisingByCongressionalCommitteeRequest{Committee: committeeId, Industry: industryCode, CongressNumber: congressNumber}
+		url := buildFundraisingByCongressionalCommitteeRequestURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=congCmteIndus&output=json&apikey=" + apiKey + "&cmte=" + committeeId + "&indus=" + industryCode + "&congno=116"
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}
