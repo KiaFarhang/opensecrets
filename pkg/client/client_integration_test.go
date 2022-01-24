@@ -114,4 +114,25 @@ func TestClientEndToEnd(t *testing.T) {
 		}
 	})
 
+	t.Run("GetCandidateTopSectorDetails", func(t *testing.T) {
+		request := models.GetCandidateTopSectorsRequest{Cid: "N00007360", Cycle: 2020}
+		details, err := client.GetCandidateTopSectorDetails(request)
+		if err != nil {
+			t.Fatalf("Got error %s calling GetCandidateTopSectorDetails", err.Error())
+		}
+
+		test.AssertStringMatches(details.CandidateName, "Nancy Pelosi (D)", t)
+		test.AssertSliceLength(len(details.Sectors), 13, t)
+		firstSector := details.Sectors[0]
+
+		expectedSectorId := "A"
+		test.AssertStringMatches(firstSector.Id, expectedSectorId, t)
+
+		expectedSectorIndividuals := float64(125816)
+		if firstSector.Individuals != expectedSectorIndividuals {
+			t.Errorf("Got float %f wanted %f", firstSector.Individuals, expectedSectorIndividuals)
+		}
+
+	})
+
 }

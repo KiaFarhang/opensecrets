@@ -107,3 +107,20 @@ func TestBuildGetCandidateIndustryDetailsURL(t *testing.T) {
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
+
+func TestBuildGetCandidateTopSectorsURL(t *testing.T) {
+	t.Run("Includes cid passed in request", func(t *testing.T) {
+		cid := "N00007360"
+		request := models.GetCandidateTopSectorsRequest{Cid: cid}
+		url := buildGetCandidatTopSectorsURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + cid
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
+		cid := "N00007360"
+		request := models.GetCandidateTopSectorsRequest{Cid: cid, Cycle: 2020}
+		url := buildGetCandidatTopSectorsURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + cid + "&cycle=2020"
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}

@@ -72,3 +72,15 @@ func buildGetCandidateIndustryDetailsURL(request models.GetCandidateIndustryDeta
 
 	return builder.String()
 }
+
+func buildGetCandidatTopSectorsURL(request models.GetCandidateTopSectorsRequest, apiKey string) string {
+	var builder strings.Builder
+	builder.WriteString(baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + request.Cid)
+
+	if request.Cycle != 0 {
+		builder.WriteString("&cycle=")
+		builder.WriteString(strconv.Itoa(request.Cycle))
+	}
+
+	return builder.String()
+}

@@ -1,0 +1,133 @@
+{
+    "response": {
+        "sectors": {
+            "@attributes": {
+                "cand_name": "Nancy Pelosi (D)",
+                "cid": "N00007360",
+                "cycle": "2020",
+                "origin": "Center for Responsive Politics",
+                "source": "http://www.opensecrets.org/member-of-congress/industries?cid=N00007360&cycle=2020",
+                "last_updated": "03/22/2021"
+            },
+            "sector": [
+                {
+                    "@attributes": {
+                        "sector_name": "Agribusiness",
+                        "sectorid": "A",
+                        "indivs": "125816",
+                        "pacs": "85000",
+                        "total": "210816"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Communic/Electronics",
+                        "sectorid": "B",
+                        "indivs": "1128114",
+                        "pacs": "160500",
+                        "total": "1288614"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Construction",
+                        "sectorid": "C",
+                        "indivs": "244324",
+                        "pacs": "38500",
+                        "total": "282824"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Defense",
+                        "sectorid": "D",
+                        "indivs": "41713",
+                        "pacs": "51000",
+                        "total": "92713"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Energy/Nat Resource",
+                        "sectorid": "E",
+                        "indivs": "98522",
+                        "pacs": "68000",
+                        "total": "166522"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Finance/Insur/RealEst",
+                        "sectorid": "F",
+                        "indivs": "1563411",
+                        "pacs": "381000",
+                        "total": "1944411"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Health",
+                        "sectorid": "H",
+                        "indivs": "1251965",
+                        "pacs": "379000",
+                        "total": "1630965"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Lawyers & Lobbyists",
+                        "sectorid": "K",
+                        "indivs": "846343",
+                        "pacs": "82500",
+                        "total": "928843"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Transportation",
+                        "sectorid": "M",
+                        "indivs": "162495",
+                        "pacs": "70500",
+                        "total": "232995"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Misc Business",
+                        "sectorid": "N",
+                        "indivs": "1248683",
+                        "pacs": "162000",
+                        "total": "1410683"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Labor",
+                        "sectorid": "P",
+                        "indivs": "24594",
+                        "pacs": "306000",
+                        "total": "330594"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Ideology/Single-Issue",
+                        "sectorid": "Q",
+                        "indivs": "3086239",
+                        "pacs": "93166",
+                        "total": "3179405"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "sector_name": "Other",
+                        "sectorid": "W",
+                        "indivs": "6954918",
+                        "pacs": "12500",
+                        "total": "6967418"
+                    }
+                }
+            ]
+        }
+    }
+}
