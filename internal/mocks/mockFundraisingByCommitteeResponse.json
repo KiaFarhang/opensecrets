@@ -1,0 +1,632 @@
+{
+    "response": {
+        "committee": {
+            "@attributes": {
+                "committee_name": "HARM",
+                "industry": "Real Estate",
+                "congno": "116",
+                "origin": "Center for Responsive Politics",
+                "source": "https://www.opensecrets.org/cong-cmtes/profiles?cmte=HARM&congno=116",
+                "last_updated": "03/22/21"
+            },
+            "member": [
+                {
+                    "@attributes": {
+                        "member_name": "Stefanik, Elise",
+                        "cid": "N00035523",
+                        "party": "R",
+                        "state": "New York",
+                        "total": "402408",
+                        "indivs": "375408",
+                        "pacs": "27000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Slotkin, Elissa",
+                        "cid": "N00041357",
+                        "party": "D",
+                        "state": "Michigan",
+                        "total": "320497",
+                        "indivs": "314497",
+                        "pacs": "6000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Gabbard, Tulsi",
+                        "cid": "N00033281",
+                        "party": "D",
+                        "state": "",
+                        "total": "304212",
+                        "indivs": "304212",
+                        "pacs": "0"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Kim, Andy",
+                        "cid": "N00041370",
+                        "party": "D",
+                        "state": "New Jersey",
+                        "total": "281510",
+                        "indivs": "266010",
+                        "pacs": "15500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Sherrill, Mikie",
+                        "cid": "N00041154",
+                        "party": "D",
+                        "state": "New Jersey",
+                        "total": "251947",
+                        "indivs": "231447",
+                        "pacs": "20500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Luria, Elaine",
+                        "cid": "N00042293",
+                        "party": "D",
+                        "state": "Virginia",
+                        "total": "249179",
+                        "indivs": "242179",
+                        "pacs": "7000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Small, Xochitl Torres",
+                        "cid": "N00042467",
+                        "party": "D",
+                        "state": "New Mexico",
+                        "total": "230987",
+                        "indivs": "210987",
+                        "pacs": "20000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Crow, Jason",
+                        "cid": "N00040876",
+                        "party": "D",
+                        "state": "Colorado",
+                        "total": "187733",
+                        "indivs": "178733",
+                        "pacs": "9000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Cheney, Liz",
+                        "cid": "N00035504",
+                        "party": "R",
+                        "state": "Wyoming",
+                        "total": "183843",
+                        "indivs": "139843",
+                        "pacs": "44000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Horn, Kendra",
+                        "cid": "N00041394",
+                        "party": "D",
+                        "state": "Oklahoma",
+                        "total": "167558",
+                        "indivs": "155558",
+                        "pacs": "12000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Byrne, Bradley",
+                        "cid": "N00035380",
+                        "party": "R",
+                        "state": "Alabama",
+                        "total": "160073",
+                        "indivs": "144073",
+                        "pacs": "16000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Cisneros, Gil",
+                        "cid": "N00041464",
+                        "party": "D",
+                        "state": "California",
+                        "total": "139347",
+                        "indivs": "129347",
+                        "pacs": "10000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Bacon, Donald John",
+                        "cid": "N00037049",
+                        "party": "R",
+                        "state": "Nebraska",
+                        "total": "133812",
+                        "indivs": "108312",
+                        "pacs": "25500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Wittman, Rob",
+                        "cid": "N00029459",
+                        "party": "R",
+                        "state": "Virginia",
+                        "total": "132842",
+                        "indivs": "122342",
+                        "pacs": "10500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Moulton, Seth",
+                        "cid": "N00035431",
+                        "party": "D",
+                        "state": "Massachusetts",
+                        "total": "123728",
+                        "indivs": "117228",
+                        "pacs": "6500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Norcross, Don",
+                        "cid": "N00036154",
+                        "party": "D",
+                        "state": "New Jersey",
+                        "total": "120791",
+                        "indivs": "97291",
+                        "pacs": "23500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Gallagher, Mike",
+                        "cid": "N00039330",
+                        "party": "R",
+                        "state": "Wisconsin",
+                        "total": "119301",
+                        "indivs": "108801",
+                        "pacs": "10500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Golden, Jared",
+                        "cid": "N00041668",
+                        "party": "D",
+                        "state": "Maine",
+                        "total": "115225",
+                        "indivs": "109225",
+                        "pacs": "6000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Bergman, John",
+                        "cid": "N00039533",
+                        "party": "R",
+                        "state": "Michigan",
+                        "total": "114920",
+                        "indivs": "96420",
+                        "pacs": "18500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Houlahan, Chrissy",
+                        "cid": "N00040949",
+                        "party": "D",
+                        "state": "Pennsylvania",
+                        "total": "102366",
+                        "indivs": "81366",
+                        "pacs": "21000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Turner, Michael R",
+                        "cid": "N00025175",
+                        "party": "R",
+                        "state": "Ohio",
+                        "total": "96409",
+                        "indivs": "86409",
+                        "pacs": "10000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Khanna, Ro",
+                        "cid": "N00026427",
+                        "party": "D",
+                        "state": "California",
+                        "total": "84334",
+                        "indivs": "84334",
+                        "pacs": "0"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Wilson, Joe",
+                        "cid": "N00024809",
+                        "party": "R",
+                        "state": "South Carolina",
+                        "total": "83320",
+                        "indivs": "71820",
+                        "pacs": "11500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Trahan, Lori",
+                        "cid": "N00041808",
+                        "party": "D",
+                        "state": "Massachusetts",
+                        "total": "79404",
+                        "indivs": "77404",
+                        "pacs": "2000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Gaetz, Matt",
+                        "cid": "N00039503",
+                        "party": "R",
+                        "state": "Florida",
+                        "total": "78537",
+                        "indivs": "77537",
+                        "pacs": "1000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Carbajal, Salud",
+                        "cid": "N00037015",
+                        "party": "D",
+                        "state": "California",
+                        "total": "76634",
+                        "indivs": "69634",
+                        "pacs": "7000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Brown, Anthony",
+                        "cid": "N00036999",
+                        "party": "D",
+                        "state": "Maryland",
+                        "total": "72397",
+                        "indivs": "54897",
+                        "pacs": "17500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Hill, Katie",
+                        "cid": "N00040644",
+                        "party": "D",
+                        "state": "California",
+                        "total": "67978",
+                        "indivs": "66978",
+                        "pacs": "1000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Waltz, Michael",
+                        "cid": "N00042403",
+                        "party": "R",
+                        "state": "Florida",
+                        "total": "62780",
+                        "indivs": "55780",
+                        "pacs": "7000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Garamendi, John",
+                        "cid": "N00030856",
+                        "party": "D",
+                        "state": "California",
+                        "total": "61020",
+                        "indivs": "46520",
+                        "pacs": "14500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Hartzler, Vicky",
+                        "cid": "N00031005",
+                        "party": "R",
+                        "state": "Missouri",
+                        "total": "60447",
+                        "indivs": "53447",
+                        "pacs": "7000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Escobar, Veronica",
+                        "cid": "N00041702",
+                        "party": "D",
+                        "state": "Texas",
+                        "total": "60018",
+                        "indivs": "46018",
+                        "pacs": "14000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Rogers, Mike D",
+                        "cid": "N00024759",
+                        "party": "R",
+                        "state": "Alabama",
+                        "total": "56000",
+                        "indivs": "40000",
+                        "pacs": "16000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Cooper, Jim",
+                        "cid": "N00003132",
+                        "party": "D",
+                        "state": "Tennessee",
+                        "total": "55800",
+                        "indivs": "40800",
+                        "pacs": "15000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Gallego, Ruben",
+                        "cid": "N00036097",
+                        "party": "D",
+                        "state": "Arizona",
+                        "total": "53432",
+                        "indivs": "33932",
+                        "pacs": "19500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Brooks, Mo",
+                        "cid": "N00030910",
+                        "party": "R",
+                        "state": "Alabama",
+                        "total": "49680",
+                        "indivs": "38680",
+                        "pacs": "11000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Graves, Sam",
+                        "cid": "N00013323",
+                        "party": "R",
+                        "state": "Missouri",
+                        "total": "47620",
+                        "indivs": "17620",
+                        "pacs": "30000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Banks, Jim",
+                        "cid": "N00037185",
+                        "party": "R",
+                        "state": "Indiana",
+                        "total": "42533",
+                        "indivs": "24533",
+                        "pacs": "18000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Speier, Jackie",
+                        "cid": "N00029649",
+                        "party": "D",
+                        "state": "California",
+                        "total": "41602",
+                        "indivs": "32102",
+                        "pacs": "9500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Haaland, Debra",
+                        "cid": "N00040933",
+                        "party": "D",
+                        "state": "New Mexico",
+                        "total": "39469",
+                        "indivs": "32469",
+                        "pacs": "7000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Smith, Adam",
+                        "cid": "N00007833",
+                        "party": "D",
+                        "state": "Washington",
+                        "total": "36850",
+                        "indivs": "23850",
+                        "pacs": "13000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Langevin, Jim",
+                        "cid": "N00009724",
+                        "party": "D",
+                        "state": "Rhode Island",
+                        "total": "29913",
+                        "indivs": "21913",
+                        "pacs": "8000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Keating, Bill",
+                        "cid": "N00031933",
+                        "party": "D",
+                        "state": "Massachusetts",
+                        "total": "27681",
+                        "indivs": "14681",
+                        "pacs": "13000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Larsen, Rick",
+                        "cid": "N00009759",
+                        "party": "D",
+                        "state": "Washington",
+                        "total": "19985",
+                        "indivs": "10485",
+                        "pacs": "9500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Courtney, Joe",
+                        "cid": "N00024842",
+                        "party": "D",
+                        "state": "Connecticut",
+                        "total": "18675",
+                        "indivs": "8175",
+                        "pacs": "10500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Lamborn, Douglas L",
+                        "cid": "N00028133",
+                        "party": "R",
+                        "state": "Colorado",
+                        "total": "18000",
+                        "indivs": "8500",
+                        "pacs": "9500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Kelly, Trent",
+                        "cid": "N00037003",
+                        "party": "R",
+                        "state": "Mississippi",
+                        "total": "17408",
+                        "indivs": "7908",
+                        "pacs": "9500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Thornberry, Mac",
+                        "cid": "N00006052",
+                        "party": "R",
+                        "state": "Texas",
+                        "total": "17250",
+                        "indivs": "16250",
+                        "pacs": "1000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Scott, Austin",
+                        "cid": "N00032457",
+                        "party": "R",
+                        "state": "Georgia",
+                        "total": "16650",
+                        "indivs": "10650",
+                        "pacs": "6000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Vela, Filemon",
+                        "cid": "N00034349",
+                        "party": "D",
+                        "state": "Texas",
+                        "total": "15000",
+                        "indivs": "0",
+                        "pacs": "15000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Cook, Paul",
+                        "cid": "N00034224",
+                        "party": "R",
+                        "state": "California",
+                        "total": "11953",
+                        "indivs": "10953",
+                        "pacs": "1000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Desjarlais, Scott",
+                        "cid": "N00030957",
+                        "party": "R",
+                        "state": "Tennessee",
+                        "total": "9000",
+                        "indivs": "3000",
+                        "pacs": "6000"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Mitchell, Paul",
+                        "cid": "N00036274",
+                        "party": "R",
+                        "state": "Michigan",
+                        "total": "4000",
+                        "indivs": "2500",
+                        "pacs": "1500"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Conaway, Mike",
+                        "cid": "N00026041",
+                        "party": "R",
+                        "state": "Texas",
+                        "total": "4000",
+                        "indivs": "4000",
+                        "pacs": "0"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Davis, Susan",
+                        "cid": "N00009604",
+                        "party": "D",
+                        "state": "California",
+                        "total": "1025",
+                        "indivs": "1025",
+                        "pacs": "0"
+                    }
+                },
+                {
+                    "@attributes": {
+                        "member_name": "Abraham, Ralph",
+                        "cid": "N00036633",
+                        "party": "R",
+                        "state": "Louisiana",
+                        "total": "1000",
+                        "indivs": "0",
+                        "pacs": "1000"
+                    }
+                }
+            ]
+        }
+    }
+}

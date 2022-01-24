@@ -212,3 +212,31 @@ func TestParseCandidateTopSectorsJSON(t *testing.T) {
 		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
+
+func TestParseFundraisingByCommitteeJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("../mocks/mockFundraisingByCommitteeResponse.json")
+		test.AssertNoError(err, t)
+
+		details, err := ParseFundraisingByCommitteeJSON(json)
+		test.AssertNoError(err, t)
+
+		test.AssertStringMatches(details.Industry, "Real Estate", t)
+		test.AssertIntMatches(details.CongressNumber, 116, t)
+
+		test.AssertSliceLength(len(details.Members), 56, t)
+
+		firstMember := details.Members[0]
+
+		test.AssertStringMatches(firstMember.Name, "Stefanik, Elise", t)
+		expectedTotal := float64(402408)
+		if firstMember.Total != expectedTotal {
+			t.Errorf("Got float %f wanted %f", firstMember.Total, expectedTotal)
+		}
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := ParseFundraisingByCommitteeJSON(json)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
+	})
+}

@@ -213,3 +213,31 @@ func ParseCandidateTopSectorsJSON(jsonBody []byte) (models.CandidateTopSectorDet
 
 	return details, nil
 }
+
+func ParseFundraisingByCommitteeJSON(jsonBody []byte) (models.CommitteeFundraisingDetails, error) {
+	type fundraisingByCommitteeResponse struct {
+		Response struct {
+			Wrapper struct {
+				CommitteeDetails models.CommitteeFundraisingDetails `json:"@attributes"`
+				MemberList       []struct {
+					Member models.CommitteeMember `json:"@attributes"`
+				} `json:"member"`
+			} `json:"committee"`
+		} `json:"response"`
+	}
+
+	var responseWrapper fundraisingByCommitteeResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return models.CommitteeFundraisingDetails{}, errors.New(UnableToParseErrorMessage)
+	}
+
+	details := responseWrapper.Response.Wrapper.CommitteeDetails
+
+	for _, member := range responseWrapper.Response.Wrapper.MemberList {
+		details.Members = append(details.Members, member.Member)
+	}
+
+	return details, nil
+}
