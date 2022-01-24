@@ -38,6 +38,13 @@ func AssertIntMatches(got, wanted int, t *testing.T) {
 	}
 }
 
+func AssertFloat64Matches(got, wanted float64, t *testing.T) {
+	t.Helper()
+	if got != wanted {
+		t.Errorf("Got float %f wanted %f", got, wanted)
+	}
+}
+
 func AssertSliceLength(got, wanted int, t *testing.T) {
 	t.Helper()
 	if got != wanted {

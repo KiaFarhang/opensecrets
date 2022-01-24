@@ -117,10 +117,7 @@ func TestParseCandidateContributorsJSON(t *testing.T) {
 
 		expectedFirstContributorTotal := float64(130682)
 
-		if firstContributor.Total != expectedFirstContributorTotal {
-			t.Errorf("Got float %f wanted %f", firstContributor.Total, expectedFirstContributorTotal)
-		}
-
+		test.AssertFloat64Matches(firstContributor.Total, expectedFirstContributorTotal, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
@@ -148,9 +145,7 @@ func TestParseCandidateIndustriesJSON(t *testing.T) {
 		test.AssertStringMatches(topIndustry.IndustryName, expectedIndustryName, t)
 
 		expectedTotal := float64(312081)
-		if topIndustry.Total != expectedTotal {
-			t.Errorf("Got float %f wanted %f", topIndustry.Total, expectedTotal)
-		}
+		test.AssertFloat64Matches(topIndustry.Total, expectedTotal, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
@@ -171,9 +166,7 @@ func TestParseCandidateIndustryDetailsJSON(t *testing.T) {
 		test.AssertStringMatches(details.Chamber, expectedChamber, t)
 
 		expectedTotal := float64(151248)
-		if details.Total != expectedTotal {
-			t.Errorf("Got float %f wanted %f", details.Total, expectedTotal)
-		}
+		test.AssertFloat64Matches(details.Total, expectedTotal, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
@@ -201,10 +194,7 @@ func TestParseCandidateTopSectorsJSON(t *testing.T) {
 		test.AssertStringMatches(firstSector.Id, expectedSectorId, t)
 
 		expectedSectorIndividuals := float64(125816)
-		if firstSector.Individuals != expectedSectorIndividuals {
-			t.Errorf("Got float %f wanted %f", firstSector.Individuals, expectedSectorIndividuals)
-		}
-
+		test.AssertFloat64Matches(firstSector.Individuals, expectedSectorIndividuals, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)
@@ -230,9 +220,7 @@ func TestParseFundraisingByCommitteeJSON(t *testing.T) {
 
 		test.AssertStringMatches(firstMember.Name, "Stefanik, Elise", t)
 		expectedTotal := float64(402408)
-		if firstMember.Total != expectedTotal {
-			t.Errorf("Got float %f wanted %f", firstMember.Total, expectedTotal)
-		}
+		test.AssertFloat64Matches(firstMember.Total, expectedTotal, t)
 	})
 	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
 		json := []byte(`GARBAGE`)

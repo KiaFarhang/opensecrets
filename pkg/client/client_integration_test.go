@@ -109,9 +109,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 		test.AssertStringMatches(details.Chamber, "H", t)
 		expectedTotal := float64(151248)
-		if details.Total != expectedTotal {
-			t.Errorf("Got float %f wanted %f", details.Total, expectedTotal)
-		}
+		test.AssertFloat64Matches(details.Total, expectedTotal, t)
 	})
 
 	t.Run("GetCandidateTopSectorDetails", func(t *testing.T) {
@@ -129,10 +127,7 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertStringMatches(firstSector.Id, expectedSectorId, t)
 
 		expectedSectorIndividuals := float64(125816)
-		if firstSector.Individuals != expectedSectorIndividuals {
-			t.Errorf("Got float %f wanted %f", firstSector.Individuals, expectedSectorIndividuals)
-		}
-
+		test.AssertFloat64Matches(firstSector.Individuals, expectedSectorIndividuals, t)
 	})
 
 }
