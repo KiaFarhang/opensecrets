@@ -85,7 +85,7 @@ func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([
 	if err != nil {
 		return nil, err
 	}
-	url := buildGetLegislatorsURL(request, o.apiKey)
+	url := buildLegislatorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -103,7 +103,7 @@ func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest)
 		return models.MemberProfile{}, err
 	}
 
-	url := buildGetMemberPFDURL(request, o.apiKey)
+	url := buildMemberPFDURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -121,7 +121,7 @@ func (o *openSecretsClient) GetCandidateSummary(request models.CandidateSummaryR
 		return models.CandidateSummary{}, err
 	}
 
-	url := buildGetCandidateSummaryURL(request, o.apiKey)
+	url := buildCandidateSummaryURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -139,7 +139,7 @@ func (o *openSecretsClient) GetCandidateContributors(request models.CandidateCon
 		return models.CandidateContributorSummary{}, err
 	}
 
-	url := buildGetCandidateContributorsURL(request, o.apiKey)
+	url := buildCandidateContributorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -175,7 +175,7 @@ func (o *openSecretsClient) GetCandidateIndustryDetails(request models.Candidate
 		return models.CandidateIndustryDetails{}, err
 	}
 
-	url := buildGetCandidateIndustryDetailsURL(request, o.apiKey)
+	url := buildCandidateIndustryDetailsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -193,7 +193,7 @@ func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.Candidat
 		return models.CandidateTopSectorDetails{}, err
 	}
 
-	url := buildGetCandidatTopSectorsURL(request, o.apiKey)
+	url := buildCandidateTopSectorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
