@@ -1,0 +1,66 @@
+{
+    "response": {
+        "organization": [
+            {
+                "@attributes": {
+                    "orgid": "D000070392",
+                    "orgname": "Goldman Environmental Prize"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000043736",
+                    "orgname": "Goldman Insurance Services"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000001046",
+                    "orgname": "Goldman Properties"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000000085",
+                    "orgname": "Goldman Sachs"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000034114",
+                    "orgname": "Goldman, Antonetti & Cordova"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000052454",
+                    "orgname": "J Goldman & Co"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000062053",
+                    "orgname": "Kongsgaard-Goldman Foundation"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000063366",
+                    "orgname": "Shapiro, Goldman et al"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000065090",
+                    "orgname": "Sol Goldman Investments"
+                }
+            },
+            {
+                "@attributes": {
+                    "orgid": "D000031055",
+                    "orgname": "Wilentz, Goldman & Spitzer"
+                }
+            }
+        ]
+    }
+}
