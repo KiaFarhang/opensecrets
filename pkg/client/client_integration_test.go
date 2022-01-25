@@ -145,4 +145,16 @@ func TestClientEndToEnd(t *testing.T) {
 		test.AssertFloat64Matches(firstMember.Pacs, float64(27000), t)
 	})
 
+	t.Run("SearchForOrganization", func(t *testing.T) {
+		request := models.OrganizationSearch{Name: "Goldman"}
+		searchResults, err := client.SearchForOrganization(request)
+
+		if err != nil {
+			t.Fatalf("Got error %s when calling SearchForOrganization", err.Error())
+		}
+
+		if len(searchResults) == 0 {
+			t.Fatal("Got 0 results from SearchForOrganization call")
+		}
+	})
 }

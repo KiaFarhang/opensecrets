@@ -114,6 +114,15 @@ func TestGetCommitteeFundraisingDetails(t *testing.T) {
 	})
 }
 
+func TestSearchForOrganization(t *testing.T) {
+	t.Run("Returns an error if the request doesn't have an org name", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := models.OrganizationSearch{}
+		_, err := client.SearchForOrganization(request)
+		test.AssertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")

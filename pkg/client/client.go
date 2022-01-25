@@ -45,6 +45,9 @@ type OpenSecretsClient interface {
 	// Provides fundraising details for all members of a given committee from the provided industry
 	// https://www.opensecrets.org/api/?method=congCmteIndus&output=doc
 	GetCommitteeFundraisingDetails(request models.FundraisingByCongressionalCommitteeRequest) (models.CommitteeFundraisingDetails, error)
+	// Searches for an organization by name or partial name
+	// https://www.opensecrets.org/api/?method=getOrgs&output=doc
+	SearchForOrganization(request models.OrganizationSearch) ([]models.OrganizationSearchResult, error)
 }
 
 /*
@@ -220,6 +223,24 @@ func (o *openSecretsClient) GetCommitteeFundraisingDetails(request models.Fundra
 	}
 
 	return parse.ParseFundraisingByCommitteeJSON(responseBody)
+}
+
+func (o *openSecretsClient) SearchForOrganization(request models.OrganizationSearch) ([]models.OrganizationSearchResult, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return []models.OrganizationSearchResult{}, err
+	}
+
+	url := buildOrganizationSearchURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return []models.OrganizationSearchResult{}, err
+	}
+
+	return parse.ParseOrganizationSearchJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
