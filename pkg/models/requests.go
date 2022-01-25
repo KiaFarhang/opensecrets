@@ -42,5 +42,9 @@ type FundraisingByCongressionalCommitteeRequest struct {
 }
 
 type OrganizationSearch struct {
-	Name string `validate:"required"` // Required. Name or partial name of orgnization requested
+	Name string `validate:"required"` // Required. Name or partial name of organization requested
+}
+
+type OrganizationSummaryRequest struct {
+	Id string `validate:"required"` // Required. CRP ID for the org (available via the SearchForOrganization method)
 }
