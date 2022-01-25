@@ -157,4 +157,16 @@ func TestClientEndToEnd(t *testing.T) {
 			t.Fatal("Got 0 results from SearchForOrganization call")
 		}
 	})
+
+	t.Run("GetOrganizationSummary", func(t *testing.T) {
+		request := models.OrganizationSummaryRequest{Id: "D000000125"}
+		summary, err := client.GetOrganizationSummary(request)
+
+		if err != nil {
+			t.Fatalf("Got error %s when calling GetOrganizationSummary", err.Error())
+		}
+
+		test.AssertStringMatches(summary.Name, "General Electric", t)
+		test.AssertFloat64Matches(summary.Soft, float64(2236), t)
+	})
 }

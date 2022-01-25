@@ -123,6 +123,15 @@ func TestSearchForOrganization(t *testing.T) {
 	})
 }
 
+func TestGetOrganizationSummary(t *testing.T) {
+	t.Run("Returns an error if the request doesn't have an org ID", func(t *testing.T) {
+		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
+		request := models.OrganizationSummaryRequest{}
+		_, err := client.GetOrganizationSummary(request)
+		test.AssertErrorExists(err, t)
+	})
+}
+
 func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
