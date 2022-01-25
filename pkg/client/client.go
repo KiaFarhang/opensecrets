@@ -48,6 +48,9 @@ type OpenSecretsClient interface {
 	// Searches for an organization by name or partial name
 	// https://www.opensecrets.org/api/?method=getOrgs&output=doc
 	SearchForOrganization(request models.OrganizationSearch) ([]models.OrganizationSearchResult, error)
+	// Provides summary fundraising information for an organization
+	// https://www.opensecrets.org/api/?method=orgSummary&output=doc
+	GetOrganizationSummary(request models.OrganizationSummaryRequest) (models.OrganizationSummary, error)
 }
 
 /*
@@ -241,6 +244,24 @@ func (o *openSecretsClient) SearchForOrganization(request models.OrganizationSea
 	}
 
 	return parse.ParseOrganizationSearchJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetOrganizationSummary(request models.OrganizationSummaryRequest) (models.OrganizationSummary, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return models.OrganizationSummary{}, err
+	}
+
+	url := buildOrganizationSummaryURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return models.OrganizationSummary{}, err
+	}
+
+	return parse.ParseOrganizationSummaryJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {

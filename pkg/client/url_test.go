@@ -154,3 +154,13 @@ func TestBuildOrganizationSearchURL(t *testing.T) {
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
+
+func TestBuildOrganizationSummaryURL(t *testing.T) {
+	t.Run("Includes org ID passed in request", func(t *testing.T) {
+		id := "123"
+		request := models.OrganizationSummaryRequest{Id: id}
+		url := buildOrganizationSummaryURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=orgSummary&output=json&apikey=" + apiKey + "&id=" + id
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}

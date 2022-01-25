@@ -15,7 +15,7 @@ This is a Go client for the [OpenSecrets campaign finance API.](https://www.open
 | candSector        | GetCandidateTopSectorDetails | :heavy_check_mark:   |
 | congCmteIndus     | GetCommitteeFundraisingDetails | :heavy_check_mark:   |
 | getOrgs           | SearchForOrganization    | :heavy_check_mark:   |
-| orgSummary        |                          | TODO   |
+| orgSummary        | GetOrganizationSummary   | :heavy_check_mark:   |
 | independentExpend |                          | TODO   |
 
 ## Installing

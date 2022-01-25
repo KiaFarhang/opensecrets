@@ -266,3 +266,22 @@ func ParseOrganizationSearchJSON(jsonBody []byte) ([]models.OrganizationSearchRe
 
 	return toReturn, nil
 }
+
+func ParseOrganizationSummaryJSON(jsonBody []byte) (models.OrganizationSummary, error) {
+	type organizationSummaryResponse struct {
+		Response struct {
+			Wrapper struct {
+				Attributes models.OrganizationSummary `json:"@attributes"`
+			} `json:"organization"`
+		} `json:"response"`
+	}
+
+	var responseWrapper organizationSummaryResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return models.OrganizationSummary{}, errors.New(UnableToParseErrorMessage)
+	}
+
+	return responseWrapper.Response.Wrapper.Attributes, nil
+}
