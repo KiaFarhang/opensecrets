@@ -9,7 +9,7 @@ import (
 
 const UnableToParseErrorMessage string = "unable to parse OpenSecrets response body"
 
-func ParseGetLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
+func ParseLegislatorsJSON(jsonBytes []byte) ([]models.Legislator, error) {
 
 	type legislatorResponse struct {
 		Response struct {
@@ -240,4 +240,29 @@ func ParseFundraisingByCommitteeJSON(jsonBody []byte) (models.CommitteeFundraisi
 	}
 
 	return details, nil
+}
+
+func ParseOrganizationSearchJSON(jsonBody []byte) ([]models.OrganizationSearchResult, error) {
+	type organizationSearchResponse struct {
+		Response struct {
+			Wrapper []struct {
+				Attributes models.OrganizationSearchResult `json:"@attributes"`
+			} `json:"organization"`
+		} `json:"response"`
+	}
+
+	var responseWrapper organizationSearchResponse
+	var toReturn []models.OrganizationSearchResult
+
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return toReturn, errors.New(UnableToParseErrorMessage)
+	}
+
+	for _, result := range responseWrapper.Response.Wrapper {
+		toReturn = append(toReturn, result.Attributes)
+	}
+
+	return toReturn, nil
 }

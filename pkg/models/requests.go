@@ -40,3 +40,7 @@ type FundraisingByCongressionalCommitteeRequest struct {
 	Industry       string `validate:"required"` // Required. Industry code
 	CongressNumber int    // Optional, defaults to most recent Congress
 }
+
+type OrganizationSearch struct {
+	Name string `validate:"required"` // Required. Name or partial name of orgnization requested
+}

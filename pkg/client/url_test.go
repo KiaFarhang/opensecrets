@@ -9,20 +9,20 @@ import (
 
 const apiKey string = "1"
 
-func TestBuildGetLegislatorsURL(t *testing.T) {
+func TestBuildLegislatorsURL(t *testing.T) {
 	t.Run("Includes id passed in with request", func(t *testing.T) {
 		id := "NJ"
-		url := buildGetLegislatorsURL(models.LegislatorsRequest{Id: id}, apiKey)
+		url := buildLegislatorsURL(models.LegislatorsRequest{Id: id}, apiKey)
 		expectedUrl := baseUrl + "?method=getLegislators&output=json&apikey=" + apiKey + "&id=" + id
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
 
-func TestBuildGetMemberPFDURL(t *testing.T) {
+func TestBuildMemberPFDURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.MemberPFDRequest{Cid: cid}
-		url := buildGetMemberPFDURL(request, apiKey)
+		url := buildMemberPFDURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + cid
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
@@ -30,17 +30,17 @@ func TestBuildGetMemberPFDURL(t *testing.T) {
 		cid := "N00007360"
 		year := 2020
 		request := models.MemberPFDRequest{Cid: cid, Year: year}
-		url := buildGetMemberPFDURL(request, apiKey)
+		url := buildMemberPFDURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=memPFDProfile&output=json&apikey=" + apiKey + "&cid=" + cid + "&year=2020"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
 
-func TestBuildGetCandidateSummaryURL(t *testing.T) {
+func TestBuildCandidateSummaryURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateSummaryRequest{Cid: cid}
-		url := buildGetCandidateSummaryURL(request, apiKey)
+		url := buildCandidateSummaryURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + cid
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
@@ -48,17 +48,17 @@ func TestBuildGetCandidateSummaryURL(t *testing.T) {
 		cid := "N00007360"
 		cycle := 2020
 		request := models.CandidateSummaryRequest{Cid: cid, Cycle: cycle}
-		url := buildGetCandidateSummaryURL(request, apiKey)
+		url := buildCandidateSummaryURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candSummary&output=json&apikey=" + apiKey + "&cid=" + cid + "&cycle=2020"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
 
-func TestBuildGetCandidateContributorsURL(t *testing.T) {
+func TestBuildCandidateContributorsURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateContributorsRequest{Cid: cid}
-		url := buildGetCandidateContributorsURL(request, apiKey)
+		url := buildCandidateContributorsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + cid
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
@@ -66,13 +66,13 @@ func TestBuildGetCandidateContributorsURL(t *testing.T) {
 		cid := "N00007360"
 		cycle := 2022
 		request := models.CandidateContributorsRequest{Cid: cid, Cycle: cycle}
-		url := buildGetCandidateContributorsURL(request, apiKey)
+		url := buildCandidateContributorsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candContrib&output=json&apikey=" + apiKey + "&cid=" + cid + "&cycle=2022"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
 
-func TestBuildGetCandidateIndustriesURL(t *testing.T) {
+func TestBuildCandidateIndustriesURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateIndustriesRequest{Cid: cid}
@@ -89,12 +89,12 @@ func TestBuildGetCandidateIndustriesURL(t *testing.T) {
 	})
 }
 
-func TestBuildGetCandidateIndustryDetailsURL(t *testing.T) {
+func TestBuildCandidateIndustryDetailsURL(t *testing.T) {
 	t.Run("Includes cid and industry code passed in requerst", func(t *testing.T) {
 		cid := "N00007360"
 		industryCode := "K02"
 		request := models.CandidateIndustryDetailsRequest{Cid: cid, Ind: industryCode}
-		url := buildGetCandidateIndustryDetailsURL(request, apiKey)
+		url := buildCandidateIndustryDetailsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candIndByInd&output=json&apikey=" + apiKey + "&cid=" + cid + "&ind=" + industryCode
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
@@ -102,24 +102,24 @@ func TestBuildGetCandidateIndustryDetailsURL(t *testing.T) {
 		cid := "N00007360"
 		industryCode := "K02"
 		request := models.CandidateIndustryDetailsRequest{Cid: cid, Ind: industryCode, Cycle: 2020}
-		url := buildGetCandidateIndustryDetailsURL(request, apiKey)
+		url := buildCandidateIndustryDetailsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candIndByInd&output=json&apikey=" + apiKey + "&cid=" + cid + "&ind=" + industryCode + "&cycle=2020"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
 
-func TestBuildGetCandidateTopSectorsURL(t *testing.T) {
+func TestBuildCandidateTopSectorsURL(t *testing.T) {
 	t.Run("Includes cid passed in request", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateTopSectorsRequest{Cid: cid}
-		url := buildGetCandidatTopSectorsURL(request, apiKey)
+		url := buildCandidateTopSectorsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + cid
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 	t.Run("Includes cycle passed in request if it's a non-zero value", func(t *testing.T) {
 		cid := "N00007360"
 		request := models.CandidateTopSectorsRequest{Cid: cid, Cycle: 2020}
-		url := buildGetCandidatTopSectorsURL(request, apiKey)
+		url := buildCandidateTopSectorsURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=candSector&output=json&apikey=" + apiKey + "&cid=" + cid + "&cycle=2020"
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
@@ -141,6 +141,16 @@ func TestBuildFundraisingByCongressionalCommitteeRequestURL(t *testing.T) {
 		request := models.FundraisingByCongressionalCommitteeRequest{Committee: committeeId, Industry: industryCode, CongressNumber: congressNumber}
 		url := buildFundraisingByCongressionalCommitteeRequestURL(request, apiKey)
 		expectedUrl := baseUrl + "?method=congCmteIndus&output=json&apikey=" + apiKey + "&cmte=" + committeeId + "&indus=" + industryCode + "&congno=116"
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}
+
+func TestBuildOrganizationSearchURL(t *testing.T) {
+	t.Run("Includes organization query passed in request", func(t *testing.T) {
+		org := "Foo"
+		request := models.OrganizationSearch{Name: org}
+		url := buildOrganizationSearchURL(request, apiKey)
+		expectedUrl := baseUrl + "?method=getOrgs&output=json&apikey=" + apiKey + "&org=" + org
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }

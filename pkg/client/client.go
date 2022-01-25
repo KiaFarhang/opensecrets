@@ -45,6 +45,9 @@ type OpenSecretsClient interface {
 	// Provides fundraising details for all members of a given committee from the provided industry
 	// https://www.opensecrets.org/api/?method=congCmteIndus&output=doc
 	GetCommitteeFundraisingDetails(request models.FundraisingByCongressionalCommitteeRequest) (models.CommitteeFundraisingDetails, error)
+	// Searches for an organization by name or partial name
+	// https://www.opensecrets.org/api/?method=getOrgs&output=doc
+	SearchForOrganization(request models.OrganizationSearch) ([]models.OrganizationSearchResult, error)
 }
 
 /*
@@ -85,7 +88,7 @@ func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([
 	if err != nil {
 		return nil, err
 	}
-	url := buildGetLegislatorsURL(request, o.apiKey)
+	url := buildLegislatorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -93,7 +96,7 @@ func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([
 		return nil, err
 	}
 
-	return parse.ParseGetLegislatorsJSON(responseBody)
+	return parse.ParseLegislatorsJSON(responseBody)
 }
 
 func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest) (models.MemberProfile, error) {
@@ -103,7 +106,7 @@ func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest)
 		return models.MemberProfile{}, err
 	}
 
-	url := buildGetMemberPFDURL(request, o.apiKey)
+	url := buildMemberPFDURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -121,7 +124,7 @@ func (o *openSecretsClient) GetCandidateSummary(request models.CandidateSummaryR
 		return models.CandidateSummary{}, err
 	}
 
-	url := buildGetCandidateSummaryURL(request, o.apiKey)
+	url := buildCandidateSummaryURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -139,7 +142,7 @@ func (o *openSecretsClient) GetCandidateContributors(request models.CandidateCon
 		return models.CandidateContributorSummary{}, err
 	}
 
-	url := buildGetCandidateContributorsURL(request, o.apiKey)
+	url := buildCandidateContributorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -175,7 +178,7 @@ func (o *openSecretsClient) GetCandidateIndustryDetails(request models.Candidate
 		return models.CandidateIndustryDetails{}, err
 	}
 
-	url := buildGetCandidateIndustryDetailsURL(request, o.apiKey)
+	url := buildCandidateIndustryDetailsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -193,7 +196,7 @@ func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.Candidat
 		return models.CandidateTopSectorDetails{}, err
 	}
 
-	url := buildGetCandidatTopSectorsURL(request, o.apiKey)
+	url := buildCandidateTopSectorsURL(request, o.apiKey)
 
 	responseBody, err := o.makeGETRequest(url)
 
@@ -220,6 +223,24 @@ func (o *openSecretsClient) GetCommitteeFundraisingDetails(request models.Fundra
 	}
 
 	return parse.ParseFundraisingByCommitteeJSON(responseBody)
+}
+
+func (o *openSecretsClient) SearchForOrganization(request models.OrganizationSearch) ([]models.OrganizationSearchResult, error) {
+	err := o.validator.Struct(request)
+
+	if err != nil {
+		return []models.OrganizationSearchResult{}, err
+	}
+
+	url := buildOrganizationSearchURL(request, o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return []models.OrganizationSearchResult{}, err
+	}
+
+	return parse.ParseOrganizationSearchJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
