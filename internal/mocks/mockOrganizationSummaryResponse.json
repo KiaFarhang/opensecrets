@@ -1,0 +1,26 @@
+{
+    "response": {
+        "organization": {
+            "@attributes": {
+                "cycle": "2022",
+                "orgid": "D000000125",
+                "orgname": "General Electric",
+                "total": "450807",
+                "indivs": "111071",
+                "pacs": "337500",
+                "soft": "2236",
+                "tot527": "0",
+                "dems": "278331",
+                "repubs": "169533",
+                "lobbying": "0",
+                "outside": "0",
+                "mems_invested": "0",
+                "gave_to_pac": "0",
+                "gave_to_party": "52236",
+                "gave_to_527": "0",
+                "gave_to_cand": "315133",
+                "source": "www.opensecrets.org/orgs/summary.php?id=D000000125"
+            }
+        }
+    }
+}
