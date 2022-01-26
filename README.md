@@ -48,7 +48,13 @@ legislators, err := client.GetLegislators(request)
 
 The client will either return a struct containing the data from the API call or an error if something went wrong.
 
-The client also throws an error if you pass it a request that's missing a required parameter. See the table below for details on which fields are required.
+The client also throws an error if you pass it a request that's missing a required parameter. Required parameters are the same as those noted in the docs for each method, listed in the table below. (Each request struct also includes comments noting the required and optional fields)
+
+Note you never need to pass the `apikey` or `output` arguments to the client. It sends the API key passed at construction with every request, and it always requests output in JSON so it can marshal that response into the struct each method returns.
+
+For a full example of each API call, see the end-to-end tests at [`pkg/client/client_end_to_end_test.go`](pkg/client/client_end_to_end_test.go). You can run them locally by pulling down this repo and using the following command:
+
+`API_KEY=your_key_here go test ./...`
 
 ### Available methods
 
@@ -66,8 +72,8 @@ The client also throws an error if you pass it a request that's missing a requir
 | orgSummary | GetOrganizationSummary | Provides summary fundraising information for an organization | [Link](https://www.opensecrets.org/api/?method=orgSummary&output=doc) |
 | independentExpend |  |  | [Link](https://www.opensecrets.org/api/?method=independentExpend&output=doc) |
 
-## Running tests
+## Development
 
 Run unit tests with `go test -short ./...`
 
-Run unit and end-to-end tests with `API_KEY=foo go test ./...`
+Run unit and end-to-end tests with `API_KEY=your_key_here go test ./...`
