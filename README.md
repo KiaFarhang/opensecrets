@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/KiaFarhang/opensecrets)](https://goreportcard.com/report/github.com/KiaFarhang/opensecrets)
 
-This is a Go client for the [OpenSecrets campaign finance API.](https://www.opensecrets.org/open-data/api)
+This is a Go client for the [OpenSecrets campaign finance API.](https://www.opensecrets.org/open-data/api) It handles HTTP calls and response marshalling, so you can simply call a method and get a struct representing the OpenSecrets response back.
 
 ## Installation
 
@@ -33,6 +33,14 @@ httpClient := &http.Client{Timeout: time.Second * 3} // Whatever other configura
 openSecretsClient := client.NewOpenSecretsClientWithHttpClient("YOUR_API_KEY", httpClient)
 ```
 
+The custom HTTP client can be anything that satisfies the following interface:
+
+```go
+type OpenSecretsHttpClient interface {
+	Do(req *http.Request) (*http.Response, error)
+}
+```
+
 The default client has a 5-second HTTP timeout.
 
 The `OpenSecretsClient` is thread safe; you should construct one and share it throughout your application.
@@ -48,11 +56,11 @@ legislators, err := client.GetLegislators(request)
 
 The client will either return a struct containing the data from the API call or an error if something went wrong.
 
-The client also throws an error if you pass it a request that's missing a required parameter. Required parameters are the same as those noted in the docs for each method, listed in the table below. (Each request struct also includes comments noting the required and optional fields)
+The client throws an error if you pass it a request that's missing a required parameter. Required parameters are the same as those noted in the docs for each method, listed in the table below. (Each request struct also includes comments noting the required and optional fields)
 
 Note you never need to pass the `apikey` or `output` arguments to the client. It sends the API key passed at construction with every request, and it always requests output in JSON so it can marshal that response into the struct each method returns.
 
-For a full example of each API call, see the end-to-end tests at [`pkg/client/client_end_to_end_test.go`](pkg/client/client_end_to_end_test.go). You can run them locally by pulling down this repo and using the following command:
+For a full example of each API call, see the end-to-end tests at [`pkg/client/client_end_to_end_test.go`](pkg/client/client_end_to_end_test.go). You can run them locally by pulling down this repo and using the following command from its root directory:
 
 `API_KEY=your_key_here go test ./...`
 
