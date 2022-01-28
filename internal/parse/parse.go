@@ -285,3 +285,28 @@ func ParseOrganizationSummaryJSON(jsonBody []byte) (models.OrganizationSummary, 
 
 	return responseWrapper.Response.Wrapper.Attributes, nil
 }
+
+func ParseIndependentExpendituresJSON(jsonBody []byte) ([]models.IndependentExpenditure, error) {
+	type independentExpendituresResponse struct {
+		Response struct {
+			List []struct {
+				Expenditure models.IndependentExpenditure `json:"@attributes"`
+			} `json:"indexp"`
+		} `json:"response"`
+	}
+
+	var responseWrapper independentExpendituresResponse
+	err := json.Unmarshal(jsonBody, &responseWrapper)
+
+	if err != nil {
+		return []models.IndependentExpenditure{}, errors.New(UnableToParseErrorMessage)
+	}
+
+	var toReturn []models.IndependentExpenditure
+
+	for _, expenditure := range responseWrapper.Response.List {
+		toReturn = append(toReturn, expenditure.Expenditure)
+	}
+
+	return toReturn, nil
+}

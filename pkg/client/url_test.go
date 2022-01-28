@@ -164,3 +164,11 @@ func TestBuildOrganizationSummaryURL(t *testing.T) {
 		test.AssertStringMatches(url, expectedUrl, t)
 	})
 }
+
+func TestBuildIndependentExpendituresURL(t *testing.T) {
+	t.Run("Returns the expected URL", func(t *testing.T) {
+		url := buildIndependentExpendituresURL(apiKey)
+		expectedUrl := baseUrl + "?method=independentExpend&output=json&apikey=" + apiKey
+		test.AssertStringMatches(url, expectedUrl, t)
+	})
+}

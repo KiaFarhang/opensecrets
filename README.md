@@ -78,7 +78,7 @@ For a full example of each API call, see the end-to-end tests at [`pkg/client/cl
 | congCmteIndus | GetCommitteeFundraisingDetails | Provides fundraising details for all members of a given committee from the provided industry | [Link](https://www.opensecrets.org/api/?method=congCmteIndus&output=doc) |
 | getOrgs | SearchForOrganization | Searches for an organization by name or partial name | [Link](https://www.opensecrets.org/api/?method=getOrgs&output=doc) |
 | orgSummary | GetOrganizationSummary | Provides summary fundraising information for an organization | [Link](https://www.opensecrets.org/api/?method=orgSummary&output=doc) |
-| independentExpend |  |  | [Link](https://www.opensecrets.org/api/?method=independentExpend&output=doc) |
+| independentExpend | GetLatestIndependentExpenditures | Get the latest 50 independent expenditures reported. | [Link](https://www.opensecrets.org/api/?method=independentExpend&output=doc) |
 
 ## Development
 

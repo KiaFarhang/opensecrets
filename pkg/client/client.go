@@ -51,6 +51,9 @@ type OpenSecretsClient interface {
 	// Provides summary fundraising information for an organization
 	// https://www.opensecrets.org/api/?method=orgSummary&output=doc
 	GetOrganizationSummary(request models.OrganizationSummaryRequest) (models.OrganizationSummary, error)
+	// Provides the latest 50 independent expenditure transactions reported. Updated 4 times a day.
+	// https://www.opensecrets.org/api/?method=independentExpend&output=doc
+	GetLatestIndependentExpenditures() ([]models.IndependentExpenditure, error)
 }
 
 /*
@@ -262,6 +265,18 @@ func (o *openSecretsClient) GetOrganizationSummary(request models.OrganizationSu
 	}
 
 	return parse.ParseOrganizationSummaryJSON(responseBody)
+}
+
+func (o *openSecretsClient) GetLatestIndependentExpenditures() ([]models.IndependentExpenditure, error) {
+	url := buildIndependentExpendituresURL(o.apiKey)
+
+	responseBody, err := o.makeGETRequest(url)
+
+	if err != nil {
+		return []models.IndependentExpenditure{}, err
+	}
+
+	return parse.ParseIndependentExpendituresJSON(responseBody)
 }
 
 func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
