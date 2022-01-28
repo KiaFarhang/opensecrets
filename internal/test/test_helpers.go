@@ -51,3 +51,10 @@ func AssertSliceLength(got, wanted int, t *testing.T) {
 		t.Errorf("Got slice length %d wanted %d", got, wanted)
 	}
 }
+
+func AssertNotZero(got float64, t *testing.T) {
+	t.Helper()
+	if got == float64(0) {
+		t.Error("Got 0 for a float that should have had a value")
+	}
+}
