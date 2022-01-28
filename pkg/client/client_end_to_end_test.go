@@ -166,4 +166,15 @@ func TestClientEndToEnd(t *testing.T) {
 
 		test.AssertStringMatches(summary.Name, "General Electric", t)
 	})
+
+	t.Run("GetLatestIndependentExpenditures", func(t *testing.T) {
+		expenditures, err := client.GetLatestIndependentExpenditures()
+
+		if err != nil {
+			t.Fatalf("Got error %s when calling GetLatestIndependentExpenditures", err.Error())
+		}
+
+		// We should always get the latest 50 back
+		test.AssertSliceLength(len(expenditures), 50, t)
+	})
 }
