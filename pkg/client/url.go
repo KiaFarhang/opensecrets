@@ -104,3 +104,7 @@ func buildOrganizationSearchURL(request models.OrganizationSearch, apiKey string
 func buildOrganizationSummaryURL(request models.OrganizationSummaryRequest, apiKey string) string {
 	return baseUrl + "?method=orgSummary&output=json&apikey=" + apiKey + "&id=" + request.Id
 }
+
+func buildIndependentExpendituresURL(apiKey string) string {
+	return baseUrl + "?method=independentExpend&output=json&apikey=" + apiKey
+}
