@@ -1,0 +1,806 @@
+{
+    "response": {
+        "indexp": [
+            {
+                "@attributes": {
+                    "cmteid": "C00504530",
+                    "pacshort": "Congressional Leadership Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Adkins, Amanda",
+                    "district": "KS03",
+                    "amount": "25000",
+                    "note": "Digital Placement",
+                    "party": "R",
+                    "payee": "Targeted Victory LLC",
+                    "date": "2022-01-25 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00504530",
+                    "pacshort": "Congressional Leadership Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Ciscomani, Juan",
+                    "district": "AZ06",
+                    "amount": "25000",
+                    "note": "Digital Placement",
+                    "party": "R",
+                    "payee": "Targeted Victory LLC",
+                    "date": "2022-01-25 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00504530",
+                    "pacshort": "Congressional Leadership Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Kean, Tom",
+                    "district": "NJ07",
+                    "amount": "25000",
+                    "note": "Digital Placement",
+                    "party": "R",
+                    "payee": "Targeted Victory LLC",
+                    "date": "2022-01-25 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00504530",
+                    "pacshort": "Congressional Leadership Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Kiggans, Jen",
+                    "district": "VA02",
+                    "amount": "25000",
+                    "note": "Digital Placement",
+                    "party": "R",
+                    "payee": "Targeted Victory LLC",
+                    "date": "2022-01-25 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00504530",
+                    "pacshort": "Congressional Leadership Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Poliquin, Bruce",
+                    "district": "ME02",
+                    "amount": "25000",
+                    "note": "Digital Placement",
+                    "party": "R",
+                    "payee": "Targeted Victory LLC",
+                    "date": "2022-01-25 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00777185",
+                    "pacshort": "Saving Arizona PAC",
+                    "suppopp": "AGAINST:",
+                    "candname": "Kelly, Mark",
+                    "district": "AZS1",
+                    "amount": "6781",
+                    "note": "P2P MESSAGES",
+                    "party": "D",
+                    "payee": "NUMINAR INC",
+                    "date": "2022-01-24 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00777185",
+                    "pacshort": "Saving Arizona PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Masters, Blake",
+                    "district": "AZS1",
+                    "amount": "6781",
+                    "note": "P2P MESSAGES",
+                    "party": "R",
+                    "payee": "NUMINAR INC",
+                    "date": "2022-01-24 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795948",
+                    "pacshort": "Alabama Patriots PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Durant, Michael",
+                    "district": "ALS2",
+                    "amount": "203070",
+                    "note": "MEDIA PLACEMENT / MEDIA PRODUCTION",
+                    "party": "R",
+                    "payee": "CREATIVE STRATEGIC SOLUTIONS LLC",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00797332",
+                    "pacshort": "Texans for Freedom Super PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Collins, Christian",
+                    "district": "TX08",
+                    "amount": "28282",
+                    "note": "Direct Mail",
+                    "party": "R",
+                    "payee": "Axiom Strategies",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00797332",
+                    "pacshort": "Texans for Freedom Super PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Collins, Christian",
+                    "district": "TX08",
+                    "amount": "28282",
+                    "note": "Direct Mail",
+                    "party": "R",
+                    "payee": "Axiom Strategies",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00797332",
+                    "pacshort": "Texans for Freedom Super PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Collins, Christian",
+                    "district": "TX08",
+                    "amount": "24417",
+                    "note": "Direct Mail",
+                    "party": "R",
+                    "payee": "Axiom Strategies",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00797332",
+                    "pacshort": "Texans for Freedom Super PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Collins, Christian",
+                    "district": "TX08",
+                    "amount": "24417",
+                    "note": "Direct Mail",
+                    "party": "R",
+                    "payee": "Axiom Strategies",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Taylor, Van",
+                    "district": "TX03",
+                    "amount": "5000",
+                    "note": "DIGITAL AD PLACEMENT COSTS",
+                    "party": "R",
+                    "payee": "IN PURSUIT OF LLC",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Taylor, Van",
+                    "district": "TX03",
+                    "amount": "4800",
+                    "note": "CANVASSING",
+                    "party": "R",
+                    "payee": "TALENTWAVE INC.",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Hunt, Wesley",
+                    "district": "TX38",
+                    "amount": "3196",
+                    "note": "DOORHANGER PRODUCTION",
+                    "party": "R",
+                    "payee": "PEOPLE WHO THINK",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Taylor, Van",
+                    "district": "TX03",
+                    "amount": "3196",
+                    "note": "DOORHANGER PRODUCTION",
+                    "party": "R",
+                    "payee": "PEOPLE WHO THINK",
+                    "date": "2022-01-21 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Schmitt, Eric",
+                    "district": "MOS1",
+                    "amount": "125000",
+                    "note": "CANVASSING",
+                    "party": "R",
+                    "payee": "CANVASS AMERICA",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00484642",
+                    "pacshort": "Senate Majority PAC",
+                    "suppopp": "AGAINST:",
+                    "candname": "Johnson, Ron",
+                    "district": "WIS2",
+                    "amount": "93885",
+                    "note": "Media Buy - Estimate",
+                    "party": "R",
+                    "payee": "Waterfront Strategies",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00750182",
+                    "pacshort": "Opportunity Matters Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Hunt, Wesley",
+                    "district": "TX38",
+                    "amount": "21654",
+                    "note": "DIRECT MAIL: PRINTING AND POSTAGE",
+                    "party": "R",
+                    "payee": "RESOLVE CAMPAIGNS LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Kelly, Robin",
+                    "district": "IL02",
+                    "amount": "10408",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "D",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Posey, Bill",
+                    "district": "FL08",
+                    "amount": "10408",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "R",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Duckworth, Tammy",
+                    "district": "ILS2",
+                    "amount": "7514",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "D",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Peters, Scott",
+                    "district": "CA50",
+                    "amount": "7514",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "D",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Posey, Bill",
+                    "district": "FL08",
+                    "amount": "5926",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "R",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Kelly, Robin",
+                    "district": "IL02",
+                    "amount": "5926",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "D",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00687103",
+                    "pacshort": "Americans for Prosperity Action",
+                    "suppopp": "FOR:",
+                    "candname": "Hunt, Wesley",
+                    "district": "TX38",
+                    "amount": "5000",
+                    "note": "DIGITAL AD PLACEMENT COSTS",
+                    "party": "R",
+                    "payee": "IN PURSUIT OF LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00710178",
+                    "pacshort": "Honoring American Law Enforcement PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Grassley, Chuck",
+                    "district": "IAS1",
+                    "amount": "4516",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "R",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00710178",
+                    "pacshort": "Honoring American Law Enforcement PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Scott, Tim",
+                    "district": "SCS1",
+                    "amount": "4516",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "R",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Duckworth, Tammy",
+                    "district": "ILS2",
+                    "amount": "4278",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "D",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Peters, Scott",
+                    "district": "CA50",
+                    "amount": "4278",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "D",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Posey, Bill",
+                    "district": "FL08",
+                    "amount": "3903",
+                    "note": "Caging and Database Services(Estimate)",
+                    "party": "R",
+                    "payee": "Standard Data Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Kelly, Robin",
+                    "district": "IL02",
+                    "amount": "3903",
+                    "note": "Caging and Database Services(Estimate)",
+                    "party": "D",
+                    "payee": "Standard Data Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Duckworth, Tammy",
+                    "district": "ILS2",
+                    "amount": "2817",
+                    "note": "Caging and Database Services(Estimate)",
+                    "party": "D",
+                    "payee": "Standard Data Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795864",
+                    "pacshort": "Veterans Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Peters, Scott",
+                    "district": "CA50",
+                    "amount": "2817",
+                    "note": "Caging and Database Services(Estimate)",
+                    "party": "D",
+                    "payee": "Standard Data Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00710178",
+                    "pacshort": "Honoring American Law Enforcement PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Grassley, Chuck",
+                    "district": "IAS1",
+                    "amount": "2723",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "R",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00710178",
+                    "pacshort": "Honoring American Law Enforcement PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Scott, Tim",
+                    "district": "SCS1",
+                    "amount": "2723",
+                    "note": "PHONEBANK IT/TECH SUPPORT(Estimate)",
+                    "party": "R",
+                    "payee": "Wired4Data",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Kelly, Robin",
+                    "district": "IL02",
+                    "amount": "2602",
+                    "note": "Phonebank Payroll Services(Estimate)",
+                    "party": "D",
+                    "payee": "LAV Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795831",
+                    "pacshort": "Police Assistance Foundation PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Posey, Bill",
+                    "district": "FL08",
+                    "amount": "2602",
+                    "note": "Phonebank Payroll Services(Estimate)",
+                    "party": "R",
+                    "payee": "LAV Services LLC",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00667865",
+                    "pacshort": "Police Officers Defense Alliance",
+                    "suppopp": "FOR:",
+                    "candname": "Amodei, Mark",
+                    "district": "NV02",
+                    "amount": "2263",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "R",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00667865",
+                    "pacshort": "Police Officers Defense Alliance",
+                    "suppopp": "FOR:",
+                    "candname": "Issa, Darrell",
+                    "district": "CA48",
+                    "amount": "2263",
+                    "note": "Leads / Phone Lists(Estimate)",
+                    "party": "R",
+                    "payee": "Cloud Data Services",
+                    "date": "2022-01-20 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00798116",
+                    "pacshort": "Honor Pennsylvania",
+                    "suppopp": "AGAINST:",
+                    "candname": "Oz, Mehmet",
+                    "district": "PAS1",
+                    "amount": "590888",
+                    "note": "Media Placement",
+                    "party": "R",
+                    "payee": "FlexPoint Media Inc.",
+                    "date": "2022-01-19 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00795948",
+                    "pacshort": "Alabama Patriots PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Durant, Michael",
+                    "district": "ALS2",
+                    "amount": "178410",
+                    "note": "MEDIA PLACEMENT / MEDIA PRODUCTION",
+                    "party": "R",
+                    "payee": "DEL CIELO MEDIA LLC",
+                    "date": "2022-01-19 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00788851",
+                    "pacshort": "Ohio Leads PAC",
+                    "suppopp": "AGAINST:",
+                    "candname": "Mandel, Josh",
+                    "district": "OHS2",
+                    "amount": "53957",
+                    "note": "Digital placement",
+                    "party": "R",
+                    "payee": "Strategy Enterprises LLC",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00777185",
+                    "pacshort": "Saving Arizona PAC",
+                    "suppopp": "AGAINST:",
+                    "candname": "Kelly, Mark",
+                    "district": "AZS1",
+                    "amount": "50000",
+                    "note": "DIGITAL MEDIA PLACEMENT / PRODUCTION",
+                    "party": "D",
+                    "payee": "CAMPAIGN INBOX",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00777185",
+                    "pacshort": "Saving Arizona PAC",
+                    "suppopp": "FOR:",
+                    "candname": "Masters, Blake",
+                    "district": "AZS1",
+                    "amount": "50000",
+                    "note": "DIGITAL MEDIA PLACEMENT / PRODUCTION",
+                    "party": "R",
+                    "payee": "CAMPAIGN INBOX",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00552851",
+                    "pacshort": "House Freedom Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Mooney, Alex",
+                    "district": "WV02",
+                    "amount": "14110",
+                    "note": "IE- Mooney- Direct Mail Production",
+                    "party": "R",
+                    "payee": "Envision Marketing",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00552851",
+                    "pacshort": "House Freedom Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Boebert, Lauren",
+                    "district": "CO03",
+                    "amount": "14110",
+                    "note": "IE- Boebert- Direct Mail Production",
+                    "party": "R",
+                    "payee": "Envision Marketing",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00552851",
+                    "pacshort": "House Freedom Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Perry, Scott",
+                    "district": "PA10",
+                    "amount": "14110",
+                    "note": "IE- Perry- Direct Mail Production",
+                    "party": "R",
+                    "payee": "Envision Marketing",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00552851",
+                    "pacshort": "House Freedom Fund",
+                    "suppopp": "FOR:",
+                    "candname": "Herrell, Yvette",
+                    "district": "NM02",
+                    "amount": "14110",
+                    "note": "Ie- Herrell- Direct Mail Production",
+                    "party": "R",
+                    "payee": "Envision Marketing",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            },
+            {
+                "@attributes": {
+                    "cmteid": "C00797480",
+                    "pacshort": "Pennsylvania Patriots PAC",
+                    "suppopp": "AGAINST:",
+                    "candname": "Oz, Mehmet",
+                    "district": "PAS1",
+                    "amount": "10000",
+                    "note": "MEDIA PRODUCTION",
+                    "party": "R",
+                    "payee": "THE HEREFORD AGENCY",
+                    "date": "2022-01-18 00:05:00",
+                    "origin": "Center for Responsive Politics",
+                    "source": "http://www.opensecrets.org/"
+                }
+            }
+        ]
+    }
+}

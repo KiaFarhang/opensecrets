@@ -268,3 +268,23 @@ func TestParseOrganizationSummaryJSON(t *testing.T) {
 		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
 	})
 }
+
+func TestParseIndependentExpendituresJSON(t *testing.T) {
+	t.Run("Correctly parses valid JSON", func(t *testing.T) {
+		json, err := ioutil.ReadFile("../mocks/mockIndependentExpendituresResponse.json")
+		test.AssertNoError(err, t)
+
+		expenditures, err := ParseIndependentExpendituresJSON(json)
+		test.AssertNoError(err, t)
+
+		test.AssertSliceLength(len(expenditures), 50, t)
+		firstExpenditure := expenditures[0]
+		test.AssertStringMatches(firstExpenditure.CommitteeName, "Congressional Leadership Fund", t)
+		test.AssertFloat64Matches(firstExpenditure.Amount, float64(25000), t)
+	})
+	t.Run("Returns an error for invalid JSON", func(t *testing.T) {
+		json := []byte(`GARBAGE`)
+		_, err := ParseIndependentExpendituresJSON(json)
+		test.AssertErrorMessage(err, UnableToParseErrorMessage, t)
+	})
+}
