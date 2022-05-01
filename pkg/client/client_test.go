@@ -159,9 +159,6 @@ func TestMakeGETRequest(t *testing.T) {
 		wantedErrorMessage := parse.UnableToParseErrorMessage
 		test.AssertErrorMessage(err, wantedErrorMessage, t)
 	})
-}
-
-func TestMakeGetRequestWithContext(t *testing.T) {
 	t.Run("returns an error if the context passed is canceled before the request completes", func(t *testing.T) {
 		if testing.Short() {
 			t.Skip()
@@ -180,7 +177,7 @@ func TestMakeGetRequestWithContext(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 		defer cancel()
 
-		_, err := openSecretsClient.makeGETRequestWithContext(ctx, testServer.URL)
+		_, err := openSecretsClient.makeGETRequest(ctx, testServer.URL)
 
 		test.AssertErrorExists(err, t)
 		if !strings.Contains(err.Error(), "context deadline exceeded") {
@@ -188,6 +185,10 @@ func TestMakeGetRequestWithContext(t *testing.T) {
 		}
 		serverClosed <- true
 	})
+}
+
+func TestMakeGetRequestWithContext(t *testing.T) {
+
 }
 
 func buildMockResponse(statusCode int, jsonBody string) http.Response {

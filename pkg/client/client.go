@@ -97,7 +97,7 @@ func (o *openSecretsClient) GetLegislators(request models.LegislatorsRequest) ([
 	}
 	url := buildLegislatorsURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return nil, err
@@ -115,7 +115,7 @@ func (o *openSecretsClient) GetMemberPFDProfile(request models.MemberPFDRequest)
 
 	url := buildMemberPFDURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.MemberProfile{}, err
@@ -133,7 +133,7 @@ func (o *openSecretsClient) GetCandidateSummary(request models.CandidateSummaryR
 
 	url := buildCandidateSummaryURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CandidateSummary{}, nil
@@ -151,7 +151,7 @@ func (o *openSecretsClient) GetCandidateContributors(request models.CandidateCon
 
 	url := buildCandidateContributorsURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CandidateContributorSummary{}, err
@@ -169,7 +169,7 @@ func (o *openSecretsClient) GetCandidateIndustries(request models.CandidateIndus
 
 	url := buildGetCandidateIndustriesURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CandidateIndustriesSummary{}, err
@@ -187,7 +187,7 @@ func (o *openSecretsClient) GetCandidateIndustryDetails(request models.Candidate
 
 	url := buildCandidateIndustryDetailsURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CandidateIndustryDetails{}, err
@@ -205,7 +205,7 @@ func (o *openSecretsClient) GetCandidateTopSectorDetails(request models.Candidat
 
 	url := buildCandidateTopSectorsURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CandidateTopSectorDetails{}, err
@@ -223,7 +223,7 @@ func (o *openSecretsClient) GetCommitteeFundraisingDetails(request models.Fundra
 
 	url := buildFundraisingByCongressionalCommitteeRequestURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.CommitteeFundraisingDetails{}, err
@@ -241,7 +241,7 @@ func (o *openSecretsClient) SearchForOrganization(request models.OrganizationSea
 
 	url := buildOrganizationSearchURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return []models.OrganizationSearchResult{}, err
@@ -259,7 +259,7 @@ func (o *openSecretsClient) GetOrganizationSummary(request models.OrganizationSu
 
 	url := buildOrganizationSummaryURL(request, o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return models.OrganizationSummary{}, err
@@ -271,7 +271,7 @@ func (o *openSecretsClient) GetOrganizationSummary(request models.OrganizationSu
 func (o *openSecretsClient) GetLatestIndependentExpenditures() ([]models.IndependentExpenditure, error) {
 	url := buildIndependentExpendituresURL(o.apiKey)
 
-	responseBody, err := o.makeGETRequest(url)
+	responseBody, err := o.makeGETRequest(context.TODO(), url)
 
 	if err != nil {
 		return []models.IndependentExpenditure{}, err
@@ -280,37 +280,7 @@ func (o *openSecretsClient) GetLatestIndependentExpenditures() ([]models.Indepen
 	return parse.ParseIndependentExpendituresJSON(responseBody)
 }
 
-func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
-	request, err := http.NewRequest("GET", url, nil)
-	if err != nil {
-		return nil, err
-	}
-
-	// The API blocks requests without a user agent
-	request.Header.Set("User-Agent", "Golang")
-
-	response, err := o.client.Do(request)
-
-	if err != nil {
-		return nil, err
-	}
-
-	statusCode := response.StatusCode
-
-	if statusCode >= 400 {
-		return nil, fmt.Errorf("received %d status code calling OpenSecrets API", statusCode)
-	}
-
-	bodyAsBytes, err := io.ReadAll(response.Body)
-
-	if err != nil {
-		return nil, err
-	}
-
-	return bodyAsBytes, nil
-}
-
-func (o *openSecretsClient) makeGETRequestWithContext(ctx context.Context, url string) ([]byte, error) {
+func (o *openSecretsClient) makeGETRequest(ctx context.Context, url string) ([]byte, error) {
 	request, err := http.NewRequestWithContext(ctx, "GET", url, nil)
 	if err != nil {
 		return nil, err
