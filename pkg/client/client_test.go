@@ -1,11 +1,14 @@
 package client
 
 import (
+	"context"
 	"errors"
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/KiaFarhang/opensecrets/internal/parse"
 	"github.com/KiaFarhang/opensecrets/internal/test"
@@ -155,6 +158,35 @@ func TestMakeGETRequest(t *testing.T) {
 		test.AssertErrorExists(err, t)
 		wantedErrorMessage := parse.UnableToParseErrorMessage
 		test.AssertErrorMessage(err, wantedErrorMessage, t)
+	})
+}
+
+func TestMakeGetRequestWithContext(t *testing.T) {
+	t.Run("returns an error if the context passed is canceled before the request completes", func(t *testing.T) {
+		if testing.Short() {
+			t.Skip()
+		}
+		client := &http.Client{}
+		openSecretsClient := &openSecretsClient{client: client, validator: &mockValidator{}}
+		serverClosed := make(chan bool, 1)
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			<-serverClosed
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("hi"))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		defer cancel()
+
+		_, err := openSecretsClient.makeGETRequestWithContext(ctx, testServer.URL)
+
+		test.AssertErrorExists(err, t)
+		if !strings.Contains(err.Error(), "context deadline exceeded") {
+			t.Errorf("Wanted an error containing 'context deadline exceeded' but got %s", err.Error())
+		}
+		serverClosed <- true
 	})
 }
 

@@ -4,6 +4,7 @@ Package client provides a client for the OpenSecrets REST API.
 package client
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -293,6 +294,38 @@ func (o *openSecretsClient) makeGETRequest(url string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	statusCode := response.StatusCode
+
+	if statusCode >= 400 {
+		return nil, fmt.Errorf("received %d status code calling OpenSecrets API", statusCode)
+	}
+
+	bodyAsBytes, err := io.ReadAll(response.Body)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return bodyAsBytes, nil
+}
+
+func (o *openSecretsClient) makeGETRequestWithContext(ctx context.Context, url string) ([]byte, error) {
+	request, err := http.NewRequestWithContext(ctx, "GET", url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	// The API blocks requests without a user agent
+	request.Header.Set("User-Agent", "Golang")
+
+	response, err := o.client.Do(request)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer response.Body.Close()
 
 	statusCode := response.StatusCode
 
