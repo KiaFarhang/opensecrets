@@ -47,11 +47,11 @@ The `OpenSecretsClient` is thread safe; you should construct one and share it th
 
 ### Making API calls
 
-The client has public methods for [each of the OpenSecrets API methods](https://www.opensecrets.org/open-data/api-documentation). To call one, just pass it the appropriate request object from the `models` package:
+The client has public methods for [each of the OpenSecrets API methods](https://www.opensecrets.org/open-data/api-documentation). To call one, just pass it a `context.Contexrt` and the appropriate request object from the `models` package:
 
 ```go
 request := models.LegislatorsRequest{Id: "TX"}
-legislators, err := client.GetLegislators(request)
+legislators, err := client.GetLegislators(context.Background(), request)
 ```
 
 The client will either return a struct containing the data from the API call or an error if something went wrong.

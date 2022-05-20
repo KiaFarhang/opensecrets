@@ -1,6 +1,7 @@
 package client
 
 import (
+	"context"
 	"net/http"
 	"os"
 	"testing"
@@ -27,7 +28,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetLegislators", func(t *testing.T) {
 		request := models.LegislatorsRequest{Id: "TX"}
-		legislators, err := client.GetLegislators(request)
+		legislators, err := client.GetLegislators(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetLegislators", err.Error())
 		}
@@ -41,7 +42,7 @@ func TestClientEndToEnd(t *testing.T) {
 	t.Run("GetMemberPFDProfile", func(t *testing.T) {
 		request := models.MemberPFDRequest{Cid: "N00007360", Year: 2016}
 
-		memberProfile, err := client.GetMemberPFDProfile(request)
+		memberProfile, err := client.GetMemberPFDProfile(context.Background(), request)
 
 		if err != nil {
 			t.Fatalf("Got error %s calling GetMemberPFDProfile", err.Error())
@@ -68,7 +69,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCandidateSummary", func(t *testing.T) {
 		request := models.CandidateSummaryRequest{Cid: "N00007360", Cycle: 2022}
-		candidateSummary, err := client.GetCandidateSummary(request)
+		candidateSummary, err := client.GetCandidateSummary(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateSummary", err.Error())
 		}
@@ -80,7 +81,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCandidateContributors", func(t *testing.T) {
 		request := models.CandidateContributorsRequest{Cid: "N00007360", Cycle: 2018}
-		candidateContributorSummary, err := client.GetCandidateContributors(request)
+		candidateContributorSummary, err := client.GetCandidateContributors(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateContributors", err.Error())
 		}
@@ -91,7 +92,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCandidateIndustries", func(t *testing.T) {
 		request := models.CandidateIndustriesRequest{Cid: "N00005681", Cycle: 2018}
-		summary, err := client.GetCandidateIndustries(request)
+		summary, err := client.GetCandidateIndustries(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateIndustries", err.Error())
 		}
@@ -102,7 +103,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCandidateIndustryDetails", func(t *testing.T) {
 		request := models.CandidateIndustryDetailsRequest{Cid: "N00007360", Ind: "K02", Cycle: 2020}
-		details, err := client.GetCandidateIndustryDetails(request)
+		details, err := client.GetCandidateIndustryDetails(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateIndustryDetails", err.Error())
 		}
@@ -113,7 +114,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCandidateTopSectorDetails", func(t *testing.T) {
 		request := models.CandidateTopSectorsRequest{Cid: "N00007360", Cycle: 2020}
-		details, err := client.GetCandidateTopSectorDetails(request)
+		details, err := client.GetCandidateTopSectorDetails(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s calling GetCandidateTopSectorDetails", err.Error())
 		}
@@ -130,7 +131,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetCommitteeFundraisingDetails", func(t *testing.T) {
 		request := models.FundraisingByCongressionalCommitteeRequest{Committee: "HARM", Industry: "F10", CongressNumber: 116}
-		details, err := client.GetCommitteeFundraisingDetails(request)
+		details, err := client.GetCommitteeFundraisingDetails(context.Background(), request)
 		if err != nil {
 			t.Fatalf("Got error %s when calling GetCommitteeFundraisingDetails", err.Error())
 		}
@@ -145,7 +146,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("SearchForOrganization", func(t *testing.T) {
 		request := models.OrganizationSearch{Name: "Goldman"}
-		searchResults, err := client.SearchForOrganization(request)
+		searchResults, err := client.SearchForOrganization(context.Background(), request)
 
 		if err != nil {
 			t.Fatalf("Got error %s when calling SearchForOrganization", err.Error())
@@ -158,7 +159,7 @@ func TestClientEndToEnd(t *testing.T) {
 
 	t.Run("GetOrganizationSummary", func(t *testing.T) {
 		request := models.OrganizationSummaryRequest{Id: "D000000125"}
-		summary, err := client.GetOrganizationSummary(request)
+		summary, err := client.GetOrganizationSummary(context.Background(), request)
 
 		if err != nil {
 			t.Fatalf("Got error %s when calling GetOrganizationSummary", err.Error())
@@ -168,7 +169,7 @@ func TestClientEndToEnd(t *testing.T) {
 	})
 
 	t.Run("GetLatestIndependentExpenditures", func(t *testing.T) {
-		expenditures, err := client.GetLatestIndependentExpenditures()
+		expenditures, err := client.GetLatestIndependentExpenditures(context.Background())
 
 		if err != nil {
 			t.Fatalf("Got error %s when calling GetLatestIndependentExpenditures", err.Error())

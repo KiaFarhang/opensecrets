@@ -1,11 +1,14 @@
 package client
 
 import (
+	"context"
 	"errors"
 	"io"
 	"net/http"
+	"net/http/httptest"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/KiaFarhang/opensecrets/internal/parse"
 	"github.com/KiaFarhang/opensecrets/internal/test"
@@ -33,7 +36,7 @@ func TestGetLegislators(t *testing.T) {
 	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.LegislatorsRequest{}
-		_, err := client.GetLegislators(request)
+		_, err := client.GetLegislators(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -42,7 +45,7 @@ func TestGetMemberPFDProfile(t *testing.T) {
 	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.MemberPFDRequest{Year: 2020}
-		_, err := client.GetMemberPFDProfile(request)
+		_, err := client.GetMemberPFDProfile(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -51,7 +54,7 @@ func TestGetCandidateSummary(t *testing.T) {
 	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateSummaryRequest{Cycle: 2022}
-		_, err := client.GetCandidateSummary(request)
+		_, err := client.GetCandidateSummary(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -60,7 +63,7 @@ func TestGetCandidateContributors(t *testing.T) {
 	t.Run("Returns an error if the request passed is invaid", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateContributorsRequest{}
-		_, err := client.GetCandidateContributors(request)
+		_, err := client.GetCandidateContributors(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -69,7 +72,7 @@ func TestGetCandidateIndustries(t *testing.T) {
 	t.Run("Returns an error if the request passed is invalid", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateIndustriesRequest{}
-		_, err := client.GetCandidateIndustries(request)
+		_, err := client.GetCandidateIndustries(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -78,13 +81,13 @@ func TestGetCandidateIndustryDetails(t *testing.T) {
 	t.Run("Returns an error if the request doesn't have a CID", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateIndustryDetailsRequest{Ind: "K02"}
-		_, err := client.GetCandidateIndustryDetails(request)
+		_, err := client.GetCandidateIndustryDetails(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 	t.Run("Returns an error if the request doesn't have an industry code", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateIndustryDetailsRequest{Cid: "N00007360"}
-		_, err := client.GetCandidateIndustryDetails(request)
+		_, err := client.GetCandidateIndustryDetails(context.Background(), request)
 		test.AssertErrorExists(err, t)
 
 	})
@@ -94,7 +97,7 @@ func TestGetCandidateTopSectorDetails(t *testing.T) {
 	t.Run("Returns an error if the request doesn't have a CID", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.CandidateTopSectorsRequest{}
-		_, err := client.GetCandidateTopSectorDetails(request)
+		_, err := client.GetCandidateTopSectorDetails(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -103,13 +106,13 @@ func TestGetCommitteeFundraisingDetails(t *testing.T) {
 	t.Run("Returns an error if the request doesn't have a committee ID", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.FundraisingByCongressionalCommitteeRequest{Industry: "ABC"}
-		_, err := client.GetCommitteeFundraisingDetails(request)
+		_, err := client.GetCommitteeFundraisingDetails(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 	t.Run("Returns an error if the request doesn't have an industry ID", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.FundraisingByCongressionalCommitteeRequest{Committee: "HARM"}
-		_, err := client.GetCommitteeFundraisingDetails(request)
+		_, err := client.GetCommitteeFundraisingDetails(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -118,7 +121,7 @@ func TestSearchForOrganization(t *testing.T) {
 	t.Run("Returns an error if the request doesn't have an org name", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.OrganizationSearch{}
-		_, err := client.SearchForOrganization(request)
+		_, err := client.SearchForOrganization(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -127,7 +130,7 @@ func TestGetOrganizationSummary(t *testing.T) {
 	t.Run("Returns an error if the request doesn't have an org ID", func(t *testing.T) {
 		client := openSecretsClient{client: &mockHttpClient{}, validator: validator.New()}
 		request := models.OrganizationSummaryRequest{}
-		_, err := client.GetOrganizationSummary(request)
+		_, err := client.GetOrganizationSummary(context.Background(), request)
 		test.AssertErrorExists(err, t)
 	})
 }
@@ -136,14 +139,14 @@ func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the HTTP call fails", func(t *testing.T) {
 		mockError := errors.New("fail")
 		client := openSecretsClient{client: &mockHttpClient{mockError: mockError}, validator: &mockValidator{}}
-		_, err := client.GetLegislators(models.LegislatorsRequest{})
+		_, err := client.GetLegislators(context.Background(), models.LegislatorsRequest{})
 		test.AssertErrorExists(err, t)
 		test.AssertErrorMessage(err, "fail", t)
 	})
 	t.Run("Returns an error if the HTTP call is a >= 400 status code", func(t *testing.T) {
 		mockResponse := buildMockResponse(400, "")
 		client := openSecretsClient{client: &mockHttpClient{mockResponse: mockResponse}, validator: &mockValidator{}}
-		_, err := client.GetLegislators(models.LegislatorsRequest{})
+		_, err := client.GetLegislators(context.Background(), models.LegislatorsRequest{})
 		test.AssertErrorExists(err, t)
 		wantedErrorMessage := "received 400 status code calling OpenSecrets API"
 		test.AssertErrorMessage(err, wantedErrorMessage, t)
@@ -151,11 +154,41 @@ func TestMakeGETRequest(t *testing.T) {
 	t.Run("Returns an error if the response body can't be parsed", func(t *testing.T) {
 		mockResponse := buildMockResponse(200, `BAD JSON WEEEE`)
 		client := openSecretsClient{client: &mockHttpClient{mockResponse: mockResponse}, validator: &mockValidator{}}
-		_, err := client.GetLegislators(models.LegislatorsRequest{})
+		_, err := client.GetLegislators(context.Background(), models.LegislatorsRequest{})
 		test.AssertErrorExists(err, t)
 		wantedErrorMessage := parse.UnableToParseErrorMessage
 		test.AssertErrorMessage(err, wantedErrorMessage, t)
 	})
+	t.Run("returns an error if the context passed is canceled before the request completes", func(t *testing.T) {
+		if testing.Short() {
+			t.Skip()
+		}
+		client := &http.Client{}
+		openSecretsClient := &openSecretsClient{client: client, validator: &mockValidator{}}
+		serverClosed := make(chan bool, 1)
+		handler := func(w http.ResponseWriter, r *http.Request) {
+			<-serverClosed
+			w.WriteHeader(http.StatusOK)
+			w.Write([]byte("hi"))
+		}
+		testServer := httptest.NewServer(http.HandlerFunc(handler))
+		defer testServer.Close()
+
+		ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+		defer cancel()
+
+		_, err := openSecretsClient.makeGETRequest(ctx, testServer.URL)
+
+		test.AssertErrorExists(err, t)
+		if !strings.Contains(err.Error(), "context deadline exceeded") {
+			t.Errorf("Wanted an error containing 'context deadline exceeded' but got %s", err.Error())
+		}
+		serverClosed <- true
+	})
+}
+
+func TestMakeGetRequestWithContext(t *testing.T) {
+
 }
 
 func buildMockResponse(statusCode int, jsonBody string) http.Response {
