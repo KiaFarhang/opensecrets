@@ -2,6 +2,10 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/KiaFarhang/opensecrets)](https://goreportcard.com/report/github.com/KiaFarhang/opensecrets)
 
+## Note: the OpenSecrets public API [shut down in April 2025](https://www.opensecrets.org/api/), so this client is no longer usable unless you can point it at duplicate data elsewhere. ##
+
+(If you know of any such data mirrors, please let me know so I can include a link to them here!)
+
 This is a Go client for the [OpenSecrets campaign finance API.](https://www.opensecrets.org/open-data/api) It handles HTTP calls and response marshalling, so you can simply call a method and get a struct representing the OpenSecrets response back.
 
 ## Installation
